@@ -1,17 +1,18 @@
 const { createApp, ref, computed } = Vue
 
-const Home = {
-    template: '#home-template',
+const app = createApp({
     setup() {
         const characters = ref([])
         const searchText = ref('')
         const filterAlive = ref(false)
+        const totalCharacters = ref(0)
 
         const fetchCharacters = async () => {
             try {
                 const response = await fetch('https://rickandmortyapi.com/api/character')
                 const data = await response.json()
                 characters.value = data.results
+                totalCharacters.value = data.info.count
             } catch (error) {
                 console.error('Error fetching characters:', error)
             }
@@ -35,42 +36,6 @@ const Home = {
             console.log('Añadir a favoritos:', character.name)
         }
 
-        return {
-            characters,
-            searchText,
-            filterAlive,
-            filteredCharacters,
-            showDetails,
-            addToFavorites
-        }
-    }
-}
-
-const Stats = {
-    template: '#stats-template',
-    setup() {
-        const totalCharacters = ref(0)
-
-        const fetchStats = async () => {
-            try {
-                const response = await fetch('https://rickandmortyapi.com/api/character')
-                const data = await response.json()
-                totalCharacters.value = data.info.count
-            } catch (error) {
-                console.error('Error fetching stats:', error)
-            }
-        }
-
-        fetchStats()
-
-        return {
-            totalCharacters
-        }
-    }
-}
-
-const app = createApp({
-    setup() {
         const currentPage = ref('home')
         
         const showFavorites = () => {
@@ -78,13 +43,16 @@ const app = createApp({
         }
 
         return {
+            characters,
+            searchText,
+            filterAlive,
+            filteredCharacters,
+            showDetails,
+            addToFavorites,
             currentPage,
-            showFavorites
+            showFavorites,
+            totalCharacters
         }
-    },
-    components: {
-        home: Home,
-        stats: Stats
     }
 })
 

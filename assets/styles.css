@@ -1,0 +1,93 @@
+:root {
+    --rick-green: #97ce4c;
+    --rick-brown: #44281d;
+    --rick-blue: #00b5cc;
+    --rick-pink: #e89ac7;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.navbar {
+    background-color: var(--rick-green) !important;
+}
+
+.navbar-brand, .nav-link {
+    color: #ffffff !important;
+    font-weight: bold;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+h1, h2 {
+    color: var(--rick-brown);
+    margin-bottom: 1rem;
+}
+
+.card {
+    border: none;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.125rem 0.45rem rgba(0, 0, 0, 0.075);
+    transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-0.35rem);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.card-img-top {
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+}
+
+.btn-primary {
+    background-color: var(--rick-blue);
+    border-color: var(--rick-blue);
+}
+
+.btn-secondary {
+    background-color: var(--rick-pink);
+    border-color: var(--rick-pink);
+}
+
+.btn-primary:hover, .btn-secondary:hover {
+    opacity: 0.9;
+}
+
+footer {
+    background-color: #97ce4c;
+}
+
+.form-control:focus, .form-check-input:focus {
+    border-color: var(--rick-blue);
+    box-shadow: 0 0 0 0.25rem rgba(0, 181, 204, 0.25);
+}
+
+.table {
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.table thead {
+    background-color: var(--rick-green);
+    color: #ffffff;
+}
+
+/* Estilos adicionales para mejorar la accesibilidad */
+.btn:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.25rem rgba(151, 206, 76, 0.5);
+}
+
+/* Mejoras para dispositivos móviles */
+@media (max-width: 768px) {
+    .card {
+        margin-bottom: 1rem;
+    }
+}
