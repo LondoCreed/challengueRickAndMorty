@@ -1,4 +1,4 @@
-const { createApp, ref, computed } = Vue
+const { createApp, ref, computed, onMounted } = Vue
 
 const app = createApp({
     setup() {
@@ -8,8 +8,9 @@ const app = createApp({
         const totalCharacters = ref(0)
         const currentPage = ref('home')
         const selectedCharacter = ref(null)
-        const currentPageNumber = ref(1) // Página actual
-        const totalPages = ref(0) // Total de páginas
+        const favorites = ref([])
+        const currentPageNumber = ref(1)
+        const totalPages = ref(0)
 
         const fetchCharacters = async (page = 1) => {
             try {
@@ -17,14 +18,20 @@ const app = createApp({
                 const data = await response.json()
                 characters.value = data.results
                 totalCharacters.value = data.info.count
-                totalPages.value = data.info.pages // Total de páginas
+                totalPages.value = data.info.pages
+                currentPageNumber.value = page
             } catch (error) {
                 console.error('Error fetching characters:', error)
             }
         }
 
-        // Fetch initial data
-        fetchCharacters(currentPageNumber.value)
+        onMounted(() => {
+            fetchCharacters()
+            const storedFavorites = localStorage.getItem('favorites')
+            if (storedFavorites) {
+                favorites.value = JSON.parse(storedFavorites)
+            }
+        })
 
         const filteredCharacters = computed(() => {
             return characters.value.filter(character => {
@@ -39,37 +46,38 @@ const app = createApp({
             currentPage.value = 'details'
         }
 
-
         const addToFavorites = (character) => {
-            console.log('Añadir a favoritos:', character.name)
+            if (!favorites.value.some(fav => fav.id === character.id)) {
+                favorites.value.push(character)
+                saveFavorites()
+            }
         }
 
-        const showFavorites = () => {
-            console.log('Mostrar favoritos')
+        const removeFromFavorites = (character) => {
+            favorites.value = favorites.value.filter(fav => fav.id !== character.id)
+            saveFavorites()
         }
 
-        const goToPage = (pageNumber) => {
-            if (pageNumber >= 1 && pageNumber <= totalPages.value) {
-                currentPageNumber.value = pageNumber
-                fetchCharacters(pageNumber)
+        const saveFavorites = () => {
+            localStorage.setItem('favorites', JSON.stringify(favorites.value))
+        }
+
+        const openFavoritesModal = () => {
+            const modal = new bootstrap.Modal(document.getElementById('favoritesModal'))
+            modal.show()
+        }
+
+        const goToPage = (page) => {
+            if (page >= 1 && page <= totalPages.value) {
+                fetchCharacters(page)
             }
         }
 
         const paginationRange = computed(() => {
             const range = []
-            const maxPagesToShow = 5 // Mostrar solo 5 páginas a la vez
-
-            let start = Math.max(currentPageNumber.value - Math.floor(maxPagesToShow / 2), 1)
-            let end = Math.min(start + maxPagesToShow - 1, totalPages.value)
-
-            if (end - start < maxPagesToShow - 1) {
-                start = Math.max(end - maxPagesToShow + 1, 1)
-            }
-
-            for (let i = start; i <= end; i++) {
+            for (let i = Math.max(1, currentPageNumber.value - 2); i <= Math.min(totalPages.value, currentPageNumber.value + 2); i++) {
                 range.push(i)
             }
-
             return range
         })
 
@@ -77,15 +85,17 @@ const app = createApp({
             characters,
             searchText,
             filterAlive,
+            totalCharacters,
+            currentPage,
+            selectedCharacter,
+            favorites,
+            currentPageNumber,
+            totalPages,
             filteredCharacters,
             showDetails,
             addToFavorites,
-            currentPage,
-            showFavorites,
-            totalCharacters,
-            selectedCharacter,
-            currentPageNumber,
-            totalPages,
+            removeFromFavorites,
+            openFavoritesModal,
             goToPage,
             paginationRange
         }
