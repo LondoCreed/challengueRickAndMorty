@@ -63,7 +63,28 @@
                 </div>
 
             
-                <!-- agregalo aca julio -->
+                <!-- Barra de paginación -->
+                <nav aria-label="Page navigation" class="d-flex justify-content-center mt-4">
+                    <ul class="pagination">
+                        <li class="page-item" :class="{ disabled: currentPageNumber === 1 }">
+                            <a class="page-link" href="#" aria-label="Previous"
+                                @click.prevent="goToPage(currentPageNumber - 1)">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li v-for="page in paginationRange" :key="page" class="page-item"
+                            :class="{ active: page === currentPageNumber }">
+                            <a class="page-link" href="#" @click.prevent="goToPage(page)">{{ page }}</a>
+                        </li>
+                        <li class="page-item" :class="{ disabled: currentPageNumber === totalPages }">
+                            <a class="page-link" href="#" aria-label="Next"
+                                @click.prevent="goToPage(currentPageNumber + 1)">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
 
     <!-- Sección Stats -->
     <div v-if="currentPage === 'stats'">
