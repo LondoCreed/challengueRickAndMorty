@@ -6,6 +6,8 @@ const app = createApp({
         const searchText = ref('')
         const filterAlive = ref(false)
         const totalCharacters = ref(0)
+        const currentPage = ref('home')
+        const selectedCharacter = ref(null)
 
         const fetchCharacters = async () => {
             try {
@@ -29,15 +31,14 @@ const app = createApp({
         })
 
         const showDetails = (character) => {
-            console.log('Mostrar detalles de:', character.name)
+            selectedCharacter.value = character
+            currentPage.value = 'details'
         }
 
         const addToFavorites = (character) => {
             console.log('Añadir a favoritos:', character.name)
         }
 
-        const currentPage = ref('home')
-        
         const showFavorites = () => {
             console.log('Mostrar favoritos')
         }
@@ -51,7 +52,8 @@ const app = createApp({
             addToFavorites,
             currentPage,
             showFavorites,
-            totalCharacters
+            totalCharacters,
+            selectedCharacter
         }
     }
 })
