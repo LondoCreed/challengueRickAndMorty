@@ -1,12 +1,17 @@
+*{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+
 :root {
     --rick-green: #97ce4c;
-    --rick-brown: #44281d;
+    --rick-brown: #88e23b;
     --rick-blue: #00b5cc;
     --rick-pink: #e89ac7;
 }
 
 .banner {
-    background-image: url('./img/banner.jpg');
+    background-image: url('./img/BANNER-RICK-Y-MORTY.jpg');
     background-size: cover;
     background-position: center;
     height: 300px;
@@ -14,9 +19,9 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    color: white;
+    color:#ebe480;
     position: relative;
-    object-position: bottom;
+    background-position: center top;
 }
 
 .banner::before {

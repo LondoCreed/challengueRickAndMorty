@@ -39,6 +39,7 @@ const app = createApp({
             currentPage.value = 'details'
         }
 
+
         const addToFavorites = (character) => {
             console.log('Añadir a favoritos:', character.name)
         }
