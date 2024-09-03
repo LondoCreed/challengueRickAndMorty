@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,16 +10,19 @@
     <link rel="stylesheet" href="./assets/styles.css">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
+
 <body>
     <div id="app">
         <header>
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">
-                        <img src="./assets/img/logo.jpg" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
+                        <img src="./assets/img/logo.jpg" alt="Logo" width="30" height="30"
+                            class="d-inline-block align-text-top">
                         Rick and Morty
                     </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
@@ -41,17 +45,7 @@
             <!-- Sección Home -->
             <div v-if="currentPage === 'home'">
                 <div class="row">
-                    <div class="col-md-4 mb-3">
-                        <input v-model="searchText" class="form-control" placeholder="Buscar personajes">
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" v-model="filterAlive" id="aliveFilter">
-                            <label class="form-check-label" for="aliveFilter">
-                                Solo personajes vivos
-                            </label>
-                        </div>
-                    </div>
+                    <!-- ... Código para buscar y filtrar personajes ... -->
                 </div>
                 <div class="row">
                     <div v-for="character in filteredCharacters" :key="character.id" class="col-md-4 mb-3">
@@ -61,46 +55,48 @@
                                 <h5 class="card-title">{{ character.name }}</h5>
                                 <p class="card-text">Status: {{ character.status }}</p>
                                 <button @click="showDetails(character)" class="btn btn-primary">Ver detalles</button>
-                                <button @click="addToFavorites(character)" class="btn btn-secondary">Añadir a favoritos</button>
+                                <button @click="addToFavorites(character)" class="btn btn-secondary">Añadir a
+                                    favoritos</button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Sección Stats -->
-            <div v-if="currentPage === 'stats'">
-                <!-- Contenido de la página de estadísticas aquí -->
-                <h2>Estadísticas de Personajes</h2>
-                <!-- Puedes agregar aquí más elementos de estadísticas -->
-            </div>
+            
+                <!-- agregalo aca julio -->
 
-            <!-- Sección Details -->
-            <div v-if="currentPage === 'details'" class="character-details">
-                <h2>Detalles del Personaje</h2>
-                <div v-if="selectedCharacter" class="card">
-                    <img :src="selectedCharacter.image" class="card-img-top" :alt="selectedCharacter.name">
-                    <div class="card-body">
-                        <h3 class="card-title">{{ selectedCharacter.name }}</h3>
-                        <p class="card-text"><strong>Status:</strong> {{ selectedCharacter.status }}</p>
-                        <p class="card-text"><strong>Species:</strong> {{ selectedCharacter.species }}</p>
-                        <p class="card-text"><strong>Gender:</strong> {{ selectedCharacter.gender }}</p>
-                        <p class="card-text"><strong>Origin:</strong> {{ selectedCharacter.origin.name }}</p>
-                        <p class="card-text"><strong>Location:</strong> {{ selectedCharacter.location.name }}</p>
-                    </div>
-                </div>
-                <button @click="currentPage = 'home'" class="btn btn-primary mt-3">Volver a la lista</button>
-            </div>
-        </main>
+    <!-- Sección Stats -->
+    <div v-if="currentPage === 'stats'">
+        <h2>Estadísticas de Personajes</h2>
+    </div>
 
-        <footer class="text-center text-lg-start mt-4">
-            <div class="text-center p-3">
-                © 2024 Rick and Morty App
+    <!-- Sección Details -->
+    <div v-if="currentPage === 'details'" class="character-details">
+        <h2>Detalles del Personaje</h2>
+        <div v-if="selectedCharacter" class="card">
+            <img :src="selectedCharacter.image" class="card-img-top" :alt="selectedCharacter.name">
+            <div class="card-body">
+                <h3 class="card-title">{{ selectedCharacter.name }}</h3>
+                <p class="card-text"><strong>Status:</strong> {{ selectedCharacter.status }}</p>
+                <p class="card-text"><strong>Species:</strong> {{ selectedCharacter.species }}</p>
+                <p class="card-text"><strong>Gender:</strong> {{ selectedCharacter.gender }}</p>
+                <p class="card-text"><strong>Origin:</strong> {{ selectedCharacter.origin.name }}</p>
+                <p class="card-text"><strong>Location:</strong> {{ selectedCharacter.location.name }}</p>
             </div>
-        </footer>
+        </div>
+        <button @click="currentPage = 'home'" class="btn btn-primary mt-3">Volver a la lista</button>
+    </div>
+    </main>
+
+    <footer class="text-center text-lg-start mt-4">
+        <div class="text-center p-3">
+            © 2024 Rick and Morty App
+        </div>
+    </footer>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="app.js"></script>
 </body>
+
 </html>
