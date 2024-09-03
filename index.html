@@ -13,7 +13,7 @@
 
 <body>
     <div id="app">
-        <header>
+        <header class="sticky-top">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">
@@ -58,7 +58,7 @@
                     <div class="col-md-4 mb-3">
                         <input v-model="searchText" class="form-control" placeholder="Buscar personajes">
                     </div>
-                    <div class="col-md-4 mb-3">
+                    <div class="col-md-3 mb-3">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" v-model="filterAlive" id="aliveFilter">
                             <label class="form-check-label" for="aliveFilter">
@@ -68,13 +68,13 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div v-for="character in filteredCharacters" :key="character.id" class="col-md-4 mb-3">
+                    <div v-for="character in filteredCharacters" :key="character.id" class="col-md-3 mb-3">
                         <div class="card">
                             <img :src="character.image" class="card-img-top" :alt="character.name">
                             <div class="card-body">
                                 <h5 class="card-title">{{ character.name }}</h5>
                                 <p class="card-text">Status: {{ character.status }}</p>
-                                <button @click="showDetails(character)" class="btn btn-primary">Ver detalles</button>
+                                <button @click="showDetails(character)" class="btn btn-primary m-2">Ver detalles</button>
                                 <button @click="addToFavorites(character)" class="btn btn-secondary">Añadir a
                                     favoritos</button>
                             </div>
@@ -113,16 +113,16 @@
 
             <!-- Sección Details -->
             <div v-if="currentPage === 'details'" class="character-details">
-                <h2>Detalles del Personaje</h2>
-                <div v-if="selectedCharacter" class="card">
+                <h2 class="text-center text-dark">Detalles del Personaje</h2>
+                <div v-if="selectedCharacter" class="card details-card details-card-background">
                     <img :src="selectedCharacter.image" class="card-img-top" :alt="selectedCharacter.name">
-                    <div class="card-body">
-                        <h3 class="card-title">{{ selectedCharacter.name }}</h3>
-                        <p class="card-text"><strong>Status:</strong> {{ selectedCharacter.status }}</p>
-                        <p class="card-text"><strong>Species:</strong> {{ selectedCharacter.species }}</p>
-                        <p class="card-text"><strong>Gender:</strong> {{ selectedCharacter.gender }}</p>
-                        <p class="card-text"><strong>Origin:</strong> {{ selectedCharacter.origin.name }}</p>
-                        <p class="card-text"><strong>Location:</strong> {{ selectedCharacter.location.name }}</p>
+                    <div class="card-body ddf">
+                        <h3 class="card-title text-center">{{ selectedCharacter.name }}</h3>
+                        <p class="card-text text-center"><strong>Status:</strong> {{ selectedCharacter.status }}</p>
+                        <p class="card-text text-center"><strong>Species:</strong> {{ selectedCharacter.species }}</p>
+                        <p class="card-text text-center"><strong>Gender:</strong> {{ selectedCharacter.gender }}</p>
+                        <p class="card-text text-center"><strong>Origin:</strong> {{ selectedCharacter.origin.name }}</p>
+                        <p class="card-text text-center"><strong>Location:</strong> {{ selectedCharacter.location.name }}</p>
                     </div>
                 </div>
                 <button @click="currentPage = 'home'" class="btn btn-primary mt-3">Volver a la lista</button>

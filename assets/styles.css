@@ -133,7 +133,43 @@ footer {
 @media (max-width: 768px) {
     .card {
         margin-bottom: 1rem;
+        
     }
 
     
+}
+
+.details-card {
+    max-width: 400px; 
+    margin: auto; 
+    border-radius: 0.5rem;
+    box-shadow: 0 0.125rem 0.45rem rgba(0, 0, 0, 0.075);
+    transition: transform 0.3s ease-in-out;
+}
+
+
+/* Estilo para el título de la tarjeta */
+.details-card .card-title {
+    font-size: 1.5rem; 
+    margin-bottom: 0.75rem; 
+}
+
+
+.details-card .card-text {
+    font-size: 1.5rem; 
+    margin-bottom: 0.5rem; 
+}
+
+.details-card-background {
+    background-image: url('./img/prototipodetails.jpeg'); 
+    background-size: cover; 
+    background-position: center ; 
+    background-repeat: no-repeat; 
+    border-radius: 0.5rem; 
+    padding: 1rem; 
+    color: #ffffff; 
+}
+.ddf {
+    background-color: rgba(0, 0, 0, 0.5); 
+    border-radius: 0.5rem;
 }
