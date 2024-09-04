@@ -49,24 +49,25 @@
         </header>
         <!-- Banner -->
         <div class="banner">
-            <div class="banner-content">
-                <h1>Bienvenido al Universo de Rick and Morty</h1>
-                <p>Explora personajes de múltiples dimensiones y realidades</p>
-            </div>
+            
         </div>
 
         <main class="container mt-4">
 
             <!-- Sección Home -->
+            <div class="banner-content">
+                <h1 class="text-center">Bienvenido al Universo de Rick and Morty</h1>
+                <p class="text-warning text-center">Es una serie animada de comedia y ciencia ficción creada por Justin Roiland y Dan Harmon. La historia sigue a Rick Sanchez, un científico alcohólico y excéntrico, y a su nieto Morty Smith, un adolescente inseguro, en sus aventuras a través del multiverso. Juntos exploran realidades alternativas, enfrentan criaturas alienígenas y desafían las leyes de la física, todo mientras abordan temas filosóficos, familiares y sociales con humor oscuro e irreverente. La serie, que cuenta con siete temporadas y más de 70 episodios, es conocida por su narrativa compleja, su estilo visual distintivo y su enfoque en la sátira y el absurdo. A lo largo de la serie, se han introducido numerosos personajes, destacando los miembros de la familia Smith: Rick, Morty, su hermana Summer, su madre Beth, y su padre Jerry, así como una amplia variedad de personajes recurrentes y versiones alternativas que enriquecen el universo y la complejidad de la trama.</p>
+            </div>
             <div v-if="currentPage === 'home'">
-                <div class="row">
+                <div class="row justify-content-center align-items-center">
                     <div class="col-md-4 mb-3">
-                        <input v-model="searchText" class="form-control" placeholder="Buscar personajes">
+                        <input v-model="searchText" class="form-control input-warning" placeholder="Buscar personajes">
                     </div>
                     <div class="col-md-3 mb-3">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" v-model="filterAlive" id="aliveFilter">
-                            <label class="form-check-label" for="aliveFilter">
+                            <label class="form-check-label text-warning" for="aliveFilter">
                                 Solo personajes vivos
                             </label>
                         </div>
