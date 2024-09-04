@@ -15,7 +15,7 @@ Rick and Morty Explorer es una aplicación web que permite a los usuarios explor
 - CSS3 (con Bootstrap 5)
 - JavaScript (ES6+)
 - Vue.js 3 (CDN)
-- Chart.js para visualizaciones
+- Chart.js para biblioteca de gráficos JavaScript
 - Rick and Morty API
 
 ## Instalación
@@ -34,4 +34,5 @@ Rick and Morty Explorer es una aplicación web que permite a los usuarios explor
 - [Rick and Morty API](https://rickandmortyapi.com/)
 - [Vue.js](https://vuejs.org/)
 - [Bootstrap](https://getbootstrap.com/)
+- [Chart.js](https://www.chartjs.org/)
 
