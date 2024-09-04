@@ -133,6 +133,43 @@
                 </div>
                 <button @click="currentPage = 'home'" class="btn btn-primary mt-3">Volver a la lista</button>
             </div>
+            <!-- Sección Episodes -->
+            <div v-if="currentPage === 'episodes'">
+                <h2>Lista de Episodios</h2>
+                <div class="row">
+                    <div v-for="episode in episodes" :key="episode.id" class="col-md-4 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ episode.name }}</h5>
+                                <p class="card-text"><strong>Season:</strong> {{ episode.episode.split('S')[1].split('E')[0] }}</p>
+                                <p class="card-text"><strong>Episode:</strong> {{ episode.episode.split('E')[1] }}</p>
+                                <p class="card-text">{{ episode.air_date }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <!-- Barra de paginación para episodios -->
+                <nav aria-label="Page navigation" class="d-flex justify-content-center mt-4">
+                    <ul class="pagination">
+                        <li class="page-item" :class="{ disabled: currentEpisodePage === 1 }">
+                            <a class="page-link" href="#" aria-label="Previous" @click.prevent="goToEpisodePage(currentEpisodePage - 1)">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li v-for="page in episodePaginationRange" :key="page" class="page-item" :class="{ active: page === currentEpisodePage }">
+                            <a class="page-link" href="#" @click.prevent="goToEpisodePage(page)">{{ page }}</a>
+                        </li>
+                        <li class="page-item" :class="{ disabled: currentEpisodePage === totalEpisodePages }">
+                            <a class="page-link" href="#" aria-label="Next" @click.prevent="goToEpisodePage(currentEpisodePage + 1)">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+
         </main>
 
         <footer class="text-center text-lg-start mt-4">
