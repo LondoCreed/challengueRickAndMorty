@@ -156,20 +156,30 @@ footer {
     color: #ffffff;
 }
 
+/*modal*/
+.modal-content-bg {
+    background-image: url('../assets/img/fondo2.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+}
+
 /* Estilos adicionales para mejorar la accesibilidad */
 .btn:focus, .form-control:focus, .form-check-input:focus {
     box-shadow: 0 0 0 0.25rem rgba(151, 206, 76, 0.5);
 }
 
 /* Mejoras para dispositivos móviles */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
     .card {
         margin-bottom: 1rem;
         
     }
 
     
-}
+} */
 
 .details-card {
     max-width: 400px; 
