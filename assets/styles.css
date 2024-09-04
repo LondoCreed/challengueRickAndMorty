@@ -2,9 +2,8 @@
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-
 :root {
-    --rick-green: #97ce4c;
+    --rick-green: #FCCA00;
     --rick-brown: #88e23b;
     --rick-blue: #00b5cc;
     --rick-pink: #e89ac7;
@@ -105,7 +104,7 @@ h1, h2 {
 }
 
 footer {
-    background-color: #97ce4c;
+    background-color: #FCCA00;
 }
 
 .form-control:focus, .form-check-input:focus {
