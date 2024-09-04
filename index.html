@@ -39,9 +39,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="#" @click="currentPage = 'episodes'">Episodios</a>
                             </li>
-                            <li class="nav-item">
+                         <!--    <li class="nav-item">
                                 <a class="nav-link" href="#" @click="openFavoritesModal">Favoritos</a>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
         </header>
         <!-- Banner -->
         <div class="banner">
-            
+
         </div>
 
         <main class="container mt-4">
@@ -57,7 +57,16 @@
             <!-- Sección Home -->
             <div class="banner-content">
                 <h1 class="text-center">Bienvenido al Universo de Rick and Morty</h1>
-                <p class="text-warning text-center">Es una serie animada de comedia y ciencia ficción creada por Justin Roiland y Dan Harmon. La historia sigue a Rick Sanchez, un científico alcohólico y excéntrico, y a su nieto Morty Smith, un adolescente inseguro, en sus aventuras a través del multiverso. Juntos exploran realidades alternativas, enfrentan criaturas alienígenas y desafían las leyes de la física, todo mientras abordan temas filosóficos, familiares y sociales con humor oscuro e irreverente. La serie, que cuenta con siete temporadas y más de 70 episodios, es conocida por su narrativa compleja, su estilo visual distintivo y su enfoque en la sátira y el absurdo. A lo largo de la serie, se han introducido numerosos personajes, destacando los miembros de la familia Smith: Rick, Morty, su hermana Summer, su madre Beth, y su padre Jerry, así como una amplia variedad de personajes recurrentes y versiones alternativas que enriquecen el universo y la complejidad de la trama.</p>
+                <p class="text-warning text-center">Es una serie animada de comedia y ciencia ficción creada por Justin
+                    Roiland y Dan Harmon. La historia sigue a Rick Sanchez, un científico alcohólico y excéntrico, y a
+                    su nieto Morty Smith, un adolescente inseguro, en sus aventuras a través del multiverso. Juntos
+                    exploran realidades alternativas, enfrentan criaturas alienígenas y desafían las leyes de la física,
+                    todo mientras abordan temas filosóficos, familiares y sociales con humor oscuro e irreverente. La
+                    serie, que cuenta con siete temporadas y más de 70 episodios, es conocida por su narrativa compleja,
+                    su estilo visual distintivo y su enfoque en la sátira y el absurdo. A lo largo de la serie, se han
+                    introducido numerosos personajes, destacando los miembros de la familia Smith: Rick, Morty, su
+                    hermana Summer, su madre Beth, y su padre Jerry, así como una amplia variedad de personajes
+                    recurrentes y versiones alternativas que enriquecen el universo y la complejidad de la trama.</p>
             </div>
             <div v-if="currentPage === 'home'">
                 <div class="row justify-content-center align-items-center">
@@ -80,13 +89,20 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ character.name }}</h5>
                                 <p class="card-text">Status: {{ character.status }}</p>
-                                <button @click="showDetails(character)" class="btn btn-primary m-2">Ver detalles</button>
-                                <button @click="addToFavorites(character)" class="btn btn-secondary">Añadir a
-                                    favoritos</button>
+                                <button @click="showDetails(character)" class="btn btn-primary m-2">Ver
+                                    detalles</button>
+                                <button @click="toggleFavorite(character)"
+                                    :class="isFavorite(character) ? 'btn btn-danger' : 'btn btn-secondary'">
+                                    {{ isFavorite(character) ? 'Eliminar de favoritos' : 'Añadir a favoritos' }}
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <button id="favoritesFloatButton" @click="openFavoritesModal" class="btn btn-primary">
+                    Favorites
+                </button>
 
                 <!-- Barra de paginación -->
                 <nav aria-label="Page navigation" class="d-flex justify-content-center mt-4">
@@ -126,16 +142,16 @@
                                         <span>{{ count }}</span>
                                     </div>
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" 
-                                             :style="{ width: (count / characters.length * 100) + '%' }" 
-                                             :aria-valuenow="count" aria-valuemin="0" :aria-valuemax="characters.length">
+                                        <div class="progress-bar" role="progressbar"
+                                            :style="{ width: (count / characters.length * 100) + '%' }"
+                                            :aria-valuenow="count" aria-valuemin="0" :aria-valuemax="characters.length">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-            
+
                     <!-- Distribución por Especie -->
                     <div class="col-md-6 mb-4">
                         <div class="card">
@@ -147,23 +163,24 @@
                                         <span>{{ count }}</span>
                                     </div>
                                     <div class="progress">
-                                        <div class="progress-bar bg-success" role="progressbar" 
-                                             :style="{ width: (count / characters.length * 100) + '%' }" 
-                                             :aria-valuenow="count" aria-valuemin="0" :aria-valuemax="characters.length">
+                                        <div class="progress-bar bg-success" role="progressbar"
+                                            :style="{ width: (count / characters.length * 100) + '%' }"
+                                            :aria-valuenow="count" aria-valuemin="0" :aria-valuemax="characters.length">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-            
+
                     <!-- Top 5 Localizaciones -->
                     <div class="col-md-6 mb-4">
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">Top 5 Localizaciones</h5>
                                 <ul class="list-group">
-                                    <li v-for="location in topLocations" :key="location.name" class="list-group-item d-flex justify-content-between align-items-center">
+                                    <li v-for="location in topLocations" :key="location.name"
+                                        class="list-group-item d-flex justify-content-between align-items-center">
                                         {{ location.name }}
                                         <span class="badge bg-primary rounded-pill">{{ location.count }}</span>
                                     </li>
@@ -171,7 +188,7 @@
                             </div>
                         </div>
                     </div>
-            
+
                     <!-- Proporción de Género -->
                     <div class="col-md-6 mb-4">
                         <div class="card">
@@ -183,9 +200,9 @@
                                         <span>{{ count }}</span>
                                     </div>
                                     <div class="progress">
-                                        <div class="progress-bar bg-info" role="progressbar" 
-                                             :style="{ width: (count / characters.length * 100) + '%' }" 
-                                             :aria-valuenow="count" aria-valuemin="0" :aria-valuemax="characters.length">
+                                        <div class="progress-bar bg-info" role="progressbar"
+                                            :style="{ width: (count / characters.length * 100) + '%' }"
+                                            :aria-valuenow="count" aria-valuemin="0" :aria-valuemax="characters.length">
                                         </div>
                                     </div>
                                 </div>
@@ -205,8 +222,10 @@
                         <p class="card-text text-center"><strong>Status:</strong> {{ selectedCharacter.status }}</p>
                         <p class="card-text text-center"><strong>Species:</strong> {{ selectedCharacter.species }}</p>
                         <p class="card-text text-center"><strong>Gender:</strong> {{ selectedCharacter.gender }}</p>
-                        <p class="card-text text-center"><strong>Origin:</strong> {{ selectedCharacter.origin.name }}</p>
-                        <p class="card-text text-center"><strong>Location:</strong> {{ selectedCharacter.location.name }}</p>
+                        <p class="card-text text-center"><strong>Origin:</strong> {{ selectedCharacter.origin.name }}
+                        </p>
+                        <p class="card-text text-center"><strong>Location:</strong> {{ selectedCharacter.location.name
+                            }}</p>
                     </div>
                 </div>
                 <button @click="currentPage = 'home'" class="btn btn-primary mt-3">Volver a la lista</button>
@@ -219,27 +238,31 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">{{ episode.name }}</h5>
-                                <p class="card-text"><strong>Season:</strong> {{ episode.episode.split('S')[1].split('E')[0] }}</p>
+                                <p class="card-text"><strong>Season:</strong> {{
+                                    episode.episode.split('S')[1].split('E')[0] }}</p>
                                 <p class="card-text"><strong>Episode:</strong> {{ episode.episode.split('E')[1] }}</p>
                                 <p class="card-text">{{ episode.air_date }}</p>
                             </div>
                         </div>
                     </div>
                 </div>
-            
+
                 <!-- Barra de paginación para episodios -->
                 <nav aria-label="Page navigation" class="d-flex justify-content-center mt-4">
                     <ul class="pagination">
                         <li class="page-item" :class="{ disabled: currentEpisodePage === 1 }">
-                            <a class="page-link" href="#" aria-label="Previous" @click.prevent="goToEpisodePage(currentEpisodePage - 1)">
+                            <a class="page-link" href="#" aria-label="Previous"
+                                @click.prevent="goToEpisodePage(currentEpisodePage - 1)">
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
-                        <li v-for="page in episodePaginationRange" :key="page" class="page-item" :class="{ active: page === currentEpisodePage }">
+                        <li v-for="page in episodePaginationRange" :key="page" class="page-item"
+                            :class="{ active: page === currentEpisodePage }">
                             <a class="page-link" href="#" @click.prevent="goToEpisodePage(page)">{{ page }}</a>
                         </li>
                         <li class="page-item" :class="{ disabled: currentEpisodePage === totalEpisodePages }">
-                            <a class="page-link" href="#" aria-label="Next" @click.prevent="goToEpisodePage(currentEpisodePage + 1)">
+                            <a class="page-link" href="#" aria-label="Next"
+                                @click.prevent="goToEpisodePage(currentEpisodePage + 1)">
                                 <span aria-hidden="true">&raquo;</span>
                             </a>
                         </li>
@@ -256,8 +279,11 @@
             </div>
         </footer>
 
+        
+
         <!-- Modal de Favoritos -->
-        <div class="modal fade" id="favoritesModal" tabindex="-1" aria-labelledby="favoritesModalLabel" aria-hidden="true">
+        <div class="modal fade" id="favoritesModal" tabindex="-1" aria-labelledby="favoritesModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -275,7 +301,8 @@
                                     <div class="card-body">
                                         <h5 class="card-title">{{ character.name }}</h5>
                                         <p class="card-text">Status: {{ character.status }}</p>
-                                        <button @click="removeFromFavorites(character)" class="btn btn-danger">Eliminar de favoritos</button>
+                                        <button @click="removeFromFavorites(character)" class="btn btn-danger">Eliminar
+                                            de favoritos</button>
                                     </div>
                                 </div>
                             </div>
