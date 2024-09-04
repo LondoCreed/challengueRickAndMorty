@@ -15,6 +15,12 @@ const app = createApp({
         const currentEpisodePage = ref(1)
         const totalEpisodePages = ref(0)
 
+        // Nuevas variables para estadísticas
+        const topLocations = ref([])
+        const statusCount = ref({})
+        const speciesCount = ref({})
+        const genderCount = ref({})
+
         const fetchCharacters = async (page = 1) => {
             try {
                 const response = await fetch(`https://rickandmortyapi.com/api/character?page=${page}`)
@@ -23,6 +29,7 @@ const app = createApp({
                 totalCharacters.value = data.info.count
                 totalPages.value = data.info.pages
                 currentPageNumber.value = page
+                calculateStats() // Llamada a la nueva función de estadísticas
             } catch (error) {
                 console.error('Error fetching characters:', error)
             }
@@ -40,7 +47,33 @@ const app = createApp({
                 console.error('Error fetching episodes:', error);
             }
         }
-        
+
+        // Nueva función para calcular estadísticas
+        const calculateStats = () => {
+            statusCount.value = characters.value.reduce((acc, char) => {
+                acc[char.status] = (acc[char.status] || 0) + 1;
+                return acc;
+            }, {});
+
+            speciesCount.value = characters.value.reduce((acc, char) => {
+                acc[char.species] = (acc[char.species] || 0) + 1;
+                return acc;
+            }, {});
+
+            const locationCount = characters.value.reduce((acc, char) => {
+                acc[char.location.name] = (acc[char.location.name] || 0) + 1;
+                return acc;
+            }, {});
+            topLocations.value = Object.entries(locationCount)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 5)
+                .map(([name, count]) => ({ name, count }));
+
+            genderCount.value = characters.value.reduce((acc, char) => {
+                acc[char.gender] = (acc[char.gender] || 0) + 1;
+                return acc;
+            }, {});
+        }
 
         onMounted(() => {
             const urlParams = new URLSearchParams(window.location.search)
@@ -150,7 +183,12 @@ const app = createApp({
             totalEpisodePages,
             loadEpisodes,
             goToEpisodePage,
-            episodePaginationRange
+            episodePaginationRange,
+            // Nuevas propiedades para estadísticas
+            topLocations,
+            statusCount,
+            speciesCount,
+            genderCount
         }
     }
 })
