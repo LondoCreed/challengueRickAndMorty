@@ -13,7 +13,6 @@
 
 <body>
     <div id="app">
-        <!-- Barra de navegación fija en la parte superior -->
         <header class="sticky-top">
             <nav class="navbar navbar-expand-lg navbar-light bg-light ">
                 <div class="container-fluid ">
@@ -37,19 +36,18 @@
                             <li class="nav-item ms-2">
                                 <a class="nav-link" href="./Stats.html" @click="currentPage = 'stats'">Estadísticas</a>
                             </li>
-                            <li class="nav-item ms-2">
-                                <a class="nav-link" href="#" @click="openFavoritesModal">Favoritos</a>
-                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#" @click="currentPage = 'episodes'">Episodios</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" @click="openFavoritesModal">Favoritos</a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </nav>
         </header>
-
-        <!-- Banner de bienvenida -->
+        <!-- Banner -->
         <div class="banner">
             <div class="banner-content">
                 <h1>Bienvenido al Universo de Rick and Morty</h1>
@@ -58,9 +56,9 @@
         </div>
 
         <main class="container mt-4">
+
             <!-- Sección Home -->
             <div v-if="currentPage === 'home'">
-                <!-- Barra de búsqueda y filtros -->
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <input v-model="searchText" class="form-control" placeholder="Buscar personajes">
@@ -74,17 +72,14 @@
                         </div>
                     </div>
                 </div>
-                <!-- Lista de personajes -->
                 <div class="row">
-                    <!-- Tarjeta de personaje (se repite para cada personaje) -->
                     <div v-for="character in filteredCharacters" :key="character.id" class="col-md-3 mb-3">
                         <div class="card">
                             <img :src="character.image" class="card-img-top" :alt="character.name">
                             <div class="card-body">
                                 <h5 class="card-title">{{ character.name }}</h5>
                                 <p class="card-text">Status: {{ character.status }}</p>
-                                <button @click="showDetails(character)" class="btn btn-primary m-2">Ver
-                                    detalles</button>
+                                <button @click="showDetails(character)" class="btn btn-primary m-2">Ver detalles</button>
                                 <button @click="addToFavorites(character)" class="btn btn-secondary">Añadir a
                                     favoritos</button>
                             </div>
@@ -95,19 +90,16 @@
                 <!-- Barra de paginación -->
                 <nav aria-label="Page navigation" class="d-flex justify-content-center mt-4">
                     <ul class="pagination">
-                        <!-- Botón página anterior -->
                         <li class="page-item" :class="{ disabled: currentPageNumber === 1 }">
                             <a class="page-link" href="#" aria-label="Previous"
                                 @click.prevent="goToPage(currentPageNumber - 1)">
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
-                        <!-- Números de página -->
                         <li v-for="page in paginationRange" :key="page" class="page-item"
                             :class="{ active: page === currentPageNumber }">
                             <a class="page-link" href="#" @click.prevent="goToPage(page)">{{ page }}</a>
                         </li>
-                        <!-- Botón página siguiente -->
                         <li class="page-item" :class="{ disabled: currentPageNumber === totalPages }">
                             <a class="page-link" href="#" aria-label="Next"
                                 @click.prevent="goToPage(currentPageNumber + 1)">
@@ -118,13 +110,13 @@
                 </nav>
             </div>
 
-            <!-- Sección Stats (por implementar) -->
+            <!-- Sección Stats -->
             <div v-if="currentPage === 'stats'">
                 <h2>Estadísticas de Personajes</h2>
-                <!-- Aquí se pueden agregar más elementos de estadísticas -->
+                <!-- Puedes agregar aquí más elementos de estadísticas -->
             </div>
 
-            <!-- Sección Details (detalles del personaje) -->
+            <!-- Sección Details -->
             <div v-if="currentPage === 'details'" class="character-details">
                 <h2 class="text-center text-dark">Detalles del Personaje</h2>
                 <div v-if="selectedCharacter" class="card details-card details-card-background">
@@ -134,89 +126,41 @@
                         <p class="card-text text-center"><strong>Status:</strong> {{ selectedCharacter.status }}</p>
                         <p class="card-text text-center"><strong>Species:</strong> {{ selectedCharacter.species }}</p>
                         <p class="card-text text-center"><strong>Gender:</strong> {{ selectedCharacter.gender }}</p>
-                        <p class="card-text text-center"><strong>Origin:</strong> {{ selectedCharacter.origin.name }}
-                        </p>
-                        <p class="card-text text-center"><strong>Location:</strong> {{ selectedCharacter.location.name
-                            }}</p>
+                        <p class="card-text text-center"><strong>Origin:</strong> {{ selectedCharacter.origin.name }}</p>
+                        <p class="card-text text-center"><strong>Location:</strong> {{ selectedCharacter.location.name }}</p>
                     </div>
                 </div>
                 <button @click="currentPage = 'home'" class="btn btn-primary mt-3">Volver a la lista</button>
             </div>
+        </main>
 
-            <!-- Sección Episodios -->
-            <div v-if="currentPage === 'episodes'">
-                <h2 class="text-center mb-4">Episodios de Rick and Morty</h2>
-                <div class="row">
-                    <div v-for="episode in episodes" :key="episode.id" class="col-md-4 mb-3">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ episode.name }}</h5>
-                                <p class="card-text">Episodio: {{ episode.episode }}</p>
-                                <p class="card-text">Fecha de emisión: {{ episode.air_date }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Paginación para episodios -->
-                <nav aria-label="Episodios pagination" class="d-flex justify-content-center mt-4">
-                    <ul class="pagination">
-                        <!-- Botón página anterior -->
-                        <li class="page-item" :class="{ disabled: currentEpisodePage === 1 }">
-                            <a class="page-link" href="#" aria-label="Previous"
-                                @click.prevent="goToEpisodePage(currentEpisodePage - 1)">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <!-- Números de página -->
-                        <li v-for="page in episodePaginationRange" :key="page" class="page-item"
-                            :class="{ active: page === currentEpisodePage }">
-                            <a class="page-link" href="#" @click.prevent="goToEpisodePage(page)">{{ page }}</a>
-                        </li>
-                        <!-- Botón página siguiente -->
-                        <li class="page-item" :class="{ disabled: currentEpisodePage === totalEpisodePages }">
-                            <a class="page-link" href="#" aria-label="Next"
-                                @click.prevent="goToEpisodePage(currentEpisodePage + 1)">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+        <footer class="text-center text-lg-start mt-4">
+            <div class="text-center p-3">
+                © 2024 Rick and Morty App
             </div>
+        </footer>
 
-    </div>
-    </main>
-
-    <!-- Pie de página -->
-    <footer class="text-center text-lg-start mt-4">
-        <div class="text-center p-3">
-            © 2024 Rick and Morty App
-        </div>
-    </footer>
-
-    <!-- Modal de Favoritos -->
-    <div class="modal fade" id="favoritesModal" tabindex="-1" aria-labelledby="favoritesModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="favoritesModalLabel">Personajes Favoritos</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- Mensaje si no hay favoritos -->
-                    <div v-if="favorites.length === 0">
-                        No tienes personajes favoritos aún.
+        <!-- Modal de Favoritos -->
+        <div class="modal fade" id="favoritesModal" tabindex="-1" aria-labelledby="favoritesModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="favoritesModalLabel">Personajes Favoritos</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <!-- Lista de personajes favoritos -->
-                    <div v-else class="row">
-                        <div v-for="character in favorites" :key="character.id" class="col-md-4 mb-3">
-                            <div class="card">
-                                <img :src="character.image" class="card-img-top" :alt="character.name">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ character.name }}</h5>
-                                    <p class="card-text">Status: {{ character.status }}</p>
-                                    <button @click="removeFromFavorites(character)" class="btn btn-danger">Eliminar de
-                                        favoritos</button>
+                    <div class="modal-body">
+                        <div v-if="favorites.length === 0">
+                            No tienes personajes favoritos aún.
+                        </div>
+                        <div v-else class="row">
+                            <div v-for="character in favorites" :key="character.id" class="col-md-4 mb-3">
+                                <div class="card">
+                                    <img :src="character.image" class="card-img-top" :alt="character.name">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ character.name }}</h5>
+                                        <p class="card-text">Status: {{ character.status }}</p>
+                                        <button @click="removeFromFavorites(character)" class="btn btn-danger">Eliminar de favoritos</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -225,9 +169,7 @@
             </div>
         </div>
     </div>
-    </div>
 
-    <!-- Scripts de Bootstrap y la aplicación -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="app.js"></script>
 </body>
