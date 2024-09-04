@@ -5,8 +5,8 @@
 :root {
     --rick-green: #FCCA00;
     --rick-brown: #88e23b;
-    --rick-blue: #00b5cc;
-    --rick-pink: #e89ac7;
+    --rick-blue: #00b5cc;/*#00b5cc*/
+    --rick-pink: #35cee5;/*#e89ac7*/
 }
 
 .banner {
@@ -105,6 +105,21 @@ h1, h2 {
 .card-img-top {
     border-top-left-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
+}
+
+.card-cards .card-text {
+    font-size: 1.5rem; 
+    margin-bottom: 0.5rem; 
+}
+
+.card-cards-background {
+    background-image: url('./img/prototipodetails.jpeg'); 
+    background-size: cover; 
+    background-position: center ; 
+    background-repeat: no-repeat; 
+    border-radius: 0.5rem; 
+    padding: 1rem; 
+    color: #ffffff; 
 }
 
 .btn-primary {
