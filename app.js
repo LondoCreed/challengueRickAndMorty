@@ -112,8 +112,20 @@ const app = createApp({
             currentPage.value = 'details'
         }
 
+        const isFavorite = (character) => {
+            return favorites.value.some(fav => fav.id === character.id)
+        }
+
+        const toggleFavorite = (character) => {
+            if (isFavorite(character)) {
+                removeFromFavorites(character)
+            } else {
+                addToFavorites(character)
+            }
+        }
+
         const addToFavorites = (character) => {
-            if (!favorites.value.some(fav => fav.id === character.id)) {
+            if (!isFavorite(character)) {
                 favorites.value.push(character)
                 saveFavorites()
             }
@@ -188,7 +200,10 @@ const app = createApp({
             topLocations,
             statusCount,
             speciesCount,
-            genderCount
+            genderCount,
+            // Propiedades y métodos para favoritos
+            isFavorite,
+            toggleFavorite
         }
     }
 })
