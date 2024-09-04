@@ -75,7 +75,7 @@
                 </div>
                 <div class="row">
                     <div v-for="character in filteredCharacters" :key="character.id" class="col-md-3 mb-3">
-                        <div class="card">
+                        <div class="card card-cards .card-text card-cards-background">
                             <img :src="character.image" class="card-img-top" :alt="character.name">
                             <div class="card-body">
                                 <h5 class="card-title">{{ character.name }}</h5>
