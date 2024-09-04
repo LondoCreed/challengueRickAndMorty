@@ -15,13 +15,13 @@
     <div id="app">
         <!-- Barra de navegación fija en la parte superior -->
         <header class="sticky-top">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light ">
+                <div class="container-fluid ">
                     <!-- Logo y nombre de la app -->
-                    <a class="navbar-brand" href="#">
-                        <img src="./assets/img/58f37720a4fa116215a9240f.png" alt="Logo" width="30" height="30"
+                    <a class="navbar-brand" href="./index.html">
+                        <img src="./assets/img/58f37720a4fa116215a9240f.png" alt="Logo" width="120" height="30"
                             class="d-inline-block align-text-top">
-                        Rick and Morty
+                        |
                     </a>
                     <!-- Botón para menú responsivo -->
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -30,15 +30,15 @@
                     </button>
                     <!-- Elementos de navegación -->
                     <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav">
+                        <ul class="navbar-nav ms-auto">
                             <!-- Enlaces de navegación con eventos de Vue -->
-                            <li class="nav-item">
-                                <a class="nav-link" href="#" @click="currentPage = 'home'">Home</a>
+                            <li class="nav-item ms-2">
+                                <a class="nav-link" href="./index.html" @click="currentPage = 'home'">Home</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item ms-2">
                                 <a class="nav-link" href="./Stats.html" @click="currentPage = 'stats'">Estadísticas</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item ms-2">
                                 <a class="nav-link" href="#" @click="openFavoritesModal">Favoritos</a>
                             </li>
                         </ul>
