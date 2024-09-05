@@ -1,32 +1,27 @@
-
-//creamos app o instancia vue 
 const app = Vue.createApp({
-
-    //definimos la data del componente, reactivos  
     data() {
         return {
-            characters: [], //Espacio para lospersonajes obtenidos de la data(API)
-            searchText: '', //Texto de busqueda
-            filterAlive: false, //Filtro vivos
-            totalCharacters: 0, //Total de personales
-            currentPage: 'home', //Pagina actual de la app
-            selectedCharacter: null, //personaje tarjeteado para motrar details
-            favorites: [], //Espacio para localStorage
-            currentPageNumber: 1, //Paginacion personajes
-            totalPages: 0, //Paginas totales paginacion
-            episodes: [], //Espacio para episodios obtenidos de la data(API)
-            currentEpisodePage: 1, //Paginacion episodios
-            totalEpisodePages: 0, //Paginas totales de paginacion EP
-            topLocations: [],   //Espacio para ubicaciones comunes
-            statusCount: {},    //Contador de estados
-            speciesCount: {},   //Contador de especies
-            genderCount: {}     //Contador de generos
+            characters: [], // Espacio para los personajes obtenidos de la data(API)
+            searchText: '', // Texto de búsqueda
+            filterAlive: false, // Filtro vivos
+            totalCharacters: 0, // Total de personajes
+            currentPage: 'home', // Página actual de la app
+            selectedCharacter: null, // Personaje tarjetado para mostrar detalles
+            favorites: [], // Espacio para localStorage
+            currentPageNumber: 1, // Paginación personajes
+            totalPages: 0, // Páginas totales de paginación
+            episodes: [], // Espacio para episodios obtenidos de la data(API)
+            currentEpisodePage: 1, // Paginación episodios
+            totalEpisodePages: 0, // Páginas totales de paginación de episodios
+            topLocations: [], // Espacio para ubicaciones comunes
+            statusCount: {}, // Contador de estados
+            speciesCount: {}, // Contador de especies
+            genderCount: {} // Contador de géneros
         }
     },
 
-    //definimos las propiedades computadas
     computed: {
-        //filtramos los personajes segun el textbox y el chek de estado vivo
+        // Filtramos los personajes según el texto de búsqueda y el filtro de estado vivo
         filteredCharacters() {
             return this.characters.filter(character => {
                 const matchesSearch = character.name.toLowerCase().includes(this.searchText.toLowerCase())
@@ -34,27 +29,36 @@ const app = Vue.createApp({
                 return matchesSearch && matchesFilter
             })
         },
-        //Rango de paginas para personajes
+
+        // Rango de páginas para personajes (5 números de página)
         paginationRange() {
             const range = []
-            for (let i = Math.max(1, this.currentPageNumber - 2); i <= Math.min(this.totalPages, this.currentPageNumber + 2); i++) {
+            const maxPages = 5
+            const start = Math.max(1, this.currentPageNumber - Math.floor(maxPages / 2))
+            const end = Math.min(this.totalPages, start + maxPages - 1)
+            
+            for (let i = start; i <= end; i++) {
                 range.push(i)
             }
             return range
         },
-        //Rango de paginas para episodios
+
+        // Rango de páginas para episodios (5 números de página)
         episodePaginationRange() {
             const range = []
-            for (let i = Math.max(1, this.currentEpisodePage - 2); i <= Math.min(this.totalEpisodePages, this.currentEpisodePage + 2); i++) {
+            const maxPages = 5
+            const start = Math.max(1, this.currentEpisodePage - Math.floor(maxPages / 2))
+            const end = Math.min(this.totalEpisodePages, start + maxPages - 1)
+            
+            for (let i = start; i <= end; i++) {
                 range.push(i)
             }
             return range
         }
     },
 
-    //definimos los metodos
     methods: {
-        //Obtenemos personajes de la API y actualiza elementos data de la app
+        // Obtenemos personajes de la API y actualiza elementos data de la app
         async fetchCharacters(page = 1) {
             try {
                 const response = await fetch(`https://rickandmortyapi.com/api/character?page=${page}`)
@@ -68,7 +72,8 @@ const app = Vue.createApp({
                 console.error('Error fetching characters:', error)
             }
         },
-        //obtenemos episodios de la API y actualiza elementos data de la app
+
+        // Obtenemos episodios de la API y actualiza elementos data de la app
         async loadEpisodes(page = 1) {
             try {
                 const response = await fetch(`https://rickandmortyapi.com/api/episode?page=${page}`)
@@ -80,7 +85,8 @@ const app = Vue.createApp({
                 console.error('Error fetching episodes:', error)
             }
         },
-        //Calculamos estadisticas
+
+        // Calculamos estadísticas
         calculateStats() {
             this.statusCount = this.characters.reduce((acc, char) => {
                 acc[char.status] = (acc[char.status] || 0) + 1
@@ -106,16 +112,19 @@ const app = Vue.createApp({
                 return acc
             }, {})
         },
-        //Realizamos el cambio de pagina a details tomando en cuenta el personaje seleccionado
+
+        // Realizamos el cambio de página a detalles tomando en cuenta el personaje seleccionado
         showDetails(character) {
             this.selectedCharacter = character
             this.currentPage = 'details'
         },
-        //Verifica si un personaje esta en favorito
+
+        // Verifica si un personaje está en favoritos
         isFavorite(character) {
             return this.favorites.some(fav => fav.id === character.id)
         },
-        //Alternamos el estado de favoritos del personaje
+
+        // Alternamos el estado de favoritos del personaje
         toggleFavorite(character) {
             if (this.isFavorite(character)) {
                 this.removeFromFavorites(character)
@@ -123,7 +132,8 @@ const app = Vue.createApp({
                 this.addToFavorites(character)
             }
         },
-        //Añadimos personaje a favoritos
+
+        // Añadimos personaje a favoritos
         addToFavorites(character) {
             if (!this.isFavorite(character)) {
                 this.favorites.push(character)
@@ -131,30 +141,31 @@ const app = Vue.createApp({
             }
         },
 
-        //Eliminamos personaje de favoritos
+        // Eliminamos personaje de favoritos
         removeFromFavorites(character) {
             this.favorites = this.favorites.filter(fav => fav.id !== character.id)
             this.saveFavorites()
         },
 
-        //Guardamos favoritos en local storage
+        // Guardamos favoritos en local storage
         saveFavorites() {
             localStorage.setItem('favorites', JSON.stringify(this.favorites))
         },
 
-        //Para abrir el modal de favoritos con bootstrap
+        // Para abrir el modal de favoritos con Bootstrap
         openFavoritesModal() {
             const modal = new bootstrap.Modal(document.getElementById('favoritesModal'))
             modal.show()
         },
-        //Cambiamos de pagina en personajes
+
+        // Cambiamos de página en personajes
         goToPage(page) {
             if (page >= 1 && page <= this.totalPages) {
                 this.fetchCharacters(page)
             }
         },
 
-        //Cambiamos de pagina en episodios
+        // Cambiamos de página en episodios
         goToEpisodePage(page) {
             if (page >= 1 && page <= this.totalEpisodePages) {
                 this.loadEpisodes(page)
@@ -162,7 +173,6 @@ const app = Vue.createApp({
         }
     },
 
-    //montamos componentes, definimos que cargara dependiendo si estamos en episodios o favoritos
     mounted() {
         const urlParams = new URLSearchParams(window.location.search)
         const page = urlParams.get('page')
@@ -179,10 +189,9 @@ const app = Vue.createApp({
             this.favorites = JSON.parse(storedFavorites)
         }
     },
-    //Observador de cambios de pagina
+
     watch: {
         currentPage(newValue) {
-            console.log('Current Page:', newValue)
             if (newValue === 'episodes') {
                 this.loadEpisodes(1)
             }
@@ -190,5 +199,5 @@ const app = Vue.createApp({
     }
 })
 
-//Inicializamos la app en el contenedor especificado en el html
+// Inicializamos la app en el contenedor especificado en el HTML
 app.mount('#app')
