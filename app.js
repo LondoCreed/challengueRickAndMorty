@@ -14,6 +14,7 @@ const app = Vue.createApp({
             currentEpisodePage: 1, // Paginación episodios
             totalEpisodePages: 0, // Páginas totales de paginación de episodios
             topLocations: [], // Espacio para ubicaciones comunes
+            isPlaying: false // Estado inicial de reproducción de música
         }
     },
 
@@ -62,7 +63,7 @@ const app = Vue.createApp({
                 const data = await response.json()
                 this.characters = data.results
                 this.totalCharacters = data.info.count
-                this.allCharacters = this.characters.concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results)
+                this.allCharacters = this.characters.concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results)
                 this.totalPages = data.info.pages
                 this.currentPageNumber = page
                 this.calculateStats()
@@ -168,6 +169,18 @@ const app = Vue.createApp({
             if (page >= 1 && page <= this.totalEpisodePages) {
                 this.loadEpisodes(page)
             }
+        },
+
+        // Alterna entre reproducir y pausar la música de fondo
+        toggleMusic() {
+            const audio = document.getElementById('background-audio')
+            if (audio.paused) {
+                audio.play()
+                this.isPlaying = true
+            } else {
+                audio.pause()
+                this.isPlaying = false
+            }
         }
     },
 
@@ -185,6 +198,13 @@ const app = Vue.createApp({
         const storedFavorites = localStorage.getItem('favorites')
         if (storedFavorites) {
             this.favorites = JSON.parse(storedFavorites)
+        }
+
+        // Reproduce la música de fondo automáticamente y actualiza isPlaying al montar el componente
+        const audio = document.getElementById('background-audio')
+        if (audio) {
+            audio.play()
+            this.isPlaying = !audio.paused // Actualiza isPlaying basado en el estado real del audio
         }
     },
 
