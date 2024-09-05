@@ -1,28 +1,24 @@
-* {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
-
 :root {
     --rick-green: #FCCA00;
     --rick-brown: #88e23b;
     --rick-blue: #00b5cc;
-    /*#00b5cc*/
     --rick-pink: #35cee5;
-    /*#e89ac7*/
+}
+
+body {
+    background-image: url('../assets/img/fondo2.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .banner {
     background-image: url('./img/BANNER-RICK-Y-MORTY.jpg');
     background-size: cover;
-    background-position: center;
-    height: 300px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: #ebe480;
-    position: relative;
     background-position: center top;
+    height: 300px;
+    position: relative;
 }
 
 .banner::before {
@@ -42,7 +38,6 @@
 
 .banner h1 {
     font-size: 2.5rem;
-    margin-bottom: 1rem;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
@@ -54,15 +49,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Get+Schwifty&display=swap');
 
 .navbar {
-    background-color: #1e1e1e !important; /* Fondo oscuro */
+    background-color: var(--rick-green) !important;
 }
 
 .rick-and-morty-nav {
     font-family: 'Get Schwifty', cursive;
     font-size: 1.2rem;
-    color: #00b0c8 !important; /* Azul brillante */
+    color: #00b0c8 !important;
     text-shadow: 
-        -1px -1px 0 #39ff14, /* Verde neón */
+        -1px -1px 0 #39ff14,
         1px -1px 0 #39ff14,
         -1px 1px 0 #39ff14,
         1px 1px 0 #39ff14;
@@ -81,29 +76,23 @@
         1px 1px 0 #00b0c8;
 }
 
-.rick-and-morty-text {
-    font-family: 'Roboto', sans-serif;
-    color: #ffffff; /* Blanco para mejor legibilidad */
-}
-
 .rick-and-morty-text h1 {
     font-family: 'Get Schwifty', cursive;
     font-size: 2.5rem;
-    color: #00b0c8; /* Azul brillante */
+    color: #00b0c8;
     text-shadow: 
-        -2px -2px 0 #39ff14, /* Verde neón */
+        -2px -2px 0 #39ff14,
         2px -2px 0 #39ff14,
         -2px 2px 0 #39ff14,
         2px 2px 0 #39ff14;
     letter-spacing: 2px;
-    margin-bottom: 20px;
     text-transform: uppercase;
 }
 
 .rick-and-morty-text h1:hover {
-    color: #39ff14; /* Verde neón */
+    color: #39ff14;
     text-shadow: 
-        -2px -2px 0 #00b0c8, /* Azul brillante */
+        -2px -2px 0 #00b0c8,
         2px -2px 0 #00b0c8,
         -2px 2px 0 #00b0c8,
         2px 2px 0 #00b0c8;
@@ -114,89 +103,26 @@
     font-family: 'Creepster', cursive;
     font-size: 1.2rem;
     line-height: 1.4;
-    color: #4bff00; /* Verde neón */
+    color: #4bff00;
     text-shadow: 
         0 0 5px #4bff00,
         0 0 10px #4bff00,
         0 0 15px #4bff00,
         2px 2px 2px rgba(0,0,0,0.5);
-    padding: 15px 25px;
-    margin-bottom: 30px;
-    max-width: 1500px; /* Párrafo muy ancho */
-    width: 95%; /* Ocupa gran parte del ancho disponible */
-    margin-left: auto;
-    margin-right: auto;
     transform: skew(-1deg);
     letter-spacing: 0.5px;
-    text-align: justify;
 }
-
-
-body {
-    background-image: url('../assets/img/fondo2.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    margin: 0;
-    padding: 0;
-}
-
-.navbar {
-    background-color: var(--rick-green) !important;
-}
-
-.navbar-brand,
-.nav-link {
-    color: #ffffff !important;
-    font-weight: bold;
-}
-
-.navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-}
-
-h1,
-h2 {
-    color: var(--rick-brown);
-    margin-bottom: 1rem;
-}
-
-/* modificacion de input */
-.input-warning:focus {
-    border-color: #ffc107;
-    box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25);
-}
-
-.input-warning::placeholder {
-    color: #ffc107;
-}
-
-
-.input-warning:focus::placeholder {
-    color: #ffc107;
-}
-
 
 .card {
+    transition: transform 0.3s ease-in-out;
     border: none;
     border-radius: 0.5rem;
     box-shadow: 0 0.125rem 0.45rem rgba(0, 0, 0, 0.075);
-    transition: transform 0.3s ease-in-out;
 }
 
 .card:hover {
     transform: translateY(-0.35rem);
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-}
-
-.card-img-top {
-    border-top-left-radius: 0.5rem;
-    border-top-right-radius: 0.5rem;
-}
-
-.card-cards .card-text {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
 }
 
 .card-cards-background {
@@ -205,7 +131,6 @@ h2 {
     background-position: center;
     background-repeat: no-repeat;
     border-radius: 0.5rem;
-    padding: 1rem;
     color: #ffffff;
 }
 
@@ -228,49 +153,12 @@ footer {
     background-color: #FCCA00;
 }
 
-.form-control:focus,
-.form-check-input:focus {
-    border-color: var(--rick-blue);
-    box-shadow: 0 0 0 0.25rem rgba(0, 181, 204, 0.25);
-}
-
-.table {
-    background-color: #ffffff;
-    border-radius: 0.5rem;
-    overflow: hidden;
-}
-
-.table thead {
-    background-color: var(--rick-green);
-    color: #ffffff;
-}
-
-/*modal*/
 .modal-content-bg {
     background-image: url('../assets/img/fondo2.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    margin: 0;
-    padding: 0;
 }
-
-/* Estilos adicionales para mejorar la accesibilidad */
-.btn:focus,
-.form-control:focus,
-.form-check-input:focus {
-    box-shadow: 0 0 0 0.25rem rgba(151, 206, 76, 0.5);
-}
-
-/* Mejoras para dispositivos móviles */
-/* @media (max-width: 768px) {
-    .card {
-        margin-bottom: 1rem;
-        
-    }
-
-    
-} */
 
 .details-card {
     max-width: 400px;
@@ -280,26 +168,12 @@ footer {
     transition: transform 0.3s ease-in-out;
 }
 
-
-/* Estilo para el título de la tarjeta */
-.details-card .card-title {
-    font-size: 1.5rem;
-    margin-bottom: 0.75rem;
-}
-
-
-.details-card .card-text {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-}
-
 .details-card-background {
     background-image: url('./img/prototipodetails.jpeg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     border-radius: 0.5rem;
-    padding: 1rem;
     color: #ffffff;
 }
 
@@ -308,21 +182,15 @@ footer {
     border-radius: 0.5rem;
 }
 
-
 #favoritesFloatButton {
     position: fixed;
     bottom: 20px;
     right: 20px;
     z-index: 1000;
-
     width: 80px;
     height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
 }
-
 
 .Rick {
     width: 40%;
@@ -340,9 +208,8 @@ footer {
 
 .github-logo {
     width: 24px;
-    height: 24px
+    height: 24px;
 }
-
 
 @media (max-width: 991.98px) {
     footer .users {
@@ -370,6 +237,13 @@ footer {
     }
 }
 
-main{
+main {
     flex-grow: 1;
+}
+
+#favoritesFloatButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
 }

@@ -11,55 +11,49 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
     <div id="app">
         <header>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light ">
-                <div class="container-fluid ">
-                    <!-- Logo y nombre de la app -->
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="container-fluid">
                     <a class="navbar-brand" href="./index.html">
                         <img src="./assets/img/58f37720a4fa116215a9240f.png" alt="Logo" width="120" height="30"
                             class="d-inline-block align-text-top">
                     </a>
-                    <!-- Botón para menú responsivo -->
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <!-- Elementos de navegación -->
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav ms-auto">
-                            <!-- Enlaces de navegación con eventos de Vue -->
-                            <li class="nav-item ms-2">
-                                <a class="nav-link rick-and-morty-nav" href="./index.html" @click="currentPage = 'home'">Home</a>
+                            <li class="nav-item">
+                                <a class="nav-link rick-and-morty-nav" href="./index.html"
+                                    @click="currentPage = 'home'">Home</a>
                             </li>
-                            <li class="nav-item ms-2">
-                                <a class="nav-link rick-and-morty-nav" href="#" @click="currentPage = 'episodes'">Episodes</a>
+                            <li class="nav-item">
+                                <a class="nav-link rick-and-morty-nav" href="#"
+                                    @click="currentPage = 'episodes'">Episodes</a>
                             </li>
-                            <li class="nav-item ms-2 rick-and-morty-nav">
-                                <a class="nav-link" href="#" @click="currentPage = 'stats'">Statistics</a>
+                            <li class="nav-item">
+                                <a class="nav-link rick-and-morty-nav" href="#"
+                                    @click="currentPage = 'stats'">Statistics</a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </nav>
-            <div class="banner-content" v-if="currentPage === 'home'">
-                <div class="banner">
-
+            <div v-if="currentPage === 'home'" class="banner d-flex align-items-center justify-content-center">
+                <div class="banner-content text-center text-light">
+                    <!-- Contenido del banner si es necesario -->
                 </div>
             </div>
         </header>
-        
 
-        <main class="container mt-4">
-
-            <!-- Sección Home -->
-            
-            <div  v-if="currentPage === 'home'" class="rick-and-morty-text">
-                
-                
-                <h1 class="text-center">Bienvenido al Universo de Rick and Morty</h1>
-                <p class="text-warning text-center">Es una serie animada de comedia y ciencia ficción creada por Justin
+        <main class="container mt-4 flex-grow-1">
+            <div v-if="currentPage === 'home'" class="rick-and-morty-text">
+                <h1 class="text-center mb-4">Bienvenido al Universo de Rick and Morty</h1>
+                <p class="text-warning text-center mb-5">Es una serie animada de comedia y ciencia ficción creada por
+                    Justin
                     Roiland y Dan Harmon. La historia sigue a Rick Sanchez, un científico alcohólico y excéntrico, y a
                     su nieto Morty Smith, un adolescente inseguro, en sus aventuras a través del multiverso. Juntos
                     exploran realidades alternativas, enfrentan criaturas alienígenas y desafían las leyes de la física,
@@ -69,7 +63,7 @@
                     introducido numerosos personajes, destacando los miembros de la familia Smith: Rick, Morty, su
                     hermana Summer, su madre Beth, y su padre Jerry, así como una amplia variedad de personajes
                     recurrentes y versiones alternativas que enriquecen el universo y la complejidad de la trama.</p>
-                <div class="row justify-content-center align-items-center">
+                <div class="row justify-content-center align-items-center mb-4">
                     <div class="col-md-4 mb-3">
                         <input v-model="searchText" class="form-control input-warning" placeholder="Search Characters">
                     </div>
@@ -81,43 +75,44 @@
                             </label>
                         </div>
                     </div>
-                    <nav aria-label="Page navigation" class="d-flex justify-content-center mt-4">
-                        <ul class="pagination">
-                            <li class="page-item" :class="{ disabled: currentPageNumber === 1 }">
-                                <a class="page-link" href="#" aria-label="Previous" @click.prevent="goToPage(currentPageNumber - 1)">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <li v-for="page in paginationRange" :key="page" class="page-item"
-                                :class="{ active: page === currentPageNumber }">
-                                <a class="page-link" href="#" @click.prevent="goToPage(page)">{{ page }}</a>
-                            </li>
-                            <li class="page-item" :class="{ disabled: currentPageNumber === totalPages }">
-                                <a class="page-link" href="#" aria-label="Next" @click.prevent="goToPage(currentPageNumber + 1)">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                    
                 </div>
 
-                <!-- Nuevo bloque para manejar "no encontrado" -->
+                <nav v-if="filteredCharacters.length > 0" aria-label="Page navigation"
+                    class="d-flex justify-content-center mt-4">
+                    <ul class="pagination">
+                        <li class="page-item" :class="{ disabled: currentPageNumber === 1 }">
+                            <a class="page-link" href="#" aria-label="Previous"
+                                @click.prevent="goToPage(currentPageNumber - 1)">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li v-for="page in paginationRange" :key="page" class="page-item"
+                            :class="{ active: page === currentPageNumber }">
+                            <a class="page-link" href="#" @click.prevent="goToPage(page)">{{ page }}</a>
+                        </li>
+                        <li class="page-item" :class="{ disabled: currentPageNumber === totalPages }">
+                            <a class="page-link" href="#" aria-label="Next"
+                                @click.prevent="goToPage(currentPageNumber + 1)">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
                 <div v-if="filteredCharacters.length === 0" class="text-center mt-5">
                     <h3 class="text-warning p-3">No se encontraron personajes</h3>
-                    <img class="Rick" src="./assets/img/PaginaLimpia.png" alt="No encontrado" class="img-fluid">
+                    <img class="Rick img-fluid" src="./assets/img/PaginaLimpia.png" alt="No encontrado">
                 </div>
 
-                <!-- Mostrar los personajes solo si hay resultados -->
-                <div v-else>
-                    <div class="row">
-                        <div v-for="character in filteredCharacters" :key="character.id" class="col-md-3 mb-3">
-                            <div class="card card-cards .card-text card-cards-background text-center">
-                                <img :src="character.image" class="card-img-top" :alt="character.name">
-                                <div class="card-body d-flex flex-column justify-content-center">
-                                    <h5 class="card-title">{{ character.name }}</h5>
-                                    <p class="card-text">Status: {{ character.status }}</p>
-
+                <div v-else class="row">
+                    <div v-for="character in filteredCharacters" :key="character.id"
+                        class="col-sm-6 col-md-4 col-lg-3 mb-4">
+                        <div class="card h-100 card-cards card-cards-background text-center">
+                            <img :src="character.image" class="card-img-top" :alt="character.name">
+                            <div class="card-body d-flex flex-column justify-content-between">
+                                <h5 class="card-title">{{ character.name }}</h5>
+                                <p class="card-text">Status: {{ character.status }}</p>
+                                <div>
                                     <button @click="showDetails(character)" class="btn btn-primary m-2">Ver
                                         detalles</button>
                                     <button @click="toggleFavorite(character)"
@@ -128,39 +123,39 @@
                             </div>
                         </div>
                     </div>
-
-                    <button id="favoritesFloatButton" @click="openFavoritesModal" class="btn btn-primary">
-                        Favorites
-                    </button>
-
-                    <!-- Barra de paginación -->
-                    <nav aria-label="Page navigation" class="d-flex justify-content-center mt-4">
-                        <ul class="pagination">
-                            <li class="page-item" :class="{ disabled: currentPageNumber === 1 }">
-                                <a class="page-link" href="#" aria-label="Previous" @click.prevent="goToPage(currentPageNumber - 1)">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <li v-for="page in paginationRange" :key="page" class="page-item"
-                                :class="{ active: page === currentPageNumber }">
-                                <a class="page-link" href="#" @click.prevent="goToPage(page)">{{ page }}</a>
-                            </li>
-                            <li class="page-item" :class="{ disabled: currentPageNumber === totalPages }">
-                                <a class="page-link" href="#" aria-label="Next" @click.prevent="goToPage(currentPageNumber + 1)">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                    
                 </div>
+
+                <button id="favoritesFloatButton" @click="openFavoritesModal" class="btn btn-primary mt-3">
+                    Favorites
+                </button>
+                <!-- <button @click="currentPage = 'home'" class="btn btn-primary mt-3">Back to list</button> -->
+
+                <nav v-if="filteredCharacters.length > 0" aria-label="Page navigation"
+                    class="d-flex justify-content-center mt-4">
+                    <ul class="pagination">
+                        <li class="page-item" :class="{ disabled: currentPageNumber === 1 }">
+                            <a class="page-link" href="#" aria-label="Previous"
+                                @click.prevent="goToPage(currentPageNumber - 1)">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li v-for="page in paginationRange" :key="page" class="page-item"
+                            :class="{ active: page === currentPageNumber }">
+                            <a class="page-link" href="#" @click.prevent="goToPage(page)">{{ page }}</a>
+                        </li>
+                        <li class="page-item" :class="{ disabled: currentPageNumber === totalPages }">
+                            <a class="page-link" href="#" aria-label="Next"
+                                @click.prevent="goToPage(currentPageNumber + 1)">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
 
-            <!-- Sección Stats -->
             <div v-if="currentPage === 'stats'">
-                <h2 class="text-center mb-4">Character Statistics</h2>
+                <h2 class="text-center rick-and-morty-nav mb-4">Character Statistics</h2>
                 <div class="row">
-                    <!-- Distribución por Estado -->
                     <div class="col-md-6 mb-4">
                         <div class="card">
                             <div class="card-body">
@@ -172,16 +167,14 @@
                                     </div>
                                     <div class="progress">
                                         <div class="progress-bar" role="progressbar"
-                                            :style="{ width: (count / 826 * 100) + '%' }"
-                                            :aria-valuenow="count" aria-valuemin="0" :aria-valuemax="characters.length">
+                                            :style="{ width: (count / 826 * 100) + '%' }" :aria-valuenow="count"
+                                            aria-valuemin="0" :aria-valuemax="characters.length">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Distribución por Especie -->
                     <div class="col-md-6 mb-4">
                         <div class="card">
                             <div class="card-body">
@@ -193,21 +186,19 @@
                                     </div>
                                     <div class="progress">
                                         <div class="progress-bar bg-success" role="progressbar"
-                                            :style="{ width: (count / 826 * 100) + '%' }"
-                                            :aria-valuenow="count" aria-valuemin="0" :aria-valuemax="characters.length">
+                                            :style="{ width: (count / 826 * 100) + '%' }" :aria-valuenow="count"
+                                            aria-valuemin="0" :aria-valuemax="characters.length">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Top 5 Localizaciones -->
                     <div class="col-md-6 mb-4">
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">Top 5 Locations</h5>
-                                <ul class="list-group">
+                                <ul class="list-group list-group-flush">
                                     <li v-for="location in topLocations" :key="location.name"
                                         class="list-group-item d-flex justify-content-between align-items-center">
                                         {{ location.name }}
@@ -217,8 +208,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Proporción de Género -->
                     <div class="col-md-6 mb-4">
                         <div class="card">
                             <div class="card-body">
@@ -230,8 +219,8 @@
                                     </div>
                                     <div class="progress">
                                         <div class="progress-bar bg-info" role="progressbar"
-                                            :style="{ width: (count / 826 * 100) + '%' }"
-                                            :aria-valuenow="count" aria-valuemin="0" :aria-valuemax="characters.length">
+                                            :style="{ width: (count / 826 * 100) + '%' }" :aria-valuenow="count"
+                                            aria-valuemin="0" :aria-valuemax="characters.length">
                                         </div>
                                     </div>
                                 </div>
@@ -241,10 +230,9 @@
                 </div>
             </div>
 
-            <!-- Sección Details -->
             <div v-if="currentPage === 'details'" class="character-details">
-                <h2 class="text-center text-dark">Character Details</h2>
-                <div v-if="selectedCharacter" class="card details-card details-card-background">
+                <h2 class="text-center rick-and-morty-nav mb-4">Character Details</h2>
+                <div v-if="selectedCharacter" class="card details-card details-card-background mb-4">
                     <img :src="selectedCharacter.image" class="card-img-top" :alt="selectedCharacter.name">
                     <div class="card-body ddf">
                         <h3 class="card-title text-center">{{ selectedCharacter.name }}</h3>
@@ -257,14 +245,16 @@
                             }}</p>
                     </div>
                 </div>
-                <button @click="currentPage = 'home'" class="btn btn-primary mt-3">Back to list</button>
+                <div class="text-center">
+                    <button @click="currentPage = 'home'" class="btn btn-primary">Back to list</button>
+                </div>
             </div>
-            <!-- Sección Episodes -->
+
             <div v-if="currentPage === 'episodes'">
-                <h2>Episode list</h2>
+                <h2 class="text-center rick-and-morty-nav mb-4">Episode list</h2>
                 <div class="row">
                     <div v-for="episode in episodes" :key="episode.id" class="col-md-4 mb-3">
-                        <div class="card">
+                        <div class="card h-100">
                             <div class="card-body">
                                 <h5 class="card-title">{{ episode.name }}</h5>
                                 <p class="card-text"><strong>Season:</strong> {{
@@ -276,33 +266,30 @@
                     </div>
                 </div>
 
-                <!-- Barra de paginación para episodios -->
-                <nav aria-label="Page navigation" class="d-flex justify-content-center mt-4">
-                    <ul class="pagination">
-                        <li class="page-item" :class="{ disabled: currentEpisodePage === 1 }">
-                            <a class="page-link" href="#" aria-label="Previous"
-                                @click.prevent="goToEpisodePage(currentEpisodePage - 1)">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li v-for="page in episodePaginationRange" :key="page" class="page-item"
-                            :class="{ active: page === currentEpisodePage }">
-                            <a class="page-link" href="#" @click.prevent="goToEpisodePage(page)">{{ page }}</a>
-                        </li>
-                        <li class="page-item" :class="{ disabled: currentEpisodePage === totalEpisodePages }">
-                            <a class="page-link" href="#" aria-label="Next"
-                                @click.prevent="goToEpisodePage(currentEpisodePage + 1)">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
+                <nav aria-label="Page navigation" class="d-flex justify-content-center mt-4"></nav>
+                <ul class="pagination">
+                    <li class="page-item" :class="{ disabled: currentEpisodePage === 1 }">
+                        <a class="page-link" href="#" aria-label="Previous"
+                            @click.prevent="goToEpisodePage(currentEpisodePage - 1)">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li v-for="page in episodePaginationRange" :key="page" class="page-item"
+                        :class="{ active: page === currentEpisodePage }">
+                        <a class="page-link" href="#" @click.prevent="goToEpisodePage(page)">{{ page }}</a>
+                    </li>
+                    <li class="page-item" :class="{ disabled: currentEpisodePage === totalEpisodePages }">
+                        <a class="page-link" href="#" aria-label="Next"
+                            @click.prevent="goToEpisodePage(currentEpisodePage + 1)">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
                 </nav>
             </div>
-
-
         </main>
 
-        <footer class="container-fluid">
+        <footer class="container-fluid mt-auto py-3">
             <div class="row align-items-center">
                 <div class="col-4 col-md-3 text-center">
                     <img src="./assets/img/imgFooter02.png" class="img-fluid logoPortal" alt="Portal">
@@ -327,12 +314,8 @@
                         </a>
                     </div>
                 </div>
-               
             </div>
         </footer>
-
-
-
 
         <!-- Modal de Favoritos -->
         <div class="modal fade" id="favoritesModal" tabindex="-1" aria-labelledby="favoritesModalLabel"
@@ -349,14 +332,14 @@
                         </div>
                         <div v-else class="row">
                             <div v-for="character in favorites" :key="character.id" class="col-md-4 mb-3">
-                                <div class="card  card-cards .card-text card-cards-background">
+                                <div class="card card-cards card-cards-background h-100">
                                     <img :src="character.image" class="card-img-top" :alt="character.name">
-                                    <div class="card-body">
+                                    <div class="card-body d-flex flex-column justify-content-between">
                                         <h5 class="card-title">{{ character.name }}</h5>
                                         <p class="card-text">Status: {{ character.status }}</p>
-
-                                        <button @click="removeFromFavorites(character)" class="btn btn-danger">Eliminar
-                                            de favoritos</button>
+                                        <button @click="removeFromFavorites(character)" class="btn btn-danger mt-2">
+                                            Eliminar de favoritos
+                                        </button>
                                     </div>
                                 </div>
                             </div>
