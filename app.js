@@ -65,6 +65,7 @@ const app = Vue.createApp({
                 const data = await response.json()
                 this.characters = data.results
                 this.totalCharacters = data.info.count
+                this.allCharacters = this.characters.concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results)
                 this.totalPages = data.info.pages
                 this.currentPageNumber = page
                 this.calculateStats()
@@ -88,17 +89,17 @@ const app = Vue.createApp({
 
         // Calculamos estadísticas
         calculateStats() {
-            this.statusCount = this.characters.reduce((acc, char) => {
+            this.statusCount = this.allCharacters.reduce((acc, char) => {
                 acc[char.status] = (acc[char.status] || 0) + 1
                 return acc
             }, {})
 
-            this.speciesCount = this.characters.reduce((acc, char) => {
+            this.speciesCount = this.allCharacters.reduce((acc, char) => {
                 acc[char.species] = (acc[char.species] || 0) + 1
                 return acc
             }, {})
 
-            const locationCount = this.characters.reduce((acc, char) => {
+            const locationCount = this.allCharacters.reduce((acc, char) => {
                 acc[char.location.name] = (acc[char.location.name] || 0) + 1
                 return acc
             }, {})
@@ -107,7 +108,7 @@ const app = Vue.createApp({
                 .slice(0, 5)
                 .map(([name, count]) => ({ name, count }))
 
-            this.genderCount = this.characters.reduce((acc, char) => {
+            this.genderCount = this.allCharacters.reduce((acc, char) => {
                 acc[char.gender] = (acc[char.gender] || 0) + 1
                 return acc
             }, {})
