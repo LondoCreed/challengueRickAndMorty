@@ -1,12 +1,14 @@
-*{
+* {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 :root {
     --rick-green: #FCCA00;
     --rick-brown: #88e23b;
-    --rick-blue: #00b5cc;/*#00b5cc*/
-    --rick-pink: #35cee5;/*#e89ac7*/
+    --rick-blue: #00b5cc;
+    /*#00b5cc*/
+    --rick-pink: #35cee5;
+    /*#e89ac7*/
 }
 
 .banner {
@@ -18,7 +20,7 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    color:#ebe480;
+    color: #ebe480;
     position: relative;
     background-position: center top;
 }
@@ -41,13 +43,14 @@
 .banner h1 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .banner p {
     font-size: 1.2rem;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
+
 body {
     background-image: url('../assets/img/fondo2.png');
     background-size: cover;
@@ -61,7 +64,8 @@ body {
     background-color: var(--rick-green) !important;
 }
 
-.navbar-brand, .nav-link {
+.navbar-brand,
+.nav-link {
     color: #ffffff !important;
     font-weight: bold;
 }
@@ -70,23 +74,25 @@ body {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
-h1, h2 {
+h1,
+h2 {
     color: var(--rick-brown);
     margin-bottom: 1rem;
 }
- /* modificacion de input */
+
+/* modificacion de input */
 .input-warning:focus {
-    border-color: #ffc107; 
+    border-color: #ffc107;
     box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25);
 }
 
 .input-warning::placeholder {
-    color: #ffc107; 
+    color: #ffc107;
 }
 
 
 .input-warning:focus::placeholder {
-    color: #ffc107; 
+    color: #ffc107;
 }
 
 
@@ -108,18 +114,18 @@ h1, h2 {
 }
 
 .card-cards .card-text {
-    font-size: 1.5rem; 
-    margin-bottom: 0.5rem; 
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
 }
 
 .card-cards-background {
-    background-image: url('./img/prototipodetails.jpeg'); 
-    background-size: cover; 
-    background-position: center ; 
-    background-repeat: no-repeat; 
-    border-radius: 0.5rem; 
-    padding: 1rem; 
-    color: #ffffff; 
+    background-image: url('./img/prototipodetails.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    color: #ffffff;
 }
 
 .btn-primary {
@@ -132,7 +138,8 @@ h1, h2 {
     border-color: var(--rick-pink);
 }
 
-.btn-primary:hover, .btn-secondary:hover {
+.btn-primary:hover,
+.btn-secondary:hover {
     opacity: 0.9;
 }
 
@@ -140,7 +147,8 @@ footer {
     background-color: #FCCA00;
 }
 
-.form-control:focus, .form-check-input:focus {
+.form-control:focus,
+.form-check-input:focus {
     border-color: var(--rick-blue);
     box-shadow: 0 0 0 0.25rem rgba(0, 181, 204, 0.25);
 }
@@ -167,7 +175,9 @@ footer {
 }
 
 /* Estilos adicionales para mejorar la accesibilidad */
-.btn:focus, .form-control:focus, .form-check-input:focus {
+.btn:focus,
+.form-control:focus,
+.form-check-input:focus {
     box-shadow: 0 0 0 0.25rem rgba(151, 206, 76, 0.5);
 }
 
@@ -182,8 +192,8 @@ footer {
 } */
 
 .details-card {
-    max-width: 400px; 
-    margin: auto; 
+    max-width: 400px;
+    margin: auto;
     border-radius: 0.5rem;
     box-shadow: 0 0.125rem 0.45rem rgba(0, 0, 0, 0.075);
     transition: transform 0.3s ease-in-out;
@@ -192,27 +202,28 @@ footer {
 
 /* Estilo para el título de la tarjeta */
 .details-card .card-title {
-    font-size: 1.5rem; 
-    margin-bottom: 0.75rem; 
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
 }
 
 
 .details-card .card-text {
-    font-size: 1.5rem; 
-    margin-bottom: 0.5rem; 
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
 }
 
 .details-card-background {
-    background-image: url('./img/prototipodetails.jpeg'); 
-    background-size: cover; 
-    background-position: center ; 
-    background-repeat: no-repeat; 
-    border-radius: 0.5rem; 
-    padding: 1rem; 
-    color: #ffffff; 
+    background-image: url('./img/prototipodetails.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    color: #ffffff;
 }
+
 .ddf {
-    background-color: rgba(0, 0, 0, 0.5); 
+    background-color: rgba(0, 0, 0, 0.5);
     border-radius: 0.5rem;
 }
 
@@ -222,7 +233,7 @@ footer {
     bottom: 20px;
     right: 20px;
     z-index: 1000;
-   
+
     width: 80px;
     height: 40px;
     display: flex;
@@ -232,6 +243,48 @@ footer {
 }
 
 
-.Rick{
+.Rick {
     width: 40%;
+}
+
+.navbar-logo {
+    width: 120px;
+    height: 30px;
+}
+
+.logoPortal {
+    max-width: 80px;
+    height: 60px;
+}
+
+.github-logo {
+    width: 24px;
+    height: 24px
+}
+
+
+@media (max-width: 991.98px) {
+    footer .users {
+        font-size: 0.8rem !important;
+    }
+
+    footer .github-logo {
+        width: 18px !important;
+        height: 18px !important;
+    }
+}
+
+@media (max-width: 575.98px) {
+    footer .users {
+        font-size: 0.7rem !important;
+    }
+
+    footer .github-logo {
+        width: 16px !important;
+        height: 16px !important;
+    }
+
+    footer .logoPortal {
+        max-width: 60px !important;
+    }
 }
