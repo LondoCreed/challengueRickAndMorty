@@ -31,13 +31,13 @@
                         <ul class="navbar-nav ms-auto">
                             <!-- Enlaces de navegación con eventos de Vue -->
                             <li class="nav-item ms-2">
-                                <a class="nav-link" href="./index.html" @click="currentPage = 'home'">Home</a>
+                                <a class="nav-link rick-and-morty-nav" href="./index.html" @click="currentPage = 'home'">Home</a>
                             </li>
-                            <li class="nav-item ms-2">
+                            <li class="nav-item ms-2 rick-and-morty-nav">
                                 <a class="nav-link" href="#" @click="currentPage = 'stats'">Statistics</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#" @click="currentPage = 'episodes'">Episodes</a>
+                                <a class="nav-link rick-and-morty-nav" href="#" @click="currentPage = 'episodes'">Episodes</a>
                             </li>
 
 
@@ -57,7 +57,7 @@
 
             <!-- Sección Home -->
             
-            <div  v-if="currentPage === 'home'">
+            <div  v-if="currentPage === 'home'" class="rick-and-morty-text">
                 
                 
                 <h1 class="text-center">Bienvenido al Universo de Rick and Morty</h1>
