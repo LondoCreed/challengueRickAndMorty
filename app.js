@@ -33,7 +33,7 @@ const app = Vue.createApp({
         // Rango de páginas para personajes (5 números de página)
         paginationRange() {
             const range = []
-            const maxPages = 5
+            const maxPages = 3
             const start = Math.max(1, this.currentPageNumber - Math.floor(maxPages / 2))
             const end = Math.min(this.totalPages, start + maxPages - 1)
             
