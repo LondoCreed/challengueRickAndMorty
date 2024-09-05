@@ -45,17 +45,21 @@
                     </div>
                 </div>
             </nav>
-        </header>
-        <!-- Banner -->
-        <div class="banner">
+            <div class="banner-content" v-if="currentPage === 'home'">
+                <div class="banner">
 
-        </div>
+                </div>
+            </div>
+        </header>
+        
 
         <main class="container mt-4">
 
             <!-- Sección Home -->
-            <div class="banner-content">
-
+            
+            <div  v-if="currentPage === 'home'">
+                
+                
                 <h1 class="text-center">Bienvenido al Universo de Rick and Morty</h1>
                 <p class="text-warning text-center">Es una serie animada de comedia y ciencia ficción creada por Justin
                     Roiland y Dan Harmon. La historia sigue a Rick Sanchez, un científico alcohólico y excéntrico, y a
@@ -67,9 +71,6 @@
                     introducido numerosos personajes, destacando los miembros de la familia Smith: Rick, Morty, su
                     hermana Summer, su madre Beth, y su padre Jerry, así como una amplia variedad de personajes
                     recurrentes y versiones alternativas que enriquecen el universo y la complejidad de la trama.</p>
-
-            </div>
-            <div v-if="currentPage === 'home'">
                 <div class="row justify-content-center align-items-center">
                     <div class="col-md-4 mb-3">
                         <input v-model="searchText" class="form-control input-warning" placeholder="Search Characters">
