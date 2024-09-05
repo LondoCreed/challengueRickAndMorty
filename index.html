@@ -51,18 +51,16 @@
 
         <main class="container mt-4 flex-grow-1">
             <div v-if="currentPage === 'home'" class="rick-and-morty-text">
-                <h1 class="text-center mb-4">Bienvenido al Universo de Rick and Morty</h1>
-                <p class="text-warning text-center mb-5">Es una serie animada de comedia y ciencia ficción creada por
-                    Justin
-                    Roiland y Dan Harmon. La historia sigue a Rick Sanchez, un científico alcohólico y excéntrico, y a
-                    su nieto Morty Smith, un adolescente inseguro, en sus aventuras a través del multiverso. Juntos
-                    exploran realidades alternativas, enfrentan criaturas alienígenas y desafían las leyes de la física,
-                    todo mientras abordan temas filosóficos, familiares y sociales con humor oscuro e irreverente. La
-                    serie, que cuenta con siete temporadas y más de 70 episodios, es conocida por su narrativa compleja,
-                    su estilo visual distintivo y su enfoque en la sátira y el absurdo. A lo largo de la serie, se han
-                    introducido numerosos personajes, destacando los miembros de la familia Smith: Rick, Morty, su
-                    hermana Summer, su madre Beth, y su padre Jerry, así como una amplia variedad de personajes
-                    recurrentes y versiones alternativas que enriquecen el universo y la complejidad de la trama.</p>
+                <h1 class="text-center mb-4">Welcome to Rick and Morty Universe</h1>
+                <p class="text-warning text-center mb-5">Rick and Morty is an animated science fiction comedy series
+                    created by Justin Roiland and Dan Harmon. The show follows the adventures of Rick Sanchez, an
+                    alcoholic and eccentric scientist, and his insecure teenage grandson, Morty Smith, as they explore
+                    alternate realities and encounter alien creatures. The series tackles philosophical, familial, and
+                    social issues with dark and irreverent humor. With seven seasons and over 70 episodes,Rick and
+                    Morty is known for its complex storytelling, distinctive visual style, and focus on satire and
+                    absurdity. In addition to Rick and Morty, the show introduces several other characters, including
+                    Morty's sister Summer, his mother Beth, his father Jerry, and a host of recurring characters and
+                    alternate versions that add depth to the universe and plot.</p>
                 <div class="row justify-content-center align-items-center mb-4">
                     <div class="col-md-4 mb-3">
                         <input v-model="searchText" class="form-control input-warning" placeholder="Search Characters">
@@ -100,7 +98,7 @@
                 </nav>
 
                 <div v-if="filteredCharacters.length === 0" class="text-center mt-5">
-                    <h3 class="text-warning p-3">No se encontraron personajes</h3>
+                    <h3 class="text-warning p-3">No characters found!</h3>
                     <img class="Rick img-fluid" src="./assets/img/PaginaLimpia.png" alt="No encontrado">
                 </div>
 
@@ -113,11 +111,11 @@
                                 <h5 class="card-title">{{ character.name }}</h5>
                                 <p class="card-text">Status: {{ character.status }}</p>
                                 <div>
-                                    <button @click="showDetails(character)" class="btn btn-primary m-2">Ver
-                                        detalles</button>
+                                    <button @click="showDetails(character)" class="btn btn-primary m-2">View
+                                        details</button>
                                     <button @click="toggleFavorite(character)"
                                         :class="isFavorite(character) ? 'btn btn-danger' : 'btn btn-secondary'">
-                                        {{ isFavorite(character) ? 'Eliminar de favoritos' : 'Añadir a favoritos' }}
+                                        {{ isFavorite(character) ? 'Delete from favorites' : 'Add to favorites' }}
                                     </button>
                                 </div>
                             </div>
@@ -128,7 +126,6 @@
                 <button id="favoritesFloatButton" @click="openFavoritesModal" class="btn btn-primary mt-3">
                     Favorites
                 </button>
-                <!-- <button @click="currentPage = 'home'" class="btn btn-primary mt-3">Back to list</button> -->
 
                 <nav v-if="filteredCharacters.length > 0" aria-label="Page navigation"
                     class="d-flex justify-content-center mt-4">
@@ -338,7 +335,7 @@
                                         <h5 class="card-title">{{ character.name }}</h5>
                                         <p class="card-text">Status: {{ character.status }}</p>
                                         <button @click="removeFromFavorites(character)" class="btn btn-danger mt-2">
-                                            Eliminar de favoritos
+                                            Delete from favorites
                                         </button>
                                     </div>
                                 </div>
