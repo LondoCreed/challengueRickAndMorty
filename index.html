@@ -157,11 +157,11 @@
                 <h2 class="text-center rick-and-morty-nav mb-4">Character Statistics</h2>
                 <div class="row">
                     <div class="col-md-6 mb-4">
-                        <div class="card">
+                        <div class="card card-statistics">
                             <div class="card-body">
                                 <h5 class="card-title">Distribution by State</h5>
                                 <div v-for="(count, status) in statusCount" :key="status" class="mb-2">
-                                    <div class="d-flex justify-content-between">
+                                    <div class="d-flex justify-content-between ddf rick-and-morty-nav">
                                         <span>{{ status }}</span>
                                         <span>{{ count }}</span>
                                     </div>
@@ -176,11 +176,11 @@
                         </div>
                     </div>
                     <div class="col-md-6 mb-4">
-                        <div class="card">
+                        <div class="card card-statistics">
                             <div class="card-body">
                                 <h5 class="card-title">Distribution by Species</h5>
                                 <div v-for="(count, species) in speciesCount" :key="species" class="mb-2">
-                                    <div class="d-flex justify-content-between">
+                                    <div class="d-flex justify-content-between ddf rick-and-morty-nav">
                                         <span>{{ species }}</span>
                                         <span>{{ count }}</span>
                                     </div>
@@ -195,12 +195,12 @@
                         </div>
                     </div>
                     <div class="col-md-6 mb-4">
-                        <div class="card">
+                        <div class="card card-statistics">
                             <div class="card-body">
-                                <h5 class="card-title">Top 5 Locations</h5>
+                                <h5 class="card-title rick-and-morty-nav">Top 5 Locations</h5>
                                 <ul class="list-group list-group-flush">
                                     <li v-for="location in topLocations" :key="location.name"
-                                        class="list-group-item d-flex justify-content-between align-items-center">
+                                        class="list-group-item d-flex justify-content-between align-items-center ddf rick-and-morty-nav">
                                         {{ location.name }}
                                         <span class="badge bg-primary rounded-pill">{{ location.count }}</span>
                                     </li>
@@ -209,11 +209,11 @@
                         </div>
                     </div>
                     <div class="col-md-6 mb-4">
-                        <div class="card">
+                        <div class="card card-statistics">
                             <div class="card-body">
                                 <h5 class="card-title">Gender Ratio</h5>
                                 <div v-for="(count, gender) in genderCount" :key="gender" class="mb-2">
-                                    <div class="d-flex justify-content-between">
+                                    <div class="d-flex justify-content-between ddf rick-and-morty-nav">
                                         <span>{{ gender }}</span>
                                         <span>{{ count }}</span>
                                     </div>
@@ -254,8 +254,8 @@
                 <h2 class="text-center rick-and-morty-nav mb-4">Episode list</h2>
                 <div class="row">
                     <div v-for="episode in episodes" :key="episode.id" class="col-md-4 mb-3">
-                        <div class="card h-100">
-                            <div class="card-body">
+                        <div class="card h-100 card-episodes">
+                            <div class="card-body ddf">
                                 <h5 class="card-title">{{ episode.name }}</h5>
                                 <p class="card-text"><strong>Season:</strong> {{
                                     episode.episode.split('S')[1].split('E')[0] }}</p>

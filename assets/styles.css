@@ -134,6 +134,26 @@ body {
     color: #ffffff;
 }
 
+.card-episodes{
+    background-image: url('./img/prototipodetails.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 0.5rem;
+    color: #fff;
+    
+}
+
+.card-statistics{
+    background-image: url('./img/prototipodetails.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 0.5rem;
+    color: #fff;
+}
+
+
 .btn-primary {
     background-color: var(--rick-blue);
     border-color: var(--rick-blue);
