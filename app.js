@@ -14,9 +14,6 @@ const app = Vue.createApp({
             currentEpisodePage: 1, // Paginación episodios
             totalEpisodePages: 0, // Páginas totales de paginación de episodios
             topLocations: [], // Espacio para ubicaciones comunes
-            statusCount: {}, // Contador de estados
-            speciesCount: {}, // Contador de especies
-            genderCount: {} // Contador de géneros
         }
     },
 
@@ -36,7 +33,7 @@ const app = Vue.createApp({
             const maxPages = 3
             const start = Math.max(1, this.currentPageNumber - Math.floor(maxPages / 2))
             const end = Math.min(this.totalPages, start + maxPages - 1)
-            
+
             for (let i = start; i <= end; i++) {
                 range.push(i)
             }
@@ -49,7 +46,7 @@ const app = Vue.createApp({
             const maxPages = 5
             const start = Math.max(1, this.currentEpisodePage - Math.floor(maxPages / 2))
             const end = Math.min(this.totalEpisodePages, start + maxPages - 1)
-            
+
             for (let i = start; i <= end; i++) {
                 range.push(i)
             }
