@@ -43,8 +43,10 @@
                 </div>
             </nav>
             <div v-if="currentPage === 'home'" class="banner d-flex align-items-center justify-content-center">
+                <video class="video-banner" src="./assets/img/NewRick.mp4" autoplay muted loop type="video/mp4"></video>
                 <div class="banner-content">
                     <!-- Contenido del banner si es necesario -->
+                    
                 </div>
             </div>
         </header>
@@ -229,7 +231,7 @@
             </div>
 
             <div v-if="currentPage === 'details'" class="character-details">
-                <video src="./assets/img/4529413.mp4" autoplay muted loop type="video/mp4"></video>
+                <video class="video-details" src="./assets/img/4529413.mp4" autoplay muted loop type="video/mp4"></video>
                 <h2 class="text-center rick-and-morty-nav mb-4">Character Details</h2>
                 <div v-if="selectedCharacter" class="card details-card details-card-background mb-4">
                     <img :src="selectedCharacter.image" class="card-img-top" :alt="selectedCharacter.name">
