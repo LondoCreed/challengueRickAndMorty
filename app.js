@@ -14,7 +14,7 @@ const app = Vue.createApp({
             currentEpisodePage: 1, // Paginación episodios
             totalEpisodePages: 0, // Páginas totales de paginación de episodios
             topLocations: [], // Espacio para ubicaciones comunes
-            isPlaying: false // Estado inicial de reproducción de música
+            
         }
     },
 
@@ -171,17 +171,6 @@ const app = Vue.createApp({
             }
         },
 
-        // Alterna entre reproducir y pausar la música de fondo
-        toggleMusic() {
-            const audio = document.getElementById('background-audio')
-            if (audio.paused) {
-                audio.play()
-                this.isPlaying = true
-            } else {
-                audio.pause()
-                this.isPlaying = false
-            }
-        }
     },
 
     mounted() {
@@ -200,12 +189,7 @@ const app = Vue.createApp({
             this.favorites = JSON.parse(storedFavorites)
         }
 
-        // Reproduce la música de fondo automáticamente y actualiza isPlaying al montar el componente
-        const audio = document.getElementById('background-audio')
-        if (audio) {
-            audio.play()
-            this.isPlaying = !audio.paused // Actualiza isPlaying basado en el estado real del audio
-        }
+        
     },
 
     watch: {
