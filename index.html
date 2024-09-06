@@ -122,14 +122,6 @@
                         </div>
                     </div>
                 </div>
-                <audio id="background-audio" autoplay loop>
-                    <source src="./assets/Rick and Morty Theme Song [HD] (320 kbps) (1).mp3" type="audio/mpeg">
-                    Tu navegador no soporta el elemento de audio.
-                </audio>
-
-                <button @click="toggleMusic" class="btn btn-primary mt-3 ddd">
-                    {{ isPlaying ? 'Pausar Música' : 'Reproducir Música' }}
-                </button>
 
                 <button id="favoritesFloatButton" @click="openFavoritesModal" class="btn btn-primary mt-3">
                     Favorites
@@ -159,6 +151,7 @@
             </div>
 
             <div v-if="currentPage === 'stats'">
+               
                 <h2 class="text-center rick-and-morty-nav mb-4">Character Statistics</h2>
                 <div class="row">
                     <div class="col-md-6 mb-4">
@@ -236,6 +229,7 @@
             </div>
 
             <div v-if="currentPage === 'details'" class="character-details">
+                <video src="./assets/img/4529413.mp4" autoplay muted loop type="video/mp4"></video>
                 <h2 class="text-center rick-and-morty-nav mb-4">Character Details</h2>
                 <div v-if="selectedCharacter" class="card details-card details-card-background mb-4">
                     <img :src="selectedCharacter.image" class="card-img-top" :alt="selectedCharacter.name">
@@ -244,10 +238,8 @@
                         <p class="card-text text-center"><strong>Status:</strong> {{ selectedCharacter.status }}</p>
                         <p class="card-text text-center"><strong>Species:</strong> {{ selectedCharacter.species }}</p>
                         <p class="card-text text-center"><strong>Gender:</strong> {{ selectedCharacter.gender }}</p>
-                        <p class="card-text text-center"><strong>Origin:</strong> {{ selectedCharacter.origin.name }}
-                        </p>
-                        <p class="card-text text-center"><strong>Location:</strong> {{ selectedCharacter.location.name
-                            }}</p>
+                        <p class="card-text text-center"><strong>Origin:</strong> {{ selectedCharacter.origin.name }}</p>
+                        <p class="card-text text-center"><strong>Location:</strong> {{ selectedCharacter.location.name}}</p>
                     </div>
                 </div>
                 <div class="text-center">
