@@ -210,7 +210,7 @@ footer {
 
 #favoritesFloatButton {
     position: fixed;
-    bottom: 20px;
+    bottom: 70px;
     right: 20px;
     z-index: 1000;
     width: 80px;
@@ -300,4 +300,8 @@ footer {
     height: 100%;
     object-fit: cover;
     z-index: -1;
+}
+
+.btn-close {
+    filter: invert(1); /* Esto cambia el color del icono a blanco */
 }
