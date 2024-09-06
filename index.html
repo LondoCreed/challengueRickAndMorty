@@ -158,8 +158,8 @@
                 <div class="row">
                     <div class="col-md-6 mb-4">
                         <div class="card card-statistics">
-                            <div class="card-body">
-                                <h5 class="card-title">Distribution by State</h5>
+                            <div class="card-body ddf">
+                                <h5 class="card-title rick-and-morty-nav">Distribution by State</h5>
                                 <div v-for="(count, status) in statusCount" :key="status" class="mb-2">
                                     <div class="d-flex justify-content-between ddf rick-and-morty-nav">
                                         <span>{{ status }}</span>
@@ -177,8 +177,8 @@
                     </div>
                     <div class="col-md-6 mb-4">
                         <div class="card card-statistics">
-                            <div class="card-body">
-                                <h5 class="card-title">Distribution by Species</h5>
+                            <div class="card-body ddf">
+                                <h5 class="card-title rick-and-morty-nav">Distribution by Species</h5>
                                 <div v-for="(count, species) in speciesCount" :key="species" class="mb-2">
                                     <div class="d-flex justify-content-between ddf rick-and-morty-nav">
                                         <span>{{ species }}</span>
@@ -196,7 +196,7 @@
                     </div>
                     <div class="col-md-6 mb-4">
                         <div class="card card-statistics">
-                            <div class="card-body">
+                            <div class="card-body ddf">
                                 <h5 class="card-title rick-and-morty-nav">Top 5 Locations</h5>
                                 <ul class="list-group list-group-flush">
                                     <li v-for="location in topLocations" :key="location.name"
@@ -210,8 +210,8 @@
                     </div>
                     <div class="col-md-6 mb-4">
                         <div class="card card-statistics">
-                            <div class="card-body">
-                                <h5 class="card-title">Gender Ratio</h5>
+                            <div class="card-body ddf">
+                                <h5 class="card-title rick-and-morty-nav">Gender Ratio</h5>
                                 <div v-for="(count, gender) in genderCount" :key="gender" class="mb-2">
                                     <div class="d-flex justify-content-between ddf rick-and-morty-nav">
                                         <span>{{ gender }}</span>
