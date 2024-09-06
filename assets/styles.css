@@ -20,7 +20,6 @@ body {
 }
 
 .banner {
-    background-image: url('./img/BANNER-RICK-Y-MORTY.jpg');
     background-size: cover;
     background-position: center top;
     height: 300px;
@@ -282,12 +281,22 @@ footer {
     font-size: 10px;
 }
 
-video{
+.video-details{
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.video-banner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 350px;
     object-fit: cover;
     z-index: -1;
 }
