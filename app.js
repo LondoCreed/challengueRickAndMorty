@@ -172,7 +172,7 @@ const app = Vue.createApp({
         },
 
     },
-
+     // Se define la carga de los datos segun la pagina y se obtiene los items guardados en el LocalStorage
     mounted() {
         const urlParams = new URLSearchParams(window.location.search)
         const page = urlParams.get('page')
@@ -191,7 +191,9 @@ const app = Vue.createApp({
 
         
     },
-
+// El bloque watch observa cambios en el valor de 'currentPage'. 
+// Si el nuevo valor es 'episodes', se ejecuta la función 'loadEpisodes(1)' 
+// para cargar los episodios desde la API en la página inicial.
     watch: {
         currentPage(newValue) {
             if (newValue === 'episodes') {
