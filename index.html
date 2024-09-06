@@ -38,6 +38,10 @@
                                 <a class="nav-link rick-and-morty-nav" href="#"
                                     @click="currentPage = 'stats'">Statistics</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link rick-and-morty-nav" href="#"
+                                    @click="currentPage = 'locations'">Locations</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -231,17 +235,23 @@
             </div>
 
             <div v-if="currentPage === 'details'" class="character-details">
-                <video class="video-details" src="./assets/img/4529413.mp4" autoplay muted loop type="video/mp4"></video>
+                <video class="video-details" src="./assets/img/4529413.mp4" autoplay muted loop
+                    type="video/mp4"></video>
                 <h2 class="text-center rick-and-morty-nav mb-4">Character Details</h2>
                 <div v-if="selectedCharacter" class="card details-card details-card-background mb-4">
                     <img :src="selectedCharacter.image" class="card-img-top" :alt="selectedCharacter.name">
                     <div class="card-body ddf">
                         <h3 class="card-title text-center rick-and-morty-nav">{{ selectedCharacter.name }}</h3>
-                        <p class="card-text text-center rick-and-morty-nav"><strong>Status:</strong> {{ selectedCharacter.status }}</p>
-                        <p class="card-text text-center rick-and-morty-nav"><strong>Species:</strong> {{ selectedCharacter.species }}</p>
-                        <p class="card-text text-center rick-and-morty-nav"><strong>Gender:</strong> {{ selectedCharacter.gender }}</p>
-                        <p class="card-text text-center rick-and-morty-nav"><strong>Origin:</strong> {{ selectedCharacter.origin.name }}</p>
-                        <p class="card-text text-center rick-and-morty-nav"><strong>Location:</strong> {{ selectedCharacter.location.name}}</p>
+                        <p class="card-text text-center rick-and-morty-nav"><strong>Status:</strong> {{
+                            selectedCharacter.status }}</p>
+                        <p class="card-text text-center rick-and-morty-nav"><strong>Species:</strong> {{
+                            selectedCharacter.species }}</p>
+                        <p class="card-text text-center rick-and-morty-nav"><strong>Gender:</strong> {{
+                            selectedCharacter.gender }}</p>
+                        <p class="card-text text-center rick-and-morty-nav"><strong>Origin:</strong> {{
+                            selectedCharacter.origin.name }}</p>
+                        <p class="card-text text-center rick-and-morty-nav"><strong>Location:</strong> {{
+                            selectedCharacter.location.name}}</p>
                     </div>
                 </div>
                 <div class="text-center">
@@ -264,6 +274,43 @@
                         </div>
                     </div>
                 </div>
+
+                <nav aria-label="Page navigation" class="d-flex justify-content-center mt-4"></nav>
+                    <ul class="pagination">
+                        <li class="page-item" :class="{ disabled: currentEpisodePage === 1 }">
+                            <a class="page-link" href="#" aria-label="Previous"
+                                @click.prevent="goToEpisodePage(currentEpisodePage - 1)">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li v-for="page in episodePaginationRange" :key="page" class="page-item"
+                            :class="{ active: page === currentEpisodePage }">
+                            <a class="page-link" href="#" @click.prevent="goToEpisodePage(page)">{{ page }}</a>
+                        </li>
+                        <li class="page-item" :class="{ disabled: currentEpisodePage === totalEpisodePages }">
+                            <a class="page-link" href="#" aria-label="Next"
+                                @click.prevent="goToEpisodePage(currentEpisodePage + 1)">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+                <div v-if="currentPage === 'locations'">
+                    <h2 class="text-center rick-and-morty-nav mb-4">Location List</h2>
+                    <div class="row">
+                        <div v-for="location in locations" :key="location.id" class="col-md-4 mb-3">
+                            <div class="card h-100 card-locations">
+                                <div class="card-body ddf">
+                                    <h5 class="card-title">{{ location.name }}</h5>
+                                    <p class="card-text"><strong>Type:</strong> {{ location.type }}</p>
+                                    <p class="card-text"><strong>Dimension:</strong> {{ location.dimension }}</p>
+                                    <p class="card-text"><strong>Residents:</strong> {{ location.residents.length }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                 <nav aria-label="Page navigation" class="d-flex justify-content-center mt-4">
                 <ul class="pagination">
