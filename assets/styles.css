@@ -159,6 +159,16 @@ body {
     color: #fff;
 }
 
+.card-location{
+    background-image: url('./img/prototipodetails.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 0.5rem;
+    color: #fff;
+    
+}
+
 
 .btn-primary {
     background-color: var(--rick-blue);

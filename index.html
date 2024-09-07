@@ -17,7 +17,7 @@
             <nav class="navbar navbar-expand-lg navbar-light">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="./index.html">
-                        <img src="./assets/img/58f37720a4fa116215a9240f.png" alt="Logo" width="120" height="30"
+                        <img src="./assets/img/logoNav.png" alt="Logo" width="120" height="30"
                             class="d-inline-block align-text-top">
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -235,7 +235,7 @@
             </div>
 
             <div v-if="currentPage === 'details'" class="character-details">
-                <video class="video-details" src="./assets/img/4529413.mp4" autoplay muted loop
+                <video class="video-details" src="./assets/img/videoDetails.mp4" autoplay muted loop
                     type="video/mp4"></video>
                 <h2 class="text-center rick-and-morty-nav mb-4">Character Details</h2>
                 <div v-if="selectedCharacter" class="card details-card details-card-background mb-4">
@@ -265,17 +265,18 @@
                     <div v-for="episode in episodes" :key="episode.id" class="col-md-4 mb-3">
                         <div class="card h-100 card-episodes">
                             <div class="card-body ddf">
-                                <h5 class="card-title">{{ episode.name }}</h5>
-                                <p class="card-text"><strong>Season:</strong> {{
+                                <h5 class="card-title text-center rick-and-morty-nav">{{ episode.name }}</h5>
+                                <p class="card-text rick-and-morty-nav"><strong>Season:</strong> {{
                                     episode.episode.split('S')[1].split('E')[0] }}</p>
-                                <p class="card-text"><strong>Episode:</strong> {{ episode.episode.split('E')[1] }}</p>
-                                <p class="card-text">{{ episode.air_date }}</p>
+                                <p class="card-text rick-and-morty-nav"><strong>Episode:</strong> {{ episode.episode.split('E')[1] }}</p>
+                                <p class="card-text rick-and-morty-nav">{{ episode.air_date }}</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <nav aria-label="Page navigation" class="d-flex justify-content-center mt-4"></nav>
+
                 <ul class="pagination">
                     <li class="page-item" :class="{ disabled: currentEpisodePage === 1 }">
                         <a class="page-link" href="#" aria-label="Previous"
