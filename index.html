@@ -302,12 +302,12 @@
                 <h2 class="text-center rick-and-morty-nav mb-4">Location List</h2>
                 <div class="row">
                     <div v-for="location in locations" :key="location.id" class="col-md-4 mb-3">
-                        <div class="card h-100 card-locations">
+                        <div class="card h-100 card-location">
                             <div class="card-body ddf">
-                                <h5 class="card-title">{{ location.name }}</h5>
-                                <p class="card-text"><strong>Type:</strong> {{ location.type }}</p>
-                                <p class="card-text"><strong>Dimension:</strong> {{ location.dimension }}</p>
-                                <p class="card-text"><strong>Residents:</strong> {{ location.residents.length }}</p>
+                                <h5 class="card-title text-center rick-and-morty-nav">{{ location.name }}</h5>
+                                <p class="card-text rick-and-morty-nav"><strong>Type:</strong> {{ location.type }}</p>
+                                <p class="card-text rick-and-morty-nav"><strong>Dimension:</strong> {{ location.dimension }}</p>
+                                <p class="card-text rick-and-morty-nav"><strong>Residents:</strong> {{ location.residents.length }}</p>
                             </div>
                         </div>
                     </div>
