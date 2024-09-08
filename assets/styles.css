@@ -5,10 +5,10 @@
 }
 
 :root {
-    --rick-green: #FCCA00;
-    --rick-brown: #88e23b;
+    --rick-yellow: #FCCA00;
+    --rick-green: #88e23b;
     --rick-blue: #00b5cc;
-    --rick-pink: #35cee5;
+    --rick-blue-sky: #35cee5;
 }
 
 body {
@@ -55,7 +55,7 @@ body {
 @import url('https://fonts.googleapis.com/css2?family=Get+Schwifty&display=swap');
 
 .navbar {
-    background-color: var(--rick-green) !important;
+    background-color: var(--rick-yellow) !important;
 }
 
 .rick-and-morty-nav {
@@ -176,8 +176,8 @@ body {
 }
 
 .btn-secondary {
-    background-color: var(--rick-pink);
-    border-color: var(--rick-pink);
+    background-color: var(--rick-blue-sky);
+    border-color: var(--rick-blue-sky);
 }
 
 .btn-primary:hover,
@@ -342,7 +342,7 @@ footer {
 }
 
 .season-card.active {
-    border: 2px solid var(--rick-green);
+    border: 2px solid var(--rick-yellow);
 }
 
 .card-title {
