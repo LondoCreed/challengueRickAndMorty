@@ -20,11 +20,21 @@ const app = Vue.createApp({
             totalEpisodePages: 0, // Páginas totales de paginación de episodios
             locations: [],
             currentLocationPage: 1,
+            selectedType: '',
+            types: [],
             totalLocationPages: 0,
         }
     },
 
     computed: {
+        filterLocations() {
+            return this.filteredLocations = this.locations.filter((location) => {
+              if (this.selectedType === '') {
+                return true;
+              }
+              return location.type === this.selectedType;
+            });
+          },
         locationPaginationRange() {
             const range = []
             const maxPages = 5
@@ -74,20 +84,18 @@ const app = Vue.createApp({
 
     methods: {
         async loadLocations(page = 1) {
-            console.log('Loading locations for page:', page);
             try {
                 const response = await fetch(`https://rickandmortyapi.com/api/location?page=${page}`);
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const data = await response.json();
-                console.log('Loaded locations:', data);
-                
                 
                 this.locations = data.results;
                 this.totalLocationPages = data.info.pages;
                 this.currentLocationPage = page;
-                console.log('Loaded locations:', this.locations);
+                this.types = [...new Set(this.locations.map((location) => location.type))];
+                this.filterLocations;
             } catch (error) {
                 console.error('Error fetching locations:', error);
             }
@@ -105,7 +113,7 @@ const app = Vue.createApp({
                 const data = await response.json()
                 this.characters = data.results
                 this.totalCharacters = data.info.count
-                this.allCharacters = this.characters.concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results)
+                this.allCharacters = this.characters.concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results)
                 this.totalPages = data.info.pages
                 this.currentPageNumber = page
                 this.calculateStats()
