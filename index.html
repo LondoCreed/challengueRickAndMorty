@@ -25,7 +25,7 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav ms-auto">
+                        <ul class="navbar-nav ms-lg-auto ms-3 ">
                             <li class="nav-item">
                                 <a class="nav-link rick-and-morty-nav" href="./index.html"
                                     @click="currentPage = 'home'">Home</a>
@@ -68,8 +68,8 @@
                     Morty's sister Summer, his mother Beth, his father Jerry, and a host of recurring characters and
                     alternate versions that add depth to the universe and plot.</p>
                 <div class="row justify-content-center align-items-center mb-4">
-                    <div class="col-md-4 mb-3">
-                        <input v-model="searchText" class="form-control input-warning" placeholder="Search Characters">
+                    <div class="col-md-4 mb-3 ">
+                        <input v-model="searchText" class="form-control input-warning " placeholder="Search Characters">
                     </div>
                     <div class="col-md-3 mb-3">
                         <div class="form-check">
@@ -268,7 +268,8 @@
                                 <h5 class="card-title text-center rick-and-morty-nav">{{ episode.name }}</h5>
                                 <p class="card-text rick-and-morty-nav"><strong>Season:</strong> {{
                                     episode.episode.split('S')[1].split('E')[0] }}</p>
-                                <p class="card-text rick-and-morty-nav"><strong>Episode:</strong> {{ episode.episode.split('E')[1] }}</p>
+                                <p class="card-text rick-and-morty-nav"><strong>Episode:</strong> {{
+                                    episode.episode.split('E')[1] }}</p>
                                 <p class="card-text rick-and-morty-nav">{{ episode.air_date }}</p>
                             </div>
                         </div>
@@ -306,8 +307,10 @@
                             <div class="card-body ddf">
                                 <h5 class="card-title text-center rick-and-morty-nav">{{ location.name }}</h5>
                                 <p class="card-text rick-and-morty-nav"><strong>Type:</strong> {{ location.type }}</p>
-                                <p class="card-text rick-and-morty-nav"><strong>Dimension:</strong> {{ location.dimension }}</p>
-                                <p class="card-text rick-and-morty-nav"><strong>Residents:</strong> {{ location.residents.length }}</p>
+                                <p class="card-text rick-and-morty-nav"><strong>Dimension:</strong> {{
+                                    location.dimension }}</p>
+                                <p class="card-text rick-and-morty-nav"><strong>Residents:</strong> {{
+                                    location.residents.length }}</p>
                             </div>
                         </div>
                     </div>
