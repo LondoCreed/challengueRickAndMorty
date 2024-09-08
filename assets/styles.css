@@ -1,9 +1,11 @@
+/* Diseño global de la aplicación */
 #app {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
+/* Variables de colores personalizados */
 :root {
     --rick-yellow: #FCCA00;
     --rick-green: #88e23b;
@@ -11,6 +13,7 @@
     --rick-blue-sky: #35cee5;
 }
 
+/* Estilos del cuerpo */
 body {
     background-image: url('../assets/img/fondo2.png');
     background-size: cover;
@@ -19,6 +22,7 @@ body {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
+/* Estilos del banner */
 .banner {
     background-image: url();
     background-size: cover;
@@ -52,8 +56,10 @@ body {
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
+/* Importación de fuente personalizada */
 @import url('https://fonts.googleapis.com/css2?family=Get+Schwifty&display=swap');
 
+/* Estilos de la barra de navegación */
 .navbar {
     background-color: var(--rick-yellow) !important;
 }
@@ -82,6 +88,7 @@ body {
         1px 1px 0 #00b0c8;
 }
 
+/* Estilos del texto de Rick and Morty */
 .rick-and-morty-text h1 {
     font-family: 'Get Schwifty', cursive;
     font-size: 2.5rem;
@@ -119,6 +126,7 @@ body {
     letter-spacing: 0.5px;
 }
 
+/* Estilos de las tarjetas */
 .card {
     transition: transform 0.3s ease-in-out;
     border: none;
@@ -131,7 +139,11 @@ body {
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
 
-.card-cards-background {
+/* Estilos de fondo de las tarjetas */
+.card-cards-background,
+.card-episodes,
+.card-statistics,
+.card-location {
     background-image: url('./img/prototipodetails.jpeg');
     background-size: cover;
     background-position: center;
@@ -140,36 +152,7 @@ body {
     color: #ffffff;
 }
 
-.card-episodes{
-    background-image: url('./img/prototipodetails.jpeg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    border-radius: 0.5rem;
-    color: #fff;
-    
-}
-
-.card-statistics{
-    background-image: url('./img/prototipodetails.jpeg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    border-radius: 0.5rem;
-    color: #fff;
-}
-
-.card-location{
-    background-image: url('./img/prototipodetails.jpeg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    border-radius: 0.5rem;
-    color: #fff;
-    
-}
-
-
+/* Estilos de los botones */
 .btn-primary {
     background-color: var(--rick-blue);
     border-color: var(--rick-blue);
@@ -185,10 +168,12 @@ body {
     opacity: 0.9;
 }
 
+/* Estilos del pie de página */
 footer {
     background-color: #FCCA00;
 }
 
+/* Estilos del modal */
 .modal-content-bg {
     background-image: url('../assets/img/fondo2.png');
     background-size: cover;
@@ -196,6 +181,7 @@ footer {
     background-attachment: fixed;
 }
 
+/* Estilos de la tarjeta de detalles */
 .details-card {
     max-width: 400px;
     margin: auto;
@@ -218,6 +204,7 @@ footer {
     border-radius: 0.5rem;
 }
 
+/* Estilos del botón flotante */
 #favoritesFloatButton {
     position: fixed;
     bottom: 70px;
@@ -232,6 +219,7 @@ footer {
     font-size: 10px;
 }
 
+/* Tamaños de imágenes */
 .Rick {
     width: 40%;
 }
@@ -251,6 +239,7 @@ footer {
     height: 24px;
 }
 
+/* Estilos responsivos */
 @media (max-width: 991.98px) {
     footer .users {
         font-size: 0.8rem !important;
@@ -277,8 +266,8 @@ footer {
     }
 }
 
-
-.ddd{
+/* Estilos adicionales */
+.ddd {
     position: fixed;
     bottom: 80px;
     right: 20px;
@@ -292,7 +281,9 @@ footer {
     font-size: 10px;
 }
 
-.video-details{
+/* Estilos de video */
+.video-details,
+.video-banner {
     position: fixed;
     top: 0;
     left: 0;
@@ -302,27 +293,19 @@ footer {
     z-index: -1;
 }
 
-.video-banner {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -1;
-}
-
+/* Estilo del botón de cierre */
 .btn-close {
-    filter: invert(1); /* Esto cambia el color del icono a blanco */
+    filter: invert(1); /* Cambia el color del icono a blanco */
 }
 
+/* Estilos de las tarjetas de temporada */
 .season-card {
     width: 200px;
     height: 390px;
     background-image: url('./img/fondobtn.png');
     background-size: cover;
     background-position: center;
-    background-color: transparent; /* Asegura que el fondo sea transparente */
+    background-color: transparent;
     cursor: pointer;
     display: flex;
     align-items: center;
