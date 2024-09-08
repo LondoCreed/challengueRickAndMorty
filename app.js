@@ -10,10 +10,14 @@ const app = Vue.createApp({
             favorites: [], // Espacio para localStorage
             currentPageNumber: 1, // Paginación personajes
             totalPages: 0, // Páginas totales de paginación
+            topLocations: [], // Espacio para ubicaciones comunes
+            isPlaying: false, // Estado inicial de reproducción de música
             episodes: [], // Espacio para episodios obtenidos de la data(API)
+            selectedSeason: null, // Temporada seleccionada
+            totalSeasons: 5, // Número total de temporadas (puedes ajustar según sea necesario)
+            filteredEpisodes: [], // Episodios filtrados por temporada
             currentEpisodePage: 1, // Paginación episodios
             totalEpisodePages: 0, // Páginas totales de paginación de episodios
-            topLocations: [], // Espacio para ubicaciones comunes
             locations: [],
             currentLocationPage: 1,
             totalLocationPages: 0,
@@ -40,6 +44,7 @@ const app = Vue.createApp({
                 return matchesSearch && matchesFilter
             })
         },
+
         // Rango de páginas para personajes (5 números de página)
         paginationRange() {
             const range = []
@@ -52,6 +57,7 @@ const app = Vue.createApp({
             }
             return range
         },
+
         // Rango de páginas para episodios (5 números de página)
         episodePaginationRange() {
             const range = []
@@ -107,18 +113,35 @@ const app = Vue.createApp({
                 console.error('Error fetching characters:', error)
             }
         },
+
+        
+        filterEpisodesBySeason(season) {
+            this.selectedSeason = season
+            this.filteredEpisodes = this.episodes.filter(episode => {
+                const seasonNumber = episode.episode.split('S')[1]?.split('E')[0]
+                return seasonNumber == season
+            })
+        },
+
+
         // Obtenemos episodios de la API y actualiza elementos data de la app
         async loadEpisodes(page = 1) {
             try {
                 const response = await fetch(`https://rickandmortyapi.com/api/episode?page=${page}`)
                 const data = await response.json()
-                this.episodes = data.results
+                this.episodes = this.episodes.concat(data.results)
                 this.totalEpisodePages = data.info.pages
                 this.currentEpisodePage = page
+        
+                // Si hay más páginas, carga la siguiente
+                if (page < this.totalEpisodePages) {
+                    this.loadEpisodes(page + 1)
+                }
             } catch (error) {
                 console.error('Error fetching episodes:', error)
             }
         },
+
         // Calculamos estadísticas
         calculateStats() {
             this.statusCount = this.allCharacters.reduce((acc, char) => {
@@ -130,6 +153,7 @@ const app = Vue.createApp({
                 acc[char.species] = (acc[char.species] || 0) + 1
                 return acc
             }, {})
+
             const locationCount = this.allCharacters.reduce((acc, char) => {
                 acc[char.location.name] = (acc[char.location.name] || 0) + 1
                 return acc
@@ -144,15 +168,18 @@ const app = Vue.createApp({
                 return acc
             }, {})
         },
+
         // Realizamos el cambio de página a detalles tomando en cuenta el personaje seleccionado
         showDetails(character) {
             this.selectedCharacter = character
             this.currentPage = 'details'
         },
+
         // Verifica si un personaje está en favoritos
         isFavorite(character) {
             return this.favorites.some(fav => fav.id === character.id)
         },
+
         // Alternamos el estado de favoritos del personaje
         toggleFavorite(character) {
             if (this.isFavorite(character)) {
@@ -161,6 +188,7 @@ const app = Vue.createApp({
                 this.addToFavorites(character)
             }
         },
+
         // Añadimos personaje a favoritos
         addToFavorites(character) {
             if (!this.isFavorite(character)) {
@@ -168,20 +196,24 @@ const app = Vue.createApp({
                 this.saveFavorites()
             }
         },
+
         // Eliminamos personaje de favoritos
         removeFromFavorites(character) {
             this.favorites = this.favorites.filter(fav => fav.id !== character.id)
             this.saveFavorites()
         },
+
         // Guardamos favoritos en local storage
         saveFavorites() {
             localStorage.setItem('favorites', JSON.stringify(this.favorites))
         },
+
         // Para abrir el modal de favoritos con Bootstrap
         openFavoritesModal() {
             const modal = new bootstrap.Modal(document.getElementById('favoritesModal'))
             modal.show()
         },
+
         changePage(page) {
             console.log('Changing page to:', page);
             this.currentPage = page;
@@ -203,6 +235,7 @@ const app = Vue.createApp({
                 this.fetchCharacters(page)
             }
         },
+
         // Cambiamos de página en episodios
         goToEpisodePage(page) {
             if (page >= 1 && page <= this.totalEpisodePages) {
@@ -210,6 +243,19 @@ const app = Vue.createApp({
             }
         },
     },
+
+    // Alterna entre reproducir y pausar la música de fondo
+    toggleMusic() {
+        const audio = document.getElementById('background-audio')
+        if (audio.paused) {
+            audio.play()
+            this.isPlaying = true
+        } else {
+            audio.pause()
+            this.isPlaying = false
+        }
+    },
+
      // Se define la carga de los datos segun la pagina y se obtiene los items guardados en el LocalStorage
     mounted() {
         const urlParams = new URLSearchParams(window.location.search)
