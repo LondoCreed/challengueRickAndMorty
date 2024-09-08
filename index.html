@@ -316,6 +316,28 @@
                         </div>
                     </div>
                 </div>
+                <nav v-if="locations.length > 0" aria-label="Page navigation" class="d-flex justify-content-center mt-4">
+                    <ul class="pagination">
+                        <!-- Botón para ir a la página anterior -->
+                        <li class="page-item" :class="{ disabled: currentLocationPage === 1 }">
+                            <a class="page-link" href="#" aria-label="Previous" @click.prevent="goToLocationPage(currentLocationPage - 1)">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                
+                        <!-- Números de las páginas -->
+                        <li v-for="page in locationPaginationRange" :key="page" class="page-item" :class="{ active: page === currentLocationPage }">
+                            <a class="page-link" href="#" @click.prevent="goToLocationPage(page)">{{ page }}</a>
+                        </li>
+                
+                        <!-- Botón para ir a la página siguiente -->
+                        <li class="page-item" :class="{ disabled: currentLocationPage === totalLocationPages }">
+                            <a class="page-link" href="#" aria-label="Next" @click.prevent="goToLocationPage(currentLocationPage + 1)">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
 
             <!-- Seccion de episodios-->
