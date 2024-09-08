@@ -29,16 +29,10 @@ Rick and Morty Explorer es una aplicación web interactiva que permite a los usu
 ## Uso
 - Explora la lista de personajes utilizando los controles de paginación en la parte inferior y superior de la página.
 - Utiliza la barra de búsqueda para encontrar personajes específicos por nombre.
-- Aplica filtros para mejorar tu búsqueda por estado, especie, género o tipo.
-- Haz clic en un personaje para ver información detallada.
-- Marca personajes como favoritos haciendo clic en el botón "Añadir a favoritos" en la tarjeta del personaje.
-- Accede a tus personajes favoritos haciendo clic en "Favoritos" en la barra de navegación.
-- Explora las estadísticas interactivas haciendo clic en "Estadísticas" en la barra de navegación.
-- Navega a la sección de "Episodios" para ver una lista de todos los episodios y sus detalles.
-- Visita la página de "Ubicaciones" para descubrir los diferentes lugares del multiverso de Rick and Morty.
-
-## Herramientas Utilizadas
-- [Rick and Morty API](https://rickandmortyapi.com/) por proporcionar los datos de la serie
-- [Vue.js](https://vuejs.org/) por el framework reactivo
-- [Bootstrap](https://getbootstrap.com/) por el sistema de diseño responsive
-- [Chart.js](https://www.chartjs.org/) por las herramientas de visualización de datos
+- Aplica filtro para mejorar tu búsqueda por "only living characters".
+- Haz clic en "View Details" para obtener información adicional sobre un personaje.
+- Marca personajes como favoritos haciendo clic en el botón "Add to Favorites" en la tarjeta del personaje.
+- Accede a tus personajes favoritos haciendo clic en "Favorites" en la barra de navegación.
+- Navega a la sección de "Episodes" para ver una lista de todos los episodios y sus detalles.
+- Visita la página de "Locations" para descubrir los diferentes lugares del multiverso de Rick and Morty.
+- Explora las estadísticas interactivas haciendo clic en "Statistics" en la barra de navegación.
