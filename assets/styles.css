@@ -1,11 +1,11 @@
-/* Diseño global de la aplicación */
+/* Estilo global para el contenedor principal de la aplicación */
 #app {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
-/* Variables de colores personalizados */
+/* Definición de variables de color personalizadas */
 :root {
     --rick-yellow: #FCCA00;
     --rick-green: #88e23b;
@@ -13,7 +13,7 @@
     --rick-blue-sky: #35cee5;
 }
 
-/* Estilos del cuerpo */
+/* Estilos generales para el body */
 body {
     background-image: url('../assets/img/fondo2.png');
     background-size: cover;
@@ -22,7 +22,7 @@ body {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-/* Estilos del banner */
+/* Estilos para el banner */
 .banner {
     background-image: url();
     background-size: cover;
@@ -31,6 +31,7 @@ body {
     position: relative;
 }
 
+/* Superposición oscura para el banner */
 .banner::before {
     content: '';
     position: absolute;
@@ -41,6 +42,7 @@ body {
     background: rgba(0, 0, 0, 0.5);
 }
 
+/* Contenido del banner */
 .banner-content {
     position: relative;
     z-index: 1;
@@ -59,11 +61,12 @@ body {
 /* Importación de fuente personalizada */
 @import url('https://fonts.googleapis.com/css2?family=Get+Schwifty&display=swap');
 
-/* Estilos de la barra de navegación */
+/* Estilos para la barra de navegación */
 .navbar {
     background-color: var(--rick-yellow) !important;
 }
 
+/* Estilos para los elementos de navegación */
 .rick-and-morty-nav {
     font-family: 'Get Schwifty', cursive;
     font-size: 1.2rem;
@@ -78,6 +81,7 @@ body {
     transition: all 0.3s ease;
 }
 
+/* Efecto hover para los elementos de navegación */
 .rick-and-morty-nav:hover {
     transform: scale(1.1);
     color: #39ff14 !important;
@@ -88,7 +92,7 @@ body {
         1px 1px 0 #00b0c8;
 }
 
-/* Estilos del texto de Rick and Morty */
+/* Estilos para el texto principal de Rick and Morty */
 .rick-and-morty-text h1 {
     font-family: 'Get Schwifty', cursive;
     font-size: 2.5rem;
@@ -102,6 +106,7 @@ body {
     text-transform: uppercase;
 }
 
+/* Efecto hover para el texto principal */
 .rick-and-morty-text h1:hover {
     color: #39ff14;
     text-shadow: 
@@ -112,6 +117,7 @@ body {
     transition: all 0.3s ease;
 }
 
+/* Estilos para el primer párrafo del texto de Rick and Morty */
 .rick-and-morty-text > p:first-of-type {
     font-family: 'Creepster', cursive;
     font-size: 1.2rem;
@@ -126,7 +132,7 @@ body {
     letter-spacing: 0.5px;
 }
 
-/* Estilos de las tarjetas */
+/* Estilos generales para las tarjetas */
 .card {
     transition: transform 0.3s ease-in-out;
     border: none;
@@ -134,16 +140,14 @@ body {
     box-shadow: 0 0.125rem 0.45rem rgba(0, 0, 0, 0.075);
 }
 
+/* Efecto hover para las tarjetas */
 .card:hover {
     transform: translateY(-0.35rem);
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
 
-/* Estilos de fondo de las tarjetas */
-.card-cards-background,
-.card-episodes,
-.card-statistics,
-.card-location {
+/* Estilos para los fondos de diferentes tipos de tarjetas */
+.card-cards-background {
     background-image: url('./img/prototipodetails.jpeg');
     background-size: cover;
     background-position: center;
@@ -152,7 +156,34 @@ body {
     color: #ffffff;
 }
 
-/* Estilos de los botones */
+.card-episodes{
+    background-image: url('./img/prototipodetails.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 0.5rem;
+    color: #fff;
+}
+
+.card-statistics{
+    background-image: url('./img/prototipodetails.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 0.5rem;
+    color: #fff;
+}
+
+.card-location{
+    background-image: url('./img/prototipodetails.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 0.5rem;
+    color: #fff;
+}
+
+/* Estilos para botones */
 .btn-primary {
     background-color: var(--rick-blue);
     border-color: var(--rick-blue);
@@ -168,12 +199,12 @@ body {
     opacity: 0.9;
 }
 
-/* Estilos del pie de página */
+/* Estilo para el footer */
 footer {
     background-color: #FCCA00;
 }
 
-/* Estilos del modal */
+/* Estilo para el fondo del contenido modal */
 .modal-content-bg {
     background-image: url('../assets/img/fondo2.png');
     background-size: cover;
@@ -181,7 +212,7 @@ footer {
     background-attachment: fixed;
 }
 
-/* Estilos de la tarjeta de detalles */
+/* Estilos para la tarjeta de detalles */
 .details-card {
     max-width: 400px;
     margin: auto;
@@ -204,7 +235,7 @@ footer {
     border-radius: 0.5rem;
 }
 
-/* Estilos del botón flotante */
+/* Estilos para el botón flotante de favoritos */
 #favoritesFloatButton {
     position: fixed;
     bottom: 70px;
@@ -219,7 +250,7 @@ footer {
     font-size: 10px;
 }
 
-/* Tamaños de imágenes */
+/* Estilos para imágenes específicas */
 .Rick {
     width: 40%;
 }
@@ -266,8 +297,8 @@ footer {
     }
 }
 
-/* Estilos adicionales */
-.ddd {
+/* Estilo adicional para un elemento flotante */
+.ddd{
     position: fixed;
     bottom: 80px;
     right: 20px;
@@ -281,9 +312,8 @@ footer {
     font-size: 10px;
 }
 
-/* Estilos de video */
-.video-details,
-.video-banner {
+/* Estilos para videos de fondo */
+.video-details{
     position: fixed;
     top: 0;
     left: 0;
@@ -293,12 +323,22 @@ footer {
     z-index: -1;
 }
 
-/* Estilo del botón de cierre */
+.video-banner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+/* Estilo para el botón de cierre */
 .btn-close {
     filter: invert(1); /* Cambia el color del icono a blanco */
 }
 
-/* Estilos de las tarjetas de temporada */
+/* Estilos para las tarjetas de temporada */
 .season-card {
     width: 200px;
     height: 390px;
