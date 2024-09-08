@@ -85,17 +85,22 @@ const app = Vue.createApp({
     methods: {
         async loadLocations(page = 1) {
             try {
-                const response = await fetch(`https://rickandmortyapi.com/api/location?page=${page}`);
+                const url = `https://rickandmortyapi.com/api/location?page=${page}`;
+                const response = await fetch(url);
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const data = await response.json();
+    
+                this.locations = data.results; // Actualiza la lista de localizaciones
+                this.totalLocationPages = data.info.pages; // Actualiza el total de páginas
+                this.currentLocationPage = page; // Actualiza la página actual
                 
-                this.locations = data.results;
-                this.totalLocationPages = data.info.pages;
-                this.currentLocationPage = page;
-                this.types = [...new Set(this.locations.map((location) => location.type))];
-                this.filterLocations;
+                // Genera los tipos únicos de ubicación
+                this.types = [...new Set(this.locations.map(location => location.type))];
+                
+                // Filtra las ubicaciones según el filtro establecido
+                this.filterLocations();
             } catch (error) {
                 console.error('Error fetching locations:', error);
             }
@@ -103,8 +108,9 @@ const app = Vue.createApp({
     
         goToLocationPage(page) {
             if (page >= 1 && page <= this.totalLocationPages) {
-                this.loadLocations(page);
+                this.loadLocations(page); // Carga las localizaciones de la página seleccionada
             }
+        
         },
         // Obtenemos personajes de la API y actualiza elementos data de la app
         async fetchCharacters(page = 1) {
@@ -266,26 +272,26 @@ const app = Vue.createApp({
 
      // Se define la carga de los datos segun la pagina y se obtiene los items guardados en el LocalStorage
     mounted() {
-        const urlParams = new URLSearchParams(window.location.search)
-        const page = urlParams.get('page');
+        const urlParams = new URLSearchParams(window.location.search);
+    const page = urlParams.get('page');
 
-        console.log('Initial page:', page);
+    console.log('Initial page:', page);
 
-        if (page === 'episodes') {
-            this.currentPage = 'episodes';
-            this.loadEpisodes(1);
-        } else if (page === 'locations') {
-            this.currentPage = 'locations';
-            this.loadLocations(1);
-        } else {
-            this.currentPage = 'home';
-            this.fetchCharacters();
-        }
+    if (page === 'episodes') {
+        this.currentPage = 'episodes';
+        this.loadEpisodes(1);
+    } else if (page === 'locations') {
+        this.currentPage = 'locations';
+        this.loadLocations(1); // Carga la primera página de localizaciones
+    } else {
+        this.currentPage = 'home';
+        this.fetchCharacters();
+    }
 
-        const storedFavorites = localStorage.getItem('favorites')
-        if (storedFavorites) {
-            this.favorites = JSON.parse(storedFavorites)
-        }
+    const storedFavorites = localStorage.getItem('favorites');
+    if (storedFavorites) {
+        this.favorites = JSON.parse(storedFavorites);
+    }
 
         
     },
