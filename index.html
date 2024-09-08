@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,8 +11,10 @@
 </head>
 
 <body class="d-flex flex-column min-vh-100">
+    <!-- Aplicamos la app de Vue a un contenedor padre-->
     <div id="app">
         <header>
+            <!--Barrade navegación-->
             <nav class="navbar navbar-expand-lg navbar-light">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="./index.html">
@@ -34,7 +35,7 @@
                                 <a class="nav-link rick-and-morty-nav" href="#"
                                     @click="currentPage = 'episodes'">Episodes</a>
                             </li>
-                            <li class="nav-item"></li>
+                            <li class="nav-item">
                             <a class="nav-link rick-and-morty-nav" href="#"
                                 @click="currentPage = 'locations'">Locations</a>
                             </li>
@@ -46,16 +47,17 @@
                     </div>
                 </div>
             </nav>
+            <!--Seccion de home-->
             <div v-if="currentPage === 'home'" class="banner d-flex align-items-center justify-content-center">
                 <video class="video-banner" src="./assets/img/NewRick.mp4" autoplay muted loop type="video/mp4"></video>
                 <div class="banner-content">
-                    <!-- Contenido del banner si es necesario -->
-
+                    <!-- Desplegue del banner -->
                 </div>
             </div>
         </header>
 
         <main class="container mt-4 flex-grow-1">
+            <!--Continua seccion de home-->
             <div v-if="currentPage === 'home'" class="rick-and-morty-text">
                 <h1 class="text-center mb-4">Welcome to Rick and Morty Universe</h1>
                 <p class="text-warning text-center mb-5">Rick and Morty is an animated science fiction comedy series
@@ -68,6 +70,7 @@
                     Morty's sister Summer, his mother Beth, his father Jerry, and a host of recurring characters and
                     alternate versions that add depth to the universe and plot.</p>
                 <div class="row justify-content-center align-items-center mb-4">
+                    <!-- Filtros-->
                     <div class="col-md-4 mb-3 ">
                         <input v-model="searchText" class="form-control input-warning " placeholder="Search Characters">
                     </div>
@@ -80,7 +83,7 @@
                         </div>
                     </div>
                 </div>
-
+                 <!-- Paginacion superior-->
                 <nav v-if="filteredCharacters.length > 0" aria-label="Page navigation"
                     class="d-flex justify-content-center mt-4">
                     <ul class="pagination">
@@ -102,7 +105,7 @@
                         </li>
                     </ul>
                 </nav>
-
+                 <!-- Cards-->
                 <div v-if="filteredCharacters.length === 0" class="text-center mt-5">
                     <h3 class="text-warning p-3">No characters found!</h3>
                     <img class="Rick img-fluid" src="./assets/img/PaginaLimpia.png" alt="No encontrado">
@@ -128,11 +131,11 @@
                         </div>
                     </div>
                 </div>
-
+                 <!-- boton para favoritos-->
                 <button id="favoritesFloatButton" @click="openFavoritesModal" class="btn btn-primary mt-3">
                     Favorites
                 </button>
-
+                 <!-- paginacion inferior-->
                 <nav v-if="filteredCharacters.length > 0" aria-label="Page navigation"
                     class="d-flex justify-content-center mt-4">
                     <ul class="pagination">
@@ -155,9 +158,9 @@
                     </ul>
                 </nav>
             </div>
-
+            
+            <!-- Sección de estadísticas -->
             <div v-if="currentPage === 'stats'">
-
                 <h2 class="text-center rick-and-morty-nav mb-4">Character Statistics</h2>
                 <div class="row">
                     <div class="col-md-6 mb-4">
@@ -233,7 +236,7 @@
                     </div>
                 </div>
             </div>
-
+            <!--Seccion de detalles-->
             <div v-if="currentPage === 'details'" class="character-details">
                 <video class="video-details" src="./assets/img/videoDetails.mp4" autoplay muted loop
                     type="video/mp4"></video>
@@ -254,11 +257,12 @@
                             selectedCharacter.location.name}}</p>
                     </div>
                 </div>
+                 <!--Boton para regresar-->
                 <div class="text-center">
                     <button @click="currentPage = 'home'" class="btn btn-primary ddd">Back to list</button>
                 </div>
             </div>
-
+            <!-- Seccion de localizacion-->
             <div v-if="currentPage === 'locations'">
                 <h2 class="text-center rick-and-morty-nav mb-4">Location List</h2>
                 <div class="row">
@@ -276,6 +280,8 @@
                     </div>
                 </div>
             </div>
+
+             <!-- Seccion de episodios-->
             <div v-if="currentPage === 'episodes'">
                 <h2 class="text-center rick-and-morty-nav mb-4">Episode list</h2>
 
@@ -305,7 +311,7 @@
             </div>
 
         </main>
-
+        
         <footer class="container-fluid mt-auto">
             <div class="row align-items-center">
                 <div class="col-4 col-md-3 text-center">
