@@ -312,27 +312,6 @@
                         </div>
                     </div>
                 </div>
-
-                <nav aria-label="Page navigation" class="d-flex justify-content-center mt-4">
-                    <ul class="pagination">
-                        <li class="page-item" :class="{ disabled: currentEpisodePage === 1 }">
-                            <a class="page-link" href="#" aria-label="Previous"
-                                @click.prevent="goToEpisodePage(currentEpisodePage - 1)">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li v-for="page in episodePaginationRange" :key="page" class="page-item"
-                            :class="{ active: page === currentEpisodePage }">
-                            <a class="page-link" href="#" @click.prevent="goToEpisodePage(page)">{{ page }}</a>
-                        </li>
-                        <li class="page-item" :class="{ disabled: currentEpisodePage === totalEpisodePages }">
-                            <a class="page-link" href="#" aria-label="Next"
-                                @click.prevent="goToEpisodePage(currentEpisodePage + 1)">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
             </div>
         </main>
 
