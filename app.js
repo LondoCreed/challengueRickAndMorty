@@ -27,15 +27,7 @@ const app = Vue.createApp({
     },
 
     computed: {
-        // Filtramos las localizaciones por tipo
-        filterLocations() {
-            return this.filteredLocations = this.locations.filter((location) => {
-                if (this.selectedType === '') {
-                    return true;
-                }
-                return location.type === this.selectedType;
-            });
-        },
+        
         locationPaginationRange() {
             const range = [];
             const maxPages = 3;
@@ -80,7 +72,10 @@ const app = Vue.createApp({
                 range.push(i);
             }
             return range;
-        }
+        },
+        filterLocations() {
+            return this.locations; // Devuelve directamente la lista de ubicaciones
+        },
     },
 
     methods: {
@@ -90,16 +85,15 @@ const app = Vue.createApp({
                 const url = `https://rickandmortyapi.com/api/location?page=${page}`;
                 const response = await fetch(url);
                 const data = await response.json();
-
+    
                 this.locations = data.results; // Actualiza la lista de localizaciones
                 this.totalLocationPages = data.info.pages; // Actualiza el total de páginas
                 this.currentLocationPage = page; // Actualiza la página actual
-
+    
                 // Genera los tipos únicos de ubicación
                 this.types = [...new Set(this.locations.map(location => location.type))];
-
-                // Filtra las ubicaciones según el filtro establecido
-                this.filterLocations();
+    
+                // No es necesario filtrar, ya que estamos mostrando todas las ubicaciones
             } catch (error) {
                 console.error('Error fetching locations:', error);
             }
@@ -257,18 +251,6 @@ const app = Vue.createApp({
                 this.loadEpisodes(page);
             }
         },
-    },
-
-    // Alterna entre reproducir y pausar la música de fondo
-    toggleMusic() {
-        const audio = document.getElementById('background-audio');
-        if (audio.paused) {
-            audio.play();
-            this.isPlaying = true;
-        } else {
-            audio.pause();
-            this.isPlaying = false;
-        }
     },
 
     // Se define la carga de los datos según la página y se obtiene los items guardados en el localStorage
