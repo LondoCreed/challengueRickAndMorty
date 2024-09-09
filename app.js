@@ -4,7 +4,7 @@ const app = Vue.createApp({
     data() {
         return {
             characters: [], // Espacio para los personajes obtenidos de la API
-            searchText: '', // Texto de búsqueda
+            searchText: '', // Texto de búsqueda para personajes
             filterAlive: false, // Filtro vivos
             totalCharacters: 0, // Total de personajes
             currentPage: 'home', // Página actual de la app
@@ -19,12 +19,14 @@ const app = Vue.createApp({
             filteredEpisodes: [], // Episodios filtrados por temporada
             currentEpisodePage: 1, // Paginación episodios
             totalEpisodePages: 0, // Páginas totales de paginación de episodios
+            episodeSearchText: '', // Texto de búsqueda para episodios
             locations: [], // Espacio para localizaciones obtenidas de la API
             currentLocationPage: 1, // Paginación de localizaciones
             types: [], // Lista de tipos de localizaciones
             totalLocationPages: 0, // Páginas totales de localizaciones
             selectedType: null, // Tipo de ubicación seleccionado
             filteredLocations: [], // Ubicaciones filtradas por tipo
+            locationSearchText: '', // Texto de búsqueda para ubicaciones
         }
     },
 
@@ -74,6 +76,46 @@ const app = Vue.createApp({
             }
             return range;
         },
+        // Filtra episodios por texto de búsqueda y temporada seleccionada
+        filteredEpisodeList() {
+            let filtered = this.episodes;
+            
+            if (this.episodeSearchText) {
+                const searchText = this.episodeSearchText.toLowerCase();
+                filtered = filtered.filter(episode => 
+                    episode.name.toLowerCase().includes(searchText) ||
+                    episode.episode.toLowerCase().includes(searchText)
+                );
+            }
+            
+            if (this.selectedSeason) {
+                filtered = filtered.filter(episode => {
+                    const seasonNumber = episode.episode.split('S')[1]?.split('E')[0];
+                    return seasonNumber == this.selectedSeason;
+                });
+            }
+            
+            return filtered;
+        },
+        // Filtra ubicaciones por texto de búsqueda y tipo seleccionado
+        filteredLocationList() {
+            let filtered = this.locations;
+            
+            if (this.locationSearchText) {
+                const searchText = this.locationSearchText.toLowerCase();
+                filtered = filtered.filter(location => 
+                    location.name.toLowerCase().includes(searchText) ||
+                    location.type.toLowerCase().includes(searchText) ||
+                    location.dimension.toLowerCase().includes(searchText)
+                );
+            }
+            
+            if (this.selectedType) {
+                filtered = filtered.filter(location => location.type === this.selectedType);
+            }
+            
+            return filtered;
+        },
     },
 
     // Métodos de la aplicación
@@ -86,10 +128,10 @@ const app = Vue.createApp({
                 const data = await response.json();
 
                 this.locations = data.results;
-                this.filteredLocations = data.results;
                 this.totalLocationPages = data.info.pages;
                 this.currentLocationPage = page;
                 this.types = [...new Set(this.locations.map(location => location.type))];
+                this.updateFilteredLocations();
             } catch (error) {
                 console.error('Error fetching locations:', error);
             }
@@ -97,10 +139,13 @@ const app = Vue.createApp({
 
         // Filtra las ubicaciones por tipo
         filterLocationsByType(type) {
-            this.selectedType = type;
-            this.filteredLocations = this.locations.filter(location => {
-                return location.type === type;
-            });
+            this.selectedType = type === this.selectedType ? null : type;
+            this.updateFilteredLocations();
+        },
+
+        // Actualiza la lista de ubicaciones filtradas
+        updateFilteredLocations() {
+            this.filteredLocations = this.filteredLocationList;
         },
 
         // Cambiamos de página en ubicaciones
@@ -129,11 +174,13 @@ const app = Vue.createApp({
 
         // Filtramos episodios por temporada
         filterEpisodesBySeason(season) {
-            this.selectedSeason = season;
-            this.filteredEpisodes = this.episodes.filter(episode => {
-                const seasonNumber = episode.episode.split('S')[1]?.split('E')[0];
-                return seasonNumber == season;
-            });
+            this.selectedSeason = season === this.selectedSeason ? null : season;
+            this.updateFilteredEpisodes();
+        },
+
+        // Actualiza la lista de episodios filtrados
+        updateFilteredEpisodes() {
+            this.filteredEpisodes = this.filteredEpisodeList;
         },
 
         // Obtenemos episodios de la API y actualiza elementos data de la app
@@ -146,7 +193,9 @@ const app = Vue.createApp({
                 this.currentEpisodePage = page;
 
                 if (page < this.totalEpisodePages) {
-                    this.loadEpisodes(page + 1);
+                    await this.loadEpisodes(page + 1);
+                } else {
+                    this.updateFilteredEpisodes();
                 }
             } catch (error) {
                 console.error('Error fetching episodes:', error);
@@ -249,7 +298,8 @@ const app = Vue.createApp({
         // Cambiamos de página en episodios
         goToEpisodePage(page) {
             if (page >= 1 && page <= this.totalEpisodePages) {
-                this.loadEpisodes(page);
+                this.currentEpisodePage = page;
+                this.updateFilteredEpisodes();
             }
         },
     },
@@ -276,7 +326,7 @@ const app = Vue.createApp({
         }
     },
 
-    // El bloque watch observa cambios en el valor de 'currentPage'.
+    // El bloque watch observa cambios en ciertos valores
     watch: {
         currentPage(newValue) {
             if (newValue === 'episodes') {
@@ -284,6 +334,14 @@ const app = Vue.createApp({
             } else if (newValue === 'locations') {
                 this.loadLocations(1);
             }
+        },
+        // Observa cambios en el texto de búsqueda de episodios y actualiza la lista filtrada
+        episodeSearchText() {
+            this.updateFilteredEpisodes();
+        },
+        // Observa cambios en el texto de búsqueda de ubicaciones y actualiza la lista filtrada
+        locationSearchText() {
+            this.updateFilteredLocations();
         }
     }
 });
