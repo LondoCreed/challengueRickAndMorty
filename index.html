@@ -19,8 +19,8 @@
             <nav class="navbar navbar-expand-lg navbar-light">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">
-                        <img src="./assets/img/logoNav.png" alt="Logo" width="120" height="30"
-                            class="d-inline-block align-text-top">
+                        <img src="./assets/img/logoNav.png" alt="Logo" 
+                            class="d-inline-block align-text-top logoImg">
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -273,23 +273,27 @@
             <div v-if="currentPage === 'locations'">
                 <h2 class="text-center rick-and-morty-nav mb-4">Location List</h2>
                 <div class="row">
-                    <nav v-if="locations.length > 0" aria-label="Page navigation" class="d-flex justify-content-center mt-4">
+                    <nav v-if="locations.length > 0" aria-label="Page navigation"
+                        class="d-flex justify-content-center mt-4">
                         <ul class="pagination">
                             <!-- Botón para ir a la página anterior -->
                             <li class="page-item" :class="{ disabled: currentLocationPage === 1 }">
-                                <a class="page-link" href="#" aria-label="Previous" @click.prevent="goToLocationPage(currentLocationPage - 1)">
+                                <a class="page-link" href="#" aria-label="Previous"
+                                    @click.prevent="goToLocationPage(currentLocationPage - 1)">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
-                
+
                             <!-- Números de las páginas -->
-                            <li v-for="page in locationPaginationRange" :key="page" class="page-item" :class="{ active: page === currentLocationPage }">
+                            <li v-for="page in locationPaginationRange" :key="page" class="page-item"
+                                :class="{ active: page === currentLocationPage }">
                                 <a class="page-link" href="#" @click.prevent="goToLocationPage(page)">{{ page }}</a>
                             </li>
-                
+
                             <!-- Botón para ir a la página siguiente -->
                             <li class="page-item" :class="{ disabled: currentLocationPage === totalLocationPages }">
-                                <a class="page-link" href="#" aria-label="Next" @click.prevent="goToLocationPage(currentLocationPage + 1)">
+                                <a class="page-link" href="#" aria-label="Next"
+                                    @click.prevent="goToLocationPage(currentLocationPage + 1)">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>
                             </li>
@@ -299,9 +303,12 @@
                         <div class="card h-100 card-location">
                             <div class="card-body ddf">
                                 <h5 class="card-title text-center rick-and-morty-nav">{{ location.name }}</h5>
-                                <p class="card-text rick-and-morty-nav"><strong>Type:</strong> {{ location.type }}</p>
-                                <p class="card-text rick-and-morty-nav"><strong>Dimension:</strong> {{ location.dimension }}</p>
-                                <p class="card-text rick-and-morty-nav"><strong>Residents:</strong> {{ location.residents.length }}</p>
+                                <p class="card-text rick-and-morty-nav"><strong>Dimension:</strong> {{
+                                    location.dimension }}</p>
+                                <p class="card-text rick-and-morty-nav"><strong>Residents:</strong> {{
+                                    location.residents.length }}</p>
+                                <p class="card-text rick-and-morty-nav"><strong>Created:</strong> {{ location.created }}
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -333,7 +340,7 @@
                     </ul>
                 </nav>
             </div>
-            
+
 
             <!-- Seccion de episodios-->
             <div v-if="currentPage === 'episodes'">

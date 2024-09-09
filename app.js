@@ -86,11 +86,11 @@ const app = Vue.createApp({
                 const response = await fetch(url);
                 const data = await response.json();
 
-                this.locations = data.results; // Actualiza la lista de localizaciones
-                this.totalLocationPages = data.info.pages; // Actualiza el total de páginas
-                this.currentLocationPage = page; // Actualiza la página actual
+                this.locations = data.results; 
+                this.totalLocationPages = data.info.pages; 
+                this.currentLocationPage = page; 
                 this.types = [...new Set(this.locations.map(location => location.type))];
-                // No es necesario filtrar, ya que estamos mostrando todas las ubicaciones
+               
             } catch (error) {
                 console.error('Error fetching locations:', error);
             }
@@ -98,7 +98,7 @@ const app = Vue.createApp({
 
         goToLocationPage(page) {
             if (page >= 1 && page <= this.totalLocationPages) {
-                this.loadLocations(page); // Carga las localizaciones de la página seleccionada
+                this.loadLocations(page); 
             }
         },
 
