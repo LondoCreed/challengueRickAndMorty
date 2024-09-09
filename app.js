@@ -11,7 +11,6 @@ const app = Vue.createApp({
             currentPageNumber: 1, // Paginación personajes
             totalPages: 0, // Páginas totales de paginación
             topLocations: [], // Espacio para ubicaciones comunes
-            isPlaying: false, // Estado inicial de reproducción de música
             episodes: [], // Espacio para episodios obtenidos de la API
             selectedSeason: null, // Temporada seleccionada
             totalSeasons: 5, // Número total de temporadas (se puede ajustar según sea necesario)
@@ -20,7 +19,6 @@ const app = Vue.createApp({
             totalEpisodePages: 0, // Páginas totales de paginación de episodios
             locations: [], // Espacio para localizaciones obtenidas de la API
             currentLocationPage: 1, // Paginación de localizaciones
-            selectedType: '', // Tipo de localización seleccionado
             types: [], // Lista de tipos de localizaciones
             totalLocationPages: 0, // Páginas totales de localizaciones
         }
@@ -74,7 +72,7 @@ const app = Vue.createApp({
             return range;
         },
         filterLocations() {
-            return this.locations; // Devuelve directamente la lista de ubicaciones
+            return this.locations;
         },
     },
 
@@ -269,8 +267,6 @@ const app = Vue.createApp({
     },
 
     // El bloque watch observa cambios en el valor de 'currentPage'.
-    // Si el nuevo valor es 'episodes', se ejecuta la función 'loadEpisodes(1)' 
-    // para cargar los episodios desde la API en la página inicial.
     watch: {
         currentPage(newValue) {
             if (newValue === 'episodes') {
