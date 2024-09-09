@@ -14,7 +14,7 @@ Rick and Morty Explorer es una aplicación web interactiva que permite a los usu
 - Interfaz de usuario responsive y amigable
 
 ## Herramientas Utilizadas
-- Figma (para diseño inicial)
+- Figma (para diseño inicial) https://www.figma.com/design/Nw0KxStxxncN8LGnsPofUt/RickyandMortin?node-id=0-1&node-type=CANVAS&t=VAfnBOPp5iPbeA5I-0
 - HTML5
 - CSS3 (con Bootstrap 5 para un diseño moderno y responsive)
 - JavaScript (ES6+)
