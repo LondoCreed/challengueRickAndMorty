@@ -13,7 +13,8 @@ Rick and Morty Explorer es una aplicación web interactiva que permite a los usu
 - Descubrimiento de ubicaciones del multiverso de Rick and Morty
 - Interfaz de usuario responsive y amigable
 
-## Tecnologías Utilizadas
+## Herramientas Utilizadas
+- Figma (para diseño inicial)
 - HTML5
 - CSS3 (con Bootstrap 5 para un diseño moderno y responsive)
 - JavaScript (ES6+)
