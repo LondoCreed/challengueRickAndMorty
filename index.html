@@ -270,7 +270,11 @@
             </div>
             <!-- Seccion de localizacion-->
             <div v-if="currentPage === 'locations'">
-                <h2 class="text-center rick-and-morty-nav mb-4">Lista de ubicaciones</h2>
+                <h2 class="text-center rick-and-morty-nav mb-4">Location List</h2>
+
+                <div class="mb-3">
+                    <input v-model="locationSearchText" class="form-control w-25 alin" placeholder="Find locations...">
+                </div>
 
                 <!-- Botones para seleccionar el tipo de ubicación -->
                 <div class="d-flex justify-content-center flex-wrap mb-4">
@@ -281,7 +285,7 @@
                         </div>
                     </div>
                 </div>
-
+                
                 <!-- Lista de ubicaciones filtradas -->
                 <div class="row">
                     <div v-for="location in filteredLocations" :key="location.id" class="col-md-4 mb-3">
@@ -302,9 +306,12 @@
 
             <!-- Seccion de episodios-->
             <div v-if="currentPage === 'episodes'">
-                <h2 class="text-center rick-and-morty-nav mb-4">Episode list</h2>
+                <h2 class="text-center rick-and-morty-nav mb-4">List of episodes</h2>
 
-                <!-- Botones para seleccionar la temporada -->
+                <div class="mb-3">
+                    <input v-model="episodeSearchText" class="form-control w-25" placeholder="Search episodes...">
+                </div>
+
                 <div class="d-flex justify-content-center flex-wrap mb-4">
                     <div class="card season-card" v-for="season in totalSeasons" :key="season"
                         @click="filterEpisodesBySeason(season)" :class="{'active': selectedSeason === season}">
@@ -314,7 +321,6 @@
                     </div>
                 </div>
 
-                <!-- Lista de episodios filtrados -->
                 <div class="row">
                     <div v-for="episode in filteredEpisodes" :key="episode.id" class="col-md-4 mb-3">
                         <div class="card h-100 card-episodes">
