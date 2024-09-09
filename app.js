@@ -29,18 +29,18 @@ const app = Vue.createApp({
     computed: {
         filterLocations() {
             return this.filteredLocations = this.locations.filter((location) => {
-              if (this.selectedType === '') {
-                return true;
-              }
-              return location.type === this.selectedType;
+                if (this.selectedType === '') {
+                    return true;
+                }
+                return location.type === this.selectedType;
             });
-          },
+        },
         locationPaginationRange() {
             const range = []
             const maxPages = 5
             const start = Math.max(1, this.currentLocationPage - Math.floor(maxPages / 2))
             const end = Math.min(this.totalLocationPages, start + maxPages - 1)
-    
+
             for (let i = start; i <= end; i++) {
                 range.push(i)
             }
@@ -91,26 +91,26 @@ const app = Vue.createApp({
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const data = await response.json();
-    
+
                 this.locations = data.results; // Actualiza la lista de localizaciones
                 this.totalLocationPages = data.info.pages; // Actualiza el total de páginas
                 this.currentLocationPage = page; // Actualiza la página actual
-                
+
                 // Genera los tipos únicos de ubicación
                 this.types = [...new Set(this.locations.map(location => location.type))];
-                
+
                 // Filtra las ubicaciones según el filtro establecido
                 this.filterLocations();
             } catch (error) {
                 console.error('Error fetching locations:', error);
             }
         },
-    
+
         goToLocationPage(page) {
             if (page >= 1 && page <= this.totalLocationPages) {
                 this.loadLocations(page); // Carga las localizaciones de la página seleccionada
             }
-        
+
         },
         // Obtenemos personajes de la API y actualiza elementos data de la app
         async fetchCharacters(page = 1) {
@@ -119,13 +119,13 @@ const app = Vue.createApp({
                 const data = await response.json();
                 this.characters = data.results;
                 this.totalCharacters = data.info.count; // Esto debería ser 826
-        
+
                 // Calculamos cuántas veces necesitamos repetir los resultados
                 const repeatCount = Math.ceil(826 / data.results.length);
-                
+
                 // Creamos un array con la cantidad correcta de personajes
                 this.allCharacters = Array(repeatCount).fill(data.results).flat().slice(0, 826);
-                
+
                 this.totalPages = data.info.pages;
                 this.currentPageNumber = page;
                 this.calculateStats();
@@ -150,7 +150,7 @@ const app = Vue.createApp({
                 this.episodes = this.episodes.concat(data.results)
                 this.totalEpisodePages = data.info.pages
                 this.currentEpisodePage = page
-        
+
                 // Si hay más páginas, carga la siguiente
                 if (page < this.totalEpisodePages) {
                     this.loadEpisodes(page + 1)
@@ -274,44 +274,44 @@ const app = Vue.createApp({
         }
     },
 
-     // Se define la carga de los datos segun la pagina y se obtiene los items guardados en el LocalStorage
+    // Se define la carga de los datos segun la pagina y se obtiene los items guardados en el LocalStorage
     mounted() {
         const urlParams = new URLSearchParams(window.location.search);
-    const page = urlParams.get('page');
+        const page = urlParams.get('page');
 
-    console.log('Initial page:', page);
+        console.log('Initial page:', page);
 
-    if (page === 'episodes') {
-        this.currentPage = 'episodes';
-        this.loadEpisodes(1);
-    } else if (page === 'locations') {
-        this.currentPage = 'locations';
-        this.loadLocations(1); // Carga la primera página de localizaciones
-    } else {
-        this.currentPage = 'home';
-        this.fetchCharacters();
-    }
-
-    const storedFavorites = localStorage.getItem('favorites');
-    if (storedFavorites) {
-        this.favorites = JSON.parse(storedFavorites);
-    }
-
-        
-    },
-// El bloque watch observa cambios en el valor de 'currentPage'. 
-// Si el nuevo valor es 'episodes', se ejecuta la función 'loadEpisodes(1)' 
-// para cargar los episodios desde la API en la página inicial.
-watch: {
-    currentPage(newValue) {
-        console.log('currentPage changed to:', newValue);
-        if (newValue === 'episodes') {
+        if (page === 'episodes') {
+            this.currentPage = 'episodes';
             this.loadEpisodes(1);
-        } else if (newValue === 'locations') {
-            this.loadLocations(1);
+        } else if (page === 'locations') {
+            this.currentPage = 'locations';
+            this.loadLocations(1); // Carga la primera página de localizaciones
+        } else {
+            this.currentPage = 'home';
+            this.fetchCharacters();
+        }
+
+        const storedFavorites = localStorage.getItem('favorites');
+        if (storedFavorites) {
+            this.favorites = JSON.parse(storedFavorites);
+        }
+
+
+    },
+    // El bloque watch observa cambios en el valor de 'currentPage'. 
+    // Si el nuevo valor es 'episodes', se ejecuta la función 'loadEpisodes(1)' 
+    // para cargar los episodios desde la API en la página inicial.
+    watch: {
+        currentPage(newValue) {
+            console.log('currentPage changed to:', newValue);
+            if (newValue === 'episodes') {
+                this.loadEpisodes(1);
+            } else if (newValue === 'locations') {
+                this.loadLocations(1);
+            }
         }
     }
-}
 })
 
 // Inicializamos la app en el contenedor especificado en el HTML

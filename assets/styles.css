@@ -71,7 +71,7 @@ body {
     font-family: 'Get Schwifty', cursive;
     font-size: 1.2rem;
     color: #00b0c8 !important;
-    text-shadow: 
+    text-shadow:
         -1px -1px 0 #39ff14,
         1px -1px 0 #39ff14,
         -1px 1px 0 #39ff14,
@@ -85,7 +85,7 @@ body {
 .rick-and-morty-nav:hover {
     transform: scale(1.1);
     color: #39ff14 !important;
-    text-shadow: 
+    text-shadow:
         -1px -1px 0 #00b0c8,
         1px -1px 0 #00b0c8,
         -1px 1px 0 #00b0c8,
@@ -97,7 +97,7 @@ body {
     font-family: 'Get Schwifty', cursive;
     font-size: 2.5rem;
     color: #00b0c8;
-    text-shadow: 
+    text-shadow:
         -2px -2px 0 #39ff14,
         2px -2px 0 #39ff14,
         -2px 2px 0 #39ff14,
@@ -109,7 +109,7 @@ body {
 /* Efecto hover para el texto principal */
 .rick-and-morty-text h1:hover {
     color: #39ff14;
-    text-shadow: 
+    text-shadow:
         -2px -2px 0 #00b0c8,
         2px -2px 0 #00b0c8,
         -2px 2px 0 #00b0c8,
@@ -118,16 +118,16 @@ body {
 }
 
 /* Estilos para el primer párrafo del texto de Rick and Morty */
-.rick-and-morty-text > p:first-of-type {
+.rick-and-morty-text>p:first-of-type {
     font-family: 'Creepster', cursive;
     font-size: 1.2rem;
     line-height: 1.4;
     color: #4bff00;
-    text-shadow: 
+    text-shadow:
         0 0 5px #4bff00,
         0 0 10px #4bff00,
         0 0 15px #4bff00,
-        2px 2px 2px rgba(0,0,0,0.5);
+        2px 2px 2px rgba(0, 0, 0, 0.5);
     transform: skew(-1deg);
     letter-spacing: 0.5px;
 }
@@ -156,7 +156,7 @@ body {
     color: #ffffff;
 }
 
-.card-episodes{
+.card-episodes {
     background-image: url('./img/prototipodetails.jpeg');
     background-size: cover;
     background-position: center;
@@ -165,7 +165,7 @@ body {
     color: #fff;
 }
 
-.card-statistics{
+.card-statistics {
     background-image: url('./img/prototipodetails.jpeg');
     background-size: cover;
     background-position: center;
@@ -174,7 +174,7 @@ body {
     color: #fff;
 }
 
-.card-location{
+.card-location {
     background-image: url('./img/prototipodetails.jpeg');
     background-size: cover;
     background-position: center;
@@ -298,7 +298,7 @@ footer {
 }
 
 /* Estilo adicional para un elemento flotante */
-.ddd{
+.ddd {
     position: fixed;
     bottom: 80px;
     right: 20px;
@@ -313,7 +313,7 @@ footer {
 }
 
 /* Estilos para videos de fondo */
-.video-details{
+.video-details {
     position: fixed;
     top: 0;
     left: 0;
@@ -335,7 +335,8 @@ footer {
 
 /* Estilo para el botón de cierre */
 .btn-close {
-    filter: invert(1); /* Cambia el color del icono a blanco */
+    filter: invert(1);
+    /* Cambia el color del icono a blanco */
 }
 
 /* Estilos para las tarjetas de temporada */
