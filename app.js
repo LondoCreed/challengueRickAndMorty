@@ -27,7 +27,7 @@ const app = Vue.createApp({
     },
 
     computed: {
-        
+
         locationPaginationRange() {
             const range = [];
             const maxPages = 3;
@@ -85,14 +85,11 @@ const app = Vue.createApp({
                 const url = `https://rickandmortyapi.com/api/location?page=${page}`;
                 const response = await fetch(url);
                 const data = await response.json();
-    
+
                 this.locations = data.results; // Actualiza la lista de localizaciones
                 this.totalLocationPages = data.info.pages; // Actualiza el total de páginas
                 this.currentLocationPage = page; // Actualiza la página actual
-    
-                // Genera los tipos únicos de ubicación
                 this.types = [...new Set(this.locations.map(location => location.type))];
-    
                 // No es necesario filtrar, ya que estamos mostrando todas las ubicaciones
             } catch (error) {
                 console.error('Error fetching locations:', error);
@@ -111,14 +108,9 @@ const app = Vue.createApp({
                 const response = await fetch(`https://rickandmortyapi.com/api/character?page=${page}`);
                 const data = await response.json();
                 this.characters = data.results;
-                this.totalCharacters = data.info.count; // Esto debería ser 826
-
-                // Calculamos cuántas veces necesitamos repetir los resultados
+                this.totalCharacters = data.info.count;
                 const repeatCount = Math.ceil(826 / data.results.length);
-
-                // Creamos un array con la cantidad correcta de personajes
                 this.allCharacters = Array(repeatCount).fill(data.results).flat().slice(0, 826);
-
                 this.totalPages = data.info.pages;
                 this.currentPageNumber = page;
                 this.calculateStats();
@@ -264,7 +256,7 @@ const app = Vue.createApp({
             this.loadEpisodes(1);
         } else if (page === 'locations') {
             this.currentPage = 'locations';
-            this.loadLocations(1); // Carga la primera página de localizaciones
+            this.loadLocations(1);
         } else {
             this.currentPage = 'home';
             this.fetchCharacters();
