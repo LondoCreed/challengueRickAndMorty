@@ -27,15 +27,7 @@ const app = Vue.createApp({
     },
 
     computed: {
-        // Filtramos las localizaciones por tipo
-        filterLocations() {
-            return this.filteredLocations = this.locations.filter((location) => {
-                if (this.selectedType === '') {
-                    return true;
-                }
-                return location.type === this.selectedType;
-            });
-        },
+        
         locationPaginationRange() {
             const range = [];
             const maxPages = 3;
@@ -80,7 +72,10 @@ const app = Vue.createApp({
                 range.push(i);
             }
             return range;
-        }
+        },
+        filterLocations() {
+            return this.locations; // Devuelve directamente la lista de ubicaciones
+        },
     },
 
     methods: {
@@ -90,16 +85,15 @@ const app = Vue.createApp({
                 const url = `https://rickandmortyapi.com/api/location?page=${page}`;
                 const response = await fetch(url);
                 const data = await response.json();
-
+    
                 this.locations = data.results; // Actualiza la lista de localizaciones
                 this.totalLocationPages = data.info.pages; // Actualiza el total de páginas
                 this.currentLocationPage = page; // Actualiza la página actual
-
+    
                 // Genera los tipos únicos de ubicación
                 this.types = [...new Set(this.locations.map(location => location.type))];
-
-                // Filtra las ubicaciones según el filtro establecido
-                this.filterLocations();
+    
+                // No es necesario filtrar, ya que estamos mostrando todas las ubicaciones
             } catch (error) {
                 console.error('Error fetching locations:', error);
             }
@@ -232,7 +226,6 @@ const app = Vue.createApp({
         },
 
         changePage(page) {
-            console.log('Changing page to:', page);
             this.currentPage = page;
             if (page === 'episodes') {
                 this.loadEpisodes(1);
@@ -241,7 +234,6 @@ const app = Vue.createApp({
             } else if (page === 'stats') {
                 this.calculateStats();
             } else if (page === 'locations') {
-                console.log('Loading locations...');
                 this.loadLocations(1);
             }
         },
@@ -261,24 +253,11 @@ const app = Vue.createApp({
         },
     },
 
-    // Alterna entre reproducir y pausar la música de fondo
-    toggleMusic() {
-        const audio = document.getElementById('background-audio');
-        if (audio.paused) {
-            audio.play();
-            this.isPlaying = true;
-        } else {
-            audio.pause();
-            this.isPlaying = false;
-        }
-    },
-
     // Se define la carga de los datos según la página y se obtiene los items guardados en el localStorage
     mounted() {
         const urlParams = new URLSearchParams(window.location.search);
         const page = urlParams.get('page');
 
-        console.log('Initial page:', page);
 
         if (page === 'episodes') {
             this.currentPage = 'episodes';
@@ -302,7 +281,6 @@ const app = Vue.createApp({
     // para cargar los episodios desde la API en la página inicial.
     watch: {
         currentPage(newValue) {
-            console.log('currentPage changed to:', newValue);
             if (newValue === 'episodes') {
                 this.loadEpisodes(1);
             } else if (newValue === 'locations') {
