@@ -1,4 +1,6 @@
+// Creación de la aplicación Vue
 const app = Vue.createApp({
+    // Definición de los datos reactivos de la aplicación
     data() {
         return {
             characters: [], // Espacio para los personajes obtenidos de la API
@@ -21,11 +23,14 @@ const app = Vue.createApp({
             currentLocationPage: 1, // Paginación de localizaciones
             types: [], // Lista de tipos de localizaciones
             totalLocationPages: 0, // Páginas totales de localizaciones
+            selectedType: null, // Tipo de ubicación seleccionado
+            filteredLocations: [], // Ubicaciones filtradas por tipo
         }
     },
 
+    // Propiedades computadas
     computed: {
-
+        // Calcula el rango de páginas para la paginación de ubicaciones
         locationPaginationRange() {
             const range = [];
             const maxPages = 3;
@@ -45,8 +50,7 @@ const app = Vue.createApp({
                 return matchesSearch && matchesFilter;
             });
         },
-
-        // Rango de páginas para personajes (5 números de página)
+        // Rango de páginas para personajes (3 números de página)
         paginationRange() {
             const range = [];
             const maxPages = 3;
@@ -58,8 +62,7 @@ const app = Vue.createApp({
             }
             return range;
         },
-
-        // Rango de páginas para episodios (5 números de página)
+        // Rango de páginas para episodios (3 números de página)
         episodePaginationRange() {
             const range = [];
             const maxPages = 3;
@@ -71,11 +74,9 @@ const app = Vue.createApp({
             }
             return range;
         },
-        filterLocations() {
-            return this.locations;
-        },
     },
 
+    // Métodos de la aplicación
     methods: {
         // Obtenemos localizaciones de la API y actualiza elementos data de la app
         async loadLocations(page = 1) {
@@ -84,19 +85,28 @@ const app = Vue.createApp({
                 const response = await fetch(url);
                 const data = await response.json();
 
-                this.locations = data.results; 
-                this.totalLocationPages = data.info.pages; 
-                this.currentLocationPage = page; 
+                this.locations = data.results;
+                this.filteredLocations = data.results;
+                this.totalLocationPages = data.info.pages;
+                this.currentLocationPage = page;
                 this.types = [...new Set(this.locations.map(location => location.type))];
-               
             } catch (error) {
                 console.error('Error fetching locations:', error);
             }
         },
 
+        // Filtra las ubicaciones por tipo
+        filterLocationsByType(type) {
+            this.selectedType = type;
+            this.filteredLocations = this.locations.filter(location => {
+                return location.type === type;
+            });
+        },
+
+        // Cambiamos de página en ubicaciones
         goToLocationPage(page) {
             if (page >= 1 && page <= this.totalLocationPages) {
-                this.loadLocations(page); 
+                this.loadLocations(page);
             }
         },
 
@@ -117,6 +127,7 @@ const app = Vue.createApp({
             }
         },
 
+        // Filtramos episodios por temporada
         filterEpisodesBySeason(season) {
             this.selectedSeason = season;
             this.filteredEpisodes = this.episodes.filter(episode => {
@@ -134,7 +145,6 @@ const app = Vue.createApp({
                 this.totalEpisodePages = data.info.pages;
                 this.currentEpisodePage = page;
 
-                // Si hay más páginas, carga la siguiente
                 if (page < this.totalEpisodePages) {
                     this.loadEpisodes(page + 1);
                 }
@@ -215,6 +225,7 @@ const app = Vue.createApp({
             modal.show();
         },
 
+        // Cambiamos la página actual y cargamos los datos correspondientes
         changePage(page) {
             this.currentPage = page;
             if (page === 'episodes') {
@@ -247,7 +258,6 @@ const app = Vue.createApp({
     mounted() {
         const urlParams = new URLSearchParams(window.location.search);
         const page = urlParams.get('page');
-
 
         if (page === 'episodes') {
             this.currentPage = 'episodes';
