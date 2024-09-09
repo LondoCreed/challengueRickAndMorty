@@ -272,7 +272,7 @@
             <div v-if="currentPage === 'locations'">
                 <h2 class="text-center rick-and-morty-nav mb-4">Location List</h2>
 
-                <div class="mb-3">
+                <div class="d-flex justify-content-center mb-3">
                     <input v-model="locationSearchText" class="form-control w-25 alin" placeholder="Find locations...">
                 </div>
 
@@ -284,6 +284,10 @@
                             <h5 class="card-title text-warning">{{ type }}</h5>
                         </div>
                     </div>
+                </div>
+                <div v-if="filteredLocations.length === 0" class="text-center mt-5">
+                    <h3 class="text-warning p-3">No characters found!</h3>
+                    <img class="Rick img-fluid" src="./assets/img/PaginaLimpia.png" alt="No encontrado">
                 </div>
                 
                 <!-- Lista de ubicaciones filtradas -->
@@ -308,7 +312,7 @@
             <div v-if="currentPage === 'episodes'">
                 <h2 class="text-center rick-and-morty-nav mb-4">List of episodes</h2>
 
-                <div class="mb-3">
+                <div class="d-flex justify-content-center mb-3">
                     <input v-model="episodeSearchText" class="form-control w-25" placeholder="Search episodes...">
                 </div>
 
@@ -319,6 +323,10 @@
                             <h5 class="card-title text-warning">Season {{ season }}</h5>
                         </div>
                     </div>
+                </div>
+                <div v-if="filteredEpisodes.length === 0" class="text-center mt-5">
+                    <h3 class="text-warning p-3">No characters found!</h3>
+                    <img class="Rick img-fluid" src="./assets/img/PaginaLimpia.png" alt="No encontrado">
                 </div>
 
                 <div class="row">
