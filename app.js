@@ -1,7 +1,7 @@
 const app = Vue.createApp({
     data() {
         return {
-            characters: [], // Espacio para los personajes obtenidos de la data(API)
+            characters: [], // Espacio para los personajes obtenidos de la databAPI
             searchText: '', // Texto de búsqueda
             filterAlive: false, // Filtro vivos
             totalCharacters: 0, // Total de personajes
@@ -12,21 +12,22 @@ const app = Vue.createApp({
             totalPages: 0, // Páginas totales de paginación
             topLocations: [], // Espacio para ubicaciones comunes
             isPlaying: false, // Estado inicial de reproducción de música
-            episodes: [], // Espacio para episodios obtenidos de la data(API)
+            episodes: [], // Espacio para episodios obtenidos de la data API
             selectedSeason: null, // Temporada seleccionada
-            totalSeasons: 5, // Número total de temporadas (puedes ajustar según sea necesario)
+            totalSeasons: 5, // Número total de temporadas (se puede ajustar según sea necesario)
             filteredEpisodes: [], // Episodios filtrados por temporada
             currentEpisodePage: 1, // Paginación episodios
             totalEpisodePages: 0, // Páginas totales de paginación de episodios
-            locations: [],
-            currentLocationPage: 1,
-            selectedType: '',
-            types: [],
-            totalLocationPages: 0,
+            locations: [], // Espacio para localizaciones obtenidas de la API
+            currentLocationPage: 1, // Paginación de localizaciones
+            selectedType: '', // Tipo de localización seleccionado
+            types: [], // Lista de tipos de localizaciones
+            totalLocationPages: 0, // Páginas totales de localizaciones
         }
     },
 
     computed: {
+        // Filtramos las localizaciones por tipo
         filterLocations() {
             return this.filteredLocations = this.locations.filter((location) => {
               if (this.selectedType === '') {
@@ -35,9 +36,10 @@ const app = Vue.createApp({
               return location.type === this.selectedType;
             });
           },
+          // Rango de páginas para localizaciones
         locationPaginationRange() {
             const range = []
-            const maxPages = 5
+            const maxPages = 3
             const start = Math.max(1, this.currentLocationPage - Math.floor(maxPages / 2))
             const end = Math.min(this.totalLocationPages, start + maxPages - 1)
     
@@ -71,7 +73,7 @@ const app = Vue.createApp({
         // Rango de páginas para episodios (5 números de página)
         episodePaginationRange() {
             const range = []
-            const maxPages = 5
+            const maxPages = 3
             const start = Math.max(1, this.currentEpisodePage - Math.floor(maxPages / 2))
             const end = Math.min(this.totalEpisodePages, start + maxPages - 1)
 
@@ -83,15 +85,12 @@ const app = Vue.createApp({
     },
 
     methods: {
+        // Obtenemos localizaciones de la API y actualiza elementos data de la app
         async loadLocations(page = 1) {
             try {
                 const url = `https://rickandmortyapi.com/api/location?page=${page}`;
                 const response = await fetch(url);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
                 const data = await response.json();
-    
                 this.locations = data.results; // Actualiza la lista de localizaciones
                 this.totalLocationPages = data.info.pages; // Actualiza el total de páginas
                 this.currentLocationPage = page; // Actualiza la página actual
@@ -106,6 +105,7 @@ const app = Vue.createApp({
             }
         },
     
+        // Navegador de las páginas de localizaciones
         goToLocationPage(page) {
             if (page >= 1 && page <= this.totalLocationPages) {
                 this.loadLocations(page); // Carga las localizaciones de la página seleccionada
@@ -128,7 +128,7 @@ const app = Vue.createApp({
             }
         },
 
-        
+        // Filtramos episodios por temporada
         filterEpisodesBySeason(season) {
             this.selectedSeason = season
             this.filteredEpisodes = this.episodes.filter(episode => {
