@@ -1,18 +1,18 @@
 const app = Vue.createApp({
     data() {
         return {
-            characters: [], // Espacio para los personajes obtenidos de la databAPI
+            characters: [], // Espacio para los personajes obtenidos de la API
             searchText: '', // Texto de búsqueda
             filterAlive: false, // Filtro vivos
             totalCharacters: 0, // Total de personajes
             currentPage: 'home', // Página actual de la app
-            selectedCharacter: null, // Personaje tarjetado para mostrar detalles
+            selectedCharacter: null, // Personaje seleccionado para mostrar detalles
             favorites: [], // Espacio para localStorage
             currentPageNumber: 1, // Paginación personajes
             totalPages: 0, // Páginas totales de paginación
             topLocations: [], // Espacio para ubicaciones comunes
             isPlaying: false, // Estado inicial de reproducción de música
-            episodes: [], // Espacio para episodios obtenidos de la data API
+            episodes: [], // Espacio para episodios obtenidos de la API
             selectedSeason: null, // Temporada seleccionada
             totalSeasons: 5, // Número total de temporadas (se puede ajustar según sea necesario)
             filteredEpisodes: [], // Episodios filtrados por temporada
@@ -35,51 +35,51 @@ const app = Vue.createApp({
                 }
                 return location.type === this.selectedType;
             });
-          
+        },
         locationPaginationRange() {
-            const range = []
-            const maxPages = 3
-            const start = Math.max(1, this.currentLocationPage - Math.floor(maxPages / 2))
-            const end = Math.min(this.totalLocationPages, start + maxPages - 1)
+            const range = [];
+            const maxPages = 3;
+            const start = Math.max(1, this.currentLocationPage - Math.floor(maxPages / 2));
+            const end = Math.min(this.totalLocationPages, start + maxPages - 1);
 
             for (let i = start; i <= end; i++) {
-                range.push(i)
+                range.push(i);
             }
-            return range
+            return range;
         },
         // Filtramos los personajes según el texto de búsqueda y el filtro de estado vivo
         filteredCharacters() {
             return this.characters.filter(character => {
-                const matchesSearch = character.name.toLowerCase().includes(this.searchText.toLowerCase())
-                const matchesFilter = !this.filterAlive || character.status === 'Alive'
-                return matchesSearch && matchesFilter
-            })
+                const matchesSearch = character.name.toLowerCase().includes(this.searchText.toLowerCase());
+                const matchesFilter = !this.filterAlive || character.status === 'Alive';
+                return matchesSearch && matchesFilter;
+            });
         },
 
         // Rango de páginas para personajes (5 números de página)
         paginationRange() {
-            const range = []
-            const maxPages = 3
-            const start = Math.max(1, this.currentPageNumber - Math.floor(maxPages / 2))
-            const end = Math.min(this.totalPages, start + maxPages - 1)
+            const range = [];
+            const maxPages = 3;
+            const start = Math.max(1, this.currentPageNumber - Math.floor(maxPages / 2));
+            const end = Math.min(this.totalPages, start + maxPages - 1);
 
             for (let i = start; i <= end; i++) {
-                range.push(i)
+                range.push(i);
             }
-            return range
+            return range;
         },
 
         // Rango de páginas para episodios (5 números de página)
         episodePaginationRange() {
-            const range = []
-            const maxPages = 3
-            const start = Math.max(1, this.currentEpisodePage - Math.floor(maxPages / 2))
-            const end = Math.min(this.totalEpisodePages, start + maxPages - 1)
+            const range = [];
+            const maxPages = 3;
+            const start = Math.max(1, this.currentEpisodePage - Math.floor(maxPages / 2));
+            const end = Math.min(this.totalEpisodePages, start + maxPages - 1);
 
             for (let i = start; i <= end; i++) {
-                range.push(i)
+                range.push(i);
             }
-            return range
+            return range;
         }
     },
 
@@ -109,8 +109,8 @@ const app = Vue.createApp({
             if (page >= 1 && page <= this.totalLocationPages) {
                 this.loadLocations(page); // Carga las localizaciones de la página seleccionada
             }
-
         },
+
         // Obtenemos personajes de la API y actualiza elementos data de la app
         async fetchCharacters(page = 1) {
             try {
@@ -134,102 +134,101 @@ const app = Vue.createApp({
         },
 
         filterEpisodesBySeason(season) {
-            this.selectedSeason = season
+            this.selectedSeason = season;
             this.filteredEpisodes = this.episodes.filter(episode => {
-                const seasonNumber = episode.episode.split('S')[1]?.split('E')[0]
-                return seasonNumber == season
-            })
+                const seasonNumber = episode.episode.split('S')[1]?.split('E')[0];
+                return seasonNumber == season;
+            });
         },
-
 
         // Obtenemos episodios de la API y actualiza elementos data de la app
         async loadEpisodes(page = 1) {
             try {
-                const response = await fetch(`https://rickandmortyapi.com/api/episode?page=${page}`)
-                const data = await response.json()
-                this.episodes = this.episodes.concat(data.results)
-                this.totalEpisodePages = data.info.pages
-                this.currentEpisodePage = page
+                const response = await fetch(`https://rickandmortyapi.com/api/episode?page=${page}`);
+                const data = await response.json();
+                this.episodes = this.episodes.concat(data.results);
+                this.totalEpisodePages = data.info.pages;
+                this.currentEpisodePage = page;
 
                 // Si hay más páginas, carga la siguiente
                 if (page < this.totalEpisodePages) {
-                    this.loadEpisodes(page + 1)
+                    this.loadEpisodes(page + 1);
                 }
             } catch (error) {
-                console.error('Error fetching episodes:', error)
+                console.error('Error fetching episodes:', error);
             }
         },
 
         // Calculamos estadísticas
         calculateStats() {
             this.statusCount = this.allCharacters.reduce((acc, char) => {
-                acc[char.status] = (acc[char.status] || 0) + 1
-                return acc
-            }, {})
+                acc[char.status] = (acc[char.status] || 0) + 1;
+                return acc;
+            }, {});
 
             this.speciesCount = this.allCharacters.reduce((acc, char) => {
-                acc[char.species] = (acc[char.species] || 0) + 1
-                return acc
-            }, {})
+                acc[char.species] = (acc[char.species] || 0) + 1;
+                return acc;
+            }, {});
 
             const locationCount = this.allCharacters.reduce((acc, char) => {
-                acc[char.location.name] = (acc[char.location.name] || 0) + 1
-                return acc
-            }, {})
+                acc[char.location.name] = (acc[char.location.name] || 0) + 1;
+                return acc;
+            }, {});
             this.topLocations = Object.entries(locationCount)
                 .sort((a, b) => b[1] - a[1])
                 .slice(0, 5)
-                .map(([name, count]) => ({ name, count }))
+                .map(([name, count]) => ({ name, count }));
 
             this.genderCount = this.allCharacters.reduce((acc, char) => {
-                acc[char.gender] = (acc[char.gender] || 0) + 1
-                return acc
-            }, {})
+                acc[char.gender] = (acc[char.gender] || 0) + 1;
+                return acc;
+            }, {});
         },
 
         // Realizamos el cambio de página a detalles tomando en cuenta el personaje seleccionado
         showDetails(character) {
-            this.selectedCharacter = character
-            this.currentPage = 'details'
+            this.selectedCharacter = character;
+            this.currentPage = 'details';
         },
 
         // Verifica si un personaje está en favoritos
         isFavorite(character) {
-            return this.favorites.some(fav => fav.id === character.id)
+            return this.favorites.some(fav => fav.id === character.id);
         },
 
         // Alternamos el estado de favoritos del personaje
         toggleFavorite(character) {
             if (this.isFavorite(character)) {
-                this.removeFromFavorites(character)
+                this.removeFromFavorites(character);
             } else {
-                this.addToFavorites(character)
+                this.addToFavorites(character);
             }
         },
 
         // Añadimos personaje a favoritos
         addToFavorites(character) {
             if (!this.isFavorite(character)) {
-                this.favorites.push(character)
-                this.saveFavorites()
+                this.favorites.push(character);
+                this.saveFavorites();
             }
         },
 
         // Eliminamos personaje de favoritos
         removeFromFavorites(character) {
-            this.favorites = this.favorites.filter(fav => fav.id !== character.id)
-            this.saveFavorites()
+            this.favorites = this.favorites.filter(fav => fav.id !== character.id);
+            this.saveFavorites();
         },
 
         // Guardamos favoritos en local storage
         saveFavorites() {
-            localStorage.setItem('favorites', JSON.stringify(this.favorites))
+            localStorage.setItem('favorites', JSON.stringify(this.favorites));
         },
 
         // Para abrir el modal de favoritos con Bootstrap
         openFavoritesModal() {
-            const modal = new bootstrap.Modal(document.getElementById('favoritesModal'))
-            modal.show()
+            const modal = new bootstrap.Modal(document.getElementById('favoritesModal'));
+            modal.show();
         },
 
         changePage(page) {
@@ -250,31 +249,31 @@ const app = Vue.createApp({
         // Cambiamos de página en personajes
         goToPage(page) {
             if (page >= 1 && page <= this.totalPages) {
-                this.fetchCharacters(page)
+                this.fetchCharacters(page);
             }
         },
 
         // Cambiamos de página en episodios
         goToEpisodePage(page) {
             if (page >= 1 && page <= this.totalEpisodePages) {
-                this.loadEpisodes(page)
+                this.loadEpisodes(page);
             }
         },
     },
 
     // Alterna entre reproducir y pausar la música de fondo
     toggleMusic() {
-        const audio = document.getElementById('background-audio')
+        const audio = document.getElementById('background-audio');
         if (audio.paused) {
-            audio.play()
-            this.isPlaying = true
+            audio.play();
+            this.isPlaying = true;
         } else {
-            audio.pause()
-            this.isPlaying = false
+            audio.pause();
+            this.isPlaying = false;
         }
     },
 
-    // Se define la carga de los datos segun la pagina y se obtiene los items guardados en el LocalStorage
+    // Se define la carga de los datos según la página y se obtiene los items guardados en el localStorage
     mounted() {
         const urlParams = new URLSearchParams(window.location.search);
         const page = urlParams.get('page');
@@ -296,10 +295,9 @@ const app = Vue.createApp({
         if (storedFavorites) {
             this.favorites = JSON.parse(storedFavorites);
         }
-
-
     },
-    // El bloque watch observa cambios en el valor de 'currentPage'. 
+
+    // El bloque watch observa cambios en el valor de 'currentPage'.
     // Si el nuevo valor es 'episodes', se ejecuta la función 'loadEpisodes(1)' 
     // para cargar los episodios desde la API en la página inicial.
     watch: {
@@ -312,7 +310,7 @@ const app = Vue.createApp({
             }
         }
     }
-})
+});
 
 // Inicializamos la app en el contenedor especificado en el HTML
-app.mount('#app')
+app.mount('#app');
