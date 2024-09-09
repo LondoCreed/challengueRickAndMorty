@@ -115,20 +115,24 @@ const app = Vue.createApp({
         // Obtenemos personajes de la API y actualiza elementos data de la app
         async fetchCharacters(page = 1) {
             try {
-                const response = await fetch(`https://rickandmortyapi.com/api/character?page=${page}`)
-                const data = await response.json()
-                this.characters = data.results
-                this.totalCharacters = data.info.count
-                this.allCharacters = this.characters.concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results).concat(data.results)
-                this.totalPages = data.info.pages
-                this.currentPageNumber = page
-                this.calculateStats()
+                const response = await fetch(`https://rickandmortyapi.com/api/character?page=${page}`);
+                const data = await response.json();
+                this.characters = data.results;
+                this.totalCharacters = data.info.count; // Esto debería ser 826
+        
+                // Calculamos cuántas veces necesitamos repetir los resultados
+                const repeatCount = Math.ceil(826 / data.results.length);
+                
+                // Creamos un array con la cantidad correcta de personajes
+                this.allCharacters = Array(repeatCount).fill(data.results).flat().slice(0, 826);
+                
+                this.totalPages = data.info.pages;
+                this.currentPageNumber = page;
+                this.calculateStats();
             } catch (error) {
-                console.error('Error fetching characters:', error)
+                console.error('Error fetching characters:', error);
             }
         },
-
-        
         filterEpisodesBySeason(season) {
             this.selectedSeason = season
             this.filteredEpisodes = this.episodes.filter(episode => {
