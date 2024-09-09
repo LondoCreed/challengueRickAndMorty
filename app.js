@@ -232,7 +232,6 @@ const app = Vue.createApp({
         },
 
         changePage(page) {
-            console.log('Changing page to:', page);
             this.currentPage = page;
             if (page === 'episodes') {
                 this.loadEpisodes(1);
@@ -241,7 +240,6 @@ const app = Vue.createApp({
             } else if (page === 'stats') {
                 this.calculateStats();
             } else if (page === 'locations') {
-                console.log('Loading locations...');
                 this.loadLocations(1);
             }
         },
@@ -278,7 +276,6 @@ const app = Vue.createApp({
         const urlParams = new URLSearchParams(window.location.search);
         const page = urlParams.get('page');
 
-        console.log('Initial page:', page);
 
         if (page === 'episodes') {
             this.currentPage = 'episodes';
@@ -302,7 +299,6 @@ const app = Vue.createApp({
     // para cargar los episodios desde la API en la página inicial.
     watch: {
         currentPage(newValue) {
-            console.log('currentPage changed to:', newValue);
             if (newValue === 'episodes') {
                 this.loadEpisodes(1);
             } else if (newValue === 'locations') {
