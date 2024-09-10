@@ -111,14 +111,17 @@
                 </div>
                 <!-- Botón "Cargar más" -->
                 <div class="text-center mt-4" v-if="hasMore || isLoading">
-                    <button @click="loadMore" class="btn btn-primary" :disabled="isLoading">
+                    <button @click="loadMore" class="btn btn-primary m-2" :disabled="isLoading">
                         {{ isLoading ? 'Cargando...' : 'Cargar más' }}
                     </button>
+                    <button @click="loadLess" v-if="currentApiPage > 1" class="btn btn-primary m-2">Cargar menos</button>
                 </div>
                 <!-- boton para favoritos-->
                 <button id="favoritesFloatButton" @click="openFavoritesModal" class="btn btn-primary mt-3">
                     Favorites
                 </button>
+                <button @click="scrollToTop" class="btn btn-primary m-2">Ir al Inicio</button>
+                
             </div>
 
             <!-- Sección de estadísticas -->
