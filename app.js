@@ -108,25 +108,63 @@ const app = Vue.createApp({
 
     // Métodos de la aplicación
     methods: {
+        loadMore() {
+            if (this.hasMore) {
+                this.fetchCharacters(this.currentApiPage + 1); // Llamar a la siguiente página
+            }
+        },
+        loadLess() {
+            if (this.currentApiPage > 1) {
+                this.characters.splice(-20); // Remueve el último lote de personajes (asumiendo que se cargan 20 por página)
+                this.currentApiPage--;
+                this.hasMore = true; // Permite volver a cargar más personajes
+            }
+        },
+        scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth' // Esto añade un desplazamiento suave
+            });
+        },
         async fetchCharacters(page = 1) {
             try {
-                const url = `https://rickandmortyapi.com/api/character?page=${page}`;
-                const response = await fetch(url);
-                const data = await response.json();
+                this.isLoading = true; // Mostrar indicador de carga
         
-                if (page === 1) {
-                    this.characters = data.results;
-                } else {
-                    this.characters = [...this.characters, ...data.results];
+                let hasResults = false;
+        
+                // Verificar si tenemos un total de páginas ya definido, si no, definirlo al obtener la primera página
+                if (!this.totalPages) {
+                    const firstPageResponse = await fetch(`https://rickandmortyapi.com/api/character?page=1`);
+                    const firstPageData = await firstPageResponse.json();
+                    this.totalPages = firstPageData.info.pages;
                 }
-                this.totalCharacters = data.info.count;
-                this.hasMore = data.info.next !== null;
-                this.currentApiPage = page;
         
-                this.calculateStats();
+                // Continuar buscando mientras no haya resultados y no se supere el número máximo de páginas
+                while (!hasResults && page <= this.totalPages) {
+                    const url = `https://rickandmortyapi.com/api/character?page=${page}`;
+                    const response = await fetch(url);
+                    const data = await response.json();
+        
+                    // Verificar si la página tiene resultados
+                    if (data.results && data.results.length > 0) {
+                        // Si la página tiene resultados, los añadimos a la lista
+                        this.characters = [...this.characters, ...data.results];
+                        hasResults = true; // Marcar que encontramos una página con resultados
+                        this.currentApiPage = page; // Actualizar la página actual
+                    } else {
+                        // Si la página está vacía, pasar a la siguiente
+                        page++;
+                    }
+                }
+        
+                // Actualizar si hay más páginas por cargar
+                this.hasMore = this.currentApiPage < this.totalPages;
+                this.isLoading = false; // Ocultar indicador de carga
             } catch (error) {
                 console.error('Error fetching characters:', error);
+                this.isLoading = false; // Asegurar de ocultar el indicador en caso de error
             }
+        
         },
         async fetchAllCharacters() {
             try {
