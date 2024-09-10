@@ -83,28 +83,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- Paginacion superior-->
-                <nav v-if="filteredCharacters.length > 0" aria-label="Page navigation"
-                    class="d-flex justify-content-center mt-4">
-                    <ul class="pagination">
-                        <li class="page-item" :class="{ disabled: currentPageNumber === 1 }">
-                            <a class="page-link" href="#" aria-label="Previous"
-                                @click.prevent="goToPage(currentPageNumber - 1)">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li v-for="page in paginationRange" :key="page" class="page-item"
-                            :class="{ active: page === currentPageNumber }">
-                            <a class="page-link" href="#" @click.prevent="goToPage(page)">{{ page }}</a>
-                        </li>
-                        <li class="page-item" :class="{ disabled: currentPageNumber === totalPages }">
-                            <a class="page-link" href="#" aria-label="Next"
-                                @click.prevent="goToPage(currentPageNumber + 1)">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
                 <!-- Cards-->
                 <div v-if="filteredCharacters.length === 0" class="text-center mt-5">
                     <h3 class="text-warning p-3">No characters found!</h3>
@@ -131,32 +109,16 @@
                         </div>
                     </div>
                 </div>
+                <!-- Botón "Cargar más" -->
+                <div class="text-center mt-4" v-if="hasMore || isLoading">
+                    <button @click="loadMore" class="btn btn-primary" :disabled="isLoading">
+                        {{ isLoading ? 'Cargando...' : 'Cargar más' }}
+                    </button>
+                </div>
                 <!-- boton para favoritos-->
                 <button id="favoritesFloatButton" @click="openFavoritesModal" class="btn btn-primary mt-3">
                     Favorites
                 </button>
-                <!-- paginacion inferior-->
-                <nav v-if="filteredCharacters.length > 0" aria-label="Page navigation"
-                    class="d-flex justify-content-center mt-4">
-                    <ul class="pagination">
-                        <li class="page-item" :class="{ disabled: currentPageNumber === 1 }">
-                            <a class="page-link" href="#" aria-label="Previous"
-                                @click.prevent="goToPage(currentPageNumber - 1)">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li v-for="page in paginationRange" :key="page" class="page-item"
-                            :class="{ active: page === currentPageNumber }">
-                            <a class="page-link" href="#" @click.prevent="goToPage(page)">{{ page }}</a>
-                        </li>
-                        <li class="page-item" :class="{ disabled: currentPageNumber === totalPages }">
-                            <a class="page-link" href="#" aria-label="Next"
-                                @click.prevent="goToPage(currentPageNumber + 1)">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
             </div>
 
             <!-- Sección de estadísticas -->
@@ -185,7 +147,9 @@
                     <div class="col-md-6 mb-4">
                         <div class="card card-statistics">
                             <div class="card-body ddf">
-                                <h5 class="card-title rick-and-morty-nav-title">Distribution by Species</h5>
+
+                                <h5 class="card-title rick-and-morty-nav-title">Top 3 distribution by Species</h5>
+
                                 <div v-for="(count, species) in speciesCount" :key="species" class="mb-2">
                                     <div class="d-flex justify-content-between ddf rick-and-morty-nav">
                                         <span>{{ species }}</span>
@@ -289,7 +253,7 @@
                     <h3 class="text-warning p-3">No characters found!</h3>
                     <img class="Rick img-fluid" src="./assets/img/PaginaLimpia.png" alt="No encontrado">
                 </div>
-                
+
                 <!-- Lista de ubicaciones filtradas -->
                 <div class="row">
                     <div v-for="location in filteredLocations" :key="location.id" class="col-md-4 mb-3">
