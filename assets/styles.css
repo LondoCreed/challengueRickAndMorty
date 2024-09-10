@@ -415,4 +415,7 @@ footer {
     text-transform: uppercase;
     transition: all 0.3s ease;
 }
-
+.card.active {
+    border: 2px solid var(--rick-yellow);
+    background-color: rgb(0, 0, 255, 0.5);
+}
