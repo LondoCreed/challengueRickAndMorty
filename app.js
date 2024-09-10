@@ -269,6 +269,13 @@ const app = Vue.createApp({
                 acc[char.status] = (acc[char.status] || 0) + 1;
                 return acc;
             }, {});
+            
+            // Convierte el objeto en un array de pares [estado, conteo]
+            const sortedStatusCountArray = Object.entries(this.statusCount)
+                .sort((a, b) => b[1] - a[1]); // Ordena de mayor a menor
+            
+            // Convierte el array de nuevo en un objeto
+            this.statusCount = Object.fromEntries(sortedStatusCountArray);
 
             this.speciesCount = Object.entries(this.allCharacters.reduce((acc, char) => {
                 acc[char.species] = (acc[char.species] || 0) + 1;
