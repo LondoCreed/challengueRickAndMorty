@@ -70,7 +70,7 @@ body {
 .rick-and-morty-nav {
     font-family: 'Get Schwifty', cursive;
     font-size: 1.2rem;
-    color: #00b0c8 !important;
+    color: #272a2a !important;
     text-shadow:
         -1px -1px 0 #39ff14,
         1px -1px 0 #39ff14,
@@ -341,8 +341,8 @@ footer {
 
 /* Estilos para las tarjetas de temporada */
 .season-card {
-    width: 200px;
-    height: 390px;
+    width: 140px;
+    height: 280px;
     background-image: url('./img/fondobtn.png');
     background-size: cover;
     background-position: center;
@@ -370,7 +370,7 @@ footer {
 }
 
 .card-title {
-    font-size: 1.2rem;
+    font-size: 25px;
     text-align: center;
     color: #fff;
     text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
@@ -381,3 +381,38 @@ footer {
     width: 120px;
     height: 30px;
 }
+
+.episodio-card {
+    width: 180px;
+    height: 360px;
+    background-image: url('./img/fondobtn.png');
+    background-size: cover;
+    background-position: center;
+    background-color: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.125rem 0.45rem rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease-in-out;
+    margin: 10px;
+}
+
+.rick-and-morty-nav-title {
+    font-family: 'Get Schwifty', cursive;
+    font-size: 20px;
+    color: #3c9993 !important;
+    text-shadow:
+        -1px -1px 0 #e4f3e2,/*#39ff14*/
+        1px -1px 0 #e4f3e2,/*#e4f3e2*/
+        -1px 1px 0 #e4f3e2,
+        1px 1px 0 #e4f3e2;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
